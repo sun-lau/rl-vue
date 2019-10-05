@@ -43,6 +43,9 @@
 
 import moment from 'moment';
 import LineChart from '@/components/LineChart.vue'
+import {Experiment_APIService} from '@/services/Experiment_APIService';
+// const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL, 'dummy');
+const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
   name: 'experiment',
   components: {
@@ -98,7 +101,20 @@ export default {
   mounted: function(){
         var self = this;
         console.log("mounted");
-        self.$refs.experiment_chart.renderChart([86,114,106,106,107,111,133,221,783,2478]);
+        self.getChart();
+
+  },
+  methods:{
+
+        getChart(){
+            var self = this;
+            apiService.getChart()
+            .then((response) => {
+                console.log("response.value");
+                console.log(response);
+                self.$refs.experiment_chart.renderChart(response.value);
+            });
+        },
   }
 }
 </script>
