@@ -2,6 +2,11 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faAngleLeft, faAngleRight, faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faAngleLeft, faAngleRight, faAngleUp, faAngleDown)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 import App from './App.vue'
 import router from './router'
 

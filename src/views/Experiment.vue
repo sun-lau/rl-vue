@@ -26,11 +26,49 @@
                     <b-card
                         header="Control"
                     >
+                        <p>Laser State</p>
                         <b-button-group>
-                            <b-button variant="success">Success</b-button>
-                            <b-button variant="info">Info</b-button>
-                            <b-button variant="warning">Warning</b-button>
+                            <b-button variant="" @click="set('laser','OFF')">OFF</b-button>
+                            <b-button variant="danger" @click="set('laser','RED')">Red</b-button>
+                            <b-button variant="success" @click="set('laser','GREEN')">Green</b-button>
                         </b-button-group>
+                        <p>Gain</p>
+                        <b-button-group>
+                            <b-button variant="warning" @click="set('gain','VERY_LOW')">Very Low</b-button>
+                            <b-button variant="warning" @click="set('gain','LOW')">Low</b-button>
+                            <b-button variant="warning" @click="set('gain','HIGH')">High</b-button>
+                            <b-button variant="warning" @click="set('gain','VERY_HIGH')">Very High</b-button>
+                        </b-button-group>
+                        <p>Slit Position</p>
+                        <b-button-group>
+                            <b-button variant="info" @click="set('slit','LEFT')">
+                                <font-awesome-icon icon="angle-left" />
+                                Left
+                            </b-button>
+                            <b-button variant="info" @click="set('slit','RIGHT')">
+                                <font-awesome-icon icon="angle-right" />
+                                Right
+                            </b-button>
+                        </b-button-group>
+                        <p>Distance D</p>
+                        <b-button-group>
+                            <b-button variant="info" @click="set('distance','INCREASE')">
+                                <font-awesome-icon icon="angle-up" />
+                                Increase
+                            </b-button>
+                            <b-button variant="info" @click="set('distance','DECREASE')">
+                                <font-awesome-icon icon="angle-down" />
+                                Decrease
+                            </b-button>
+                        </b-button-group>
+                        <br>
+                        <small>D = 990mm</small>
+                    </b-card>
+                    <b-card
+                        header="Control"
+                    >
+                        <b-btn @click="measure">Measure</b-btn>
+                        <b-btn @click="exportData">Export</b-btn>
                     </b-card>
                 </b-col>
             </b-row>
@@ -115,6 +153,14 @@ export default {
                 self.$refs.experiment_chart.renderChart(response.value);
             });
         },
+        set(command, value){
+
+            apiService.setCommand(command, value)
+            .then((response) => {
+                console.log("command is set");
+                console.log("response.value");
+            });
+        }
   }
 }
 </script>

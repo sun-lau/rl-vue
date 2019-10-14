@@ -24,5 +24,22 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
+    setCommand(command, value){
+        var self = this;
+        const url = `${this.api_base_url}/setCommand.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('command', command);
+        bodyFormData.set('value', value);
+        return axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        });
+    }
 
 }
