@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 $equipment_id = $_GET['equipment_id'];
-if(isset($_GET['equipment_id'])){
+if(isset($equipment_id)){
     $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."' LIMIT 1";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
