@@ -69,8 +69,8 @@ export class Experiment_APIService extends APIService {
         var self = this;
         const url = `${this.api_base_url}/setCommand.php`;
         var bodyFormData = new FormData();
+        bodyFormData.set('equipment_id', "asdfgh");
         bodyFormData.set('command', command);
-        bodyFormData.set('value', value);
         var dummy_response = {
             status:"success"
         };

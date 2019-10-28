@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'Off');
 header('Content-type: application/json');
 require('config.php');
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,13 +20,17 @@ if(isset($equipment_id)){
             //if value_write_at > value_read_at
             $value = $row["command"];
             //update
-            echo $value;
+            $myObj->command = $value;
+            $myObj->status = "success";
+            echo json_encode($myObj);
             //else return not yet ready
             $conn->close();
             die();
         }
     } else {
-        echo "0 results";
+        $myObj->status = "fail";
+        $myObj->error = "no_record";
+        echo json_encode($myObj);
     }
 }
 

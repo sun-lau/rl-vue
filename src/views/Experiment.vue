@@ -28,35 +28,35 @@
                     >
                         <p>Laser State</p>
                         <b-button-group>
-                            <b-button variant="" @click="setCommand('LASER','OFF')">OFF</b-button>
-                            <b-button variant="danger" @click="setCommand('LASER','RED')">Red</b-button>
-                            <b-button variant="success" @click="setCommand('LASER','GREEN')">Green</b-button>
+                            <b-button variant="" @click="setCommand('LASER|OFF')">OFF</b-button>
+                            <b-button variant="danger" @click="setCommand('LASER|RED')">Red</b-button>
+                            <b-button variant="success" @click="setCommand('LASER|GREEN')">Green</b-button>
                         </b-button-group>
                         <p>Gain</p>
                         <b-button-group>
-                            <b-button variant="warning" @click="setCommand('GAIN','VERY_LOW')">Very Low</b-button>
-                            <b-button variant="warning" @click="setCommand('GAIN','LOW')">Low</b-button>
-                            <b-button variant="warning" @click="setCommand('GAIN','HIGH')">High</b-button>
-                            <b-button variant="warning" @click="setCommand('GAIN','VERY_HIGH')">Very High</b-button>
+                            <b-button variant="warning" @click="setCommand('GAIN|VERY_LOW')">Very Low</b-button>
+                            <b-button variant="warning" @click="setCommand('GAIN|LOW')">Low</b-button>
+                            <b-button variant="warning" @click="setCommand('GAIN|HIGH')">High</b-button>
+                            <b-button variant="warning" @click="setCommand('GAIN|VERY_HIGH')">Very High</b-button>
                         </b-button-group>
                         <p>Slit Position</p>
                         <b-button-group>
-                            <b-button variant="info" @click="setCommand('SLIT','LEFT')">
+                            <b-button variant="info" @click="setCommand('SLIT|LEFT')">
                                 <font-awesome-icon icon="angle-left" />
                                 Left
                             </b-button>
-                            <b-button variant="info" @click="setCommand('SLIT','RIGHT')">
+                            <b-button variant="info" @click="setCommand('SLIT|RIGHT')">
                                 <font-awesome-icon icon="angle-right" />
                                 Right
                             </b-button>
                         </b-button-group>
                         <p>Distance D</p>
                         <b-button-group>
-                            <b-button variant="info" @click="setCommand('DISTANCE','INCREASE')">
+                            <b-button variant="info" @click="setCommand('DISTANCE|INCREASE')">
                                 <font-awesome-icon icon="angle-up" />
                                 Increase
                             </b-button>
-                            <b-button variant="info" @click="setCommand('DISTANCE','DECREASE')">
+                            <b-button variant="info" @click="setCommand('DISTANCE|DECREASE')">
                                 <font-awesome-icon icon="angle-down" />
                                 Decrease
                             </b-button>
@@ -67,7 +67,7 @@
                     <b-card
                         header="Control"
                     >
-                        <b-btn @click="setCommand('MEASURE','START')">Measure</b-btn>
+                        <b-btn @click="setCommand('MEASURE|START')">Measure</b-btn>
                         <b-btn @click="getValue()">Export</b-btn>
                     </b-card>
                 </b-col>
@@ -82,7 +82,7 @@
 import moment from 'moment';
 import LineChart from '@/components/LineChart.vue'
 import {Experiment_APIService} from '@/services/Experiment_APIService';
-const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL, 'dummy');
+const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 // const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
   name: 'experiment',
