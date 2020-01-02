@@ -1,13 +1,12 @@
 <template>
-	<div class="about">
-		<h2>{{ $t("about.title") }}</h2>
-		<p>{{ $t("about.description") }}</p>
+	<div class="news">
+        News
 	</div>
 </template>
 <script>
 	import moment from 'moment';
 	export default {
-		name: 'about',
+		name: 'news',
 		components: {
 		},
 		data:function(){

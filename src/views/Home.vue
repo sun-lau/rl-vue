@@ -1,15 +1,14 @@
 <template>
-  <HelloWorld />
+	<div class="home">
+		<p> {{$t("home.head")}} </p>
+	</div>
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld';
 
 export default {
   name: 'Home',
-
   components: {
-    HelloWorld,
   },
 };
 </script>

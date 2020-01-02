@@ -1,13 +1,16 @@
 <template>
-	<div class="about">
-		<h2>{{ $t("about.title") }}</h2>
-		<p>{{ $t("about.description") }}</p>
+	<div class="concept">
+		<h2>{{ $t("concept.title1") }}</h2>
+		<p>{{ $t("concept.description1") }}</p>
+        <br>
+		<h2>{{ $t("concept.title2") }}</h2>
+		<p>{{ $t("concept.description2") }}</p>
 	</div>
 </template>
 <script>
 	import moment from 'moment';
 	export default {
-		name: 'about',
+		name: 'concept',
 		components: {
 		},
 		data:function(){
