@@ -1,0 +1,27 @@
+{
+  	"home":{
+		"head":"RemoteLab is an online experiment platform for you to perform experiments anytime, anywhere.",
+		"description_1_head":"Anytime, Anywhere",
+		"description_1_message":"Students and/or teachers can operate such setups in a way similar to running the experiment in school laboratories, at any time and from everywhere.",
+		"description_2_head":"Centralized, Qualified",
+		"description_2_message":"All experiments are centralized in the Department of Applied Physics, qualified and maintained by our professors and university staffs.",
+		"description_3_head":"Learning, Teaching",
+		"description_4_message":"Highly flexible for adaptation in different learning and teaching modes, suitable for class demonstrations, individual/group assignments and investigations.",
+		"support_1_head":"Developed by Department of Applied Physics, PolyU",
+		"support_1_message":"Starting 2010, the Department of Applied Physics (AP) has launched a centralized depository of selected physics experiments. While the initial goal of the platform was for PolyU undergraduates admitted to AP’s service-teaching subjects, the idea has since gained popularity and is now also available for senior secondary school students.",
+		"support_2_head":"Supported by QEF & PolyU",
+		"support_2_message":"The Remote Lab was financially supported by Quality Education Fund of Hong Kong Special Administrative Region Government (QEF, HKSAR) and the Hong Kong Polytechnic University (HK PolyU).",
+		"support_3_head":"RemoteLab Won Reimagine Education Asia Gold Award!",
+		"support_3_message":"The RemoteLab project was awarded the 'Asia Gold Award' in the Wharton-QS Stars Reimagine Education 2016 Competition, for creating a novel, true-to-life remote laboratory to enhance student understanding of experimental methodologies and outcomes. The RemoteLab is the first-of-its-kind in Asia, and has enabled students to conduct experiments everywhere at all times."
+	},
+	"about":{
+		"title":"About",
+		"description":"Laboratory teaching is an indispensible part of science education. The processes of making observations, performing systematic and quantitative investigations, data collection, analysis and logical interpretation of results and drawing relevant conclusions, are the skills fundamental to the training of all science subjects. Performing experiments also serve to reinforce students’ classroom learning experiences.\nIronically, many of the scientific ideas are taught with only very limited support of the corresponding experiments, for a number of reasons. These could be cost, space and safety implications for implementing the experiments. Faced with these situations, teachers generally perform slide/video shows of the related experiments or to run computer simulations based on textbook equations and models. While such alternative learning and teaching (L&T) approaches provide supplementary information to students about the scientific principles involved, there are pitfalls associated with these techniques.\nStarting 2010, the Department of Applied Physics (AP) has launched a centralized depository of selected physics experiments. While the initial goal of the platform was for PolyU undergraduates admitted to AP’s service-teaching subjects, the idea has since gained popularity and is now also available for senior secondary school students. These are setups either not normally installed in secondary schools, or those that can pose danger for unskilled operators.\nThrough the years, we have established a number of physics experiment setups:\ndamped oscillations\ninterference and diffraction of light\nradioactivity\nEarth’s magnetic field"
+	},
+	"concept":{
+		"title1":"Concept",
+		"description1":"The design of the experiment platform is illustrated in the figure below. Registered users can securely login to a server hosted in PolyU, which grants access to the interfacing control program in a local console. This local console is responsible for manipulating various components of the experiment setup, data acquisition from sensors and the signal transmission to the user. Real-time video monitoring is also facilitated to visualize the experiment ‘in action’.Background as well as supporting materials will be also provided for students.",
+		"title2":"Benefits",
+		"description2":"Highly flexible for adaptation in different learning and teaching modes (class demonstrations, individual/ group assignments, systematic investigations), as deemed suitable by instructors.\n\nStudents and/or teachers can operate such setups in a way similar to running the experiment in school laboratories, at any time and from everywhere (as long as internet access is available).\n\nAutomated data acquisition provides a scaffold for students to take and analyze a large number of good quality data, gives students a chance to learn how to analyze many data points and draw a reasonable conclusion based on such analysis."
+	}
+}
