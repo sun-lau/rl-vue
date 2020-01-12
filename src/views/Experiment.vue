@@ -33,7 +33,7 @@
                 <b-col cols="6">
                     <v-card>
                         <v-card-title>Laser State</v-card-title>
-                        <v-card-actions>
+                        <v-card-actions class="ml-4">
                             <v-chip-group
                                 v-model="laser_status"
                                 active-class="deep-purple accent-4 white--text"
@@ -64,7 +64,7 @@
                     </v-card>
                     <v-card>
                         <v-card-title>Gain</v-card-title>
-                        <v-card-actions>
+                        <v-card-actions class="ml-4">
                             <v-chip-group
                                 v-model="gain_status"
                                 active-class="deep-purple accent-4 white--text"
@@ -96,40 +96,46 @@
                     </v-card>
                     <v-card>
 
-                        <v-card-title>Gain</v-card-title>
-                        <b-button-group>
-                            <b-button variant="warning" @click="setCommand('GAIN|VERY_LOW')">Very Low</b-button>
-                            <b-button variant="warning" @click="setCommand('GAIN|LOW')">Low</b-button>
-                            <b-button variant="warning" @click="setCommand('GAIN|HIGH')">High</b-button>
-                            <b-button variant="warning" @click="setCommand('GAIN|VERY_HIGH')">Very High</b-button>
-                        </b-button-group>
                         <v-card-title>Slit Position</v-card-title>
-                        <b-button-group>
-                            <b-button variant="info" @click="setCommand('SLIT|LEFT')">
-                                <font-awesome-icon icon="angle-left" />
+                        <v-btn-toggle
+                            v-model="toggle_exclusive"
+                            rounded
+                            class="ml-4">
+                            <v-btn @click="setCommand('SLIT|LEFT')" >
+                                <font-awesome-icon icon="angle-left" /> 
                                 Left
-                            </b-button>
-                            <b-button variant="info" @click="setCommand('SLIT|RIGHT')">
-                                <font-awesome-icon icon="angle-right" />
+                            </v-btn>
+                            <v-btn variant="info" @click="setCommand('SLIT|RIGHT')">
+                                <font-awesome-icon icon="angle-right" /> 
                                 Right
-                            </b-button>
-                        </b-button-group>
-                        <v-card-title>Distance D</v-card-title>
-                        <b-button-group>
-                            <b-button variant="info" @click="setCommand('DISTANCE|INCREASE')">
+                            </v-btn>
+                        </v-btn-toggle>
+
+                        <v-card-title>
+                            Distance D 
+                        </v-card-title>
+                        <v-btn-toggle
+                            v-model="toggle_exclusive"
+                            rounded
+                            class="ml-4">
+                            <v-btn @click="setCommand('DISTANCE|INCREASE')" >
                                 <font-awesome-icon icon="angle-up" />
                                 Increase
-                            </b-button>
-                            <b-button variant="info" @click="setCommand('DISTANCE|DECREASE')">
+                            </v-btn>
+                            <v-btn variant="info" @click="setCommand('DISTANCE|DECREASE')">
                                 <font-awesome-icon icon="angle-down" />
                                 Decrease
-                            </b-button>
-                        </b-button-group>
+                            </v-btn>
+                        </v-btn-toggle>
                         <br>
                         <small>D = 990mm</small>
                         <br>
-                        <b-btn @click="setCommand('MEASURE|START')">Measure</b-btn>
-                        <b-btn @click="getValue()">Export</b-btn>
+                        <div>
+                            <div class="ma-4">
+                                <v-btn @click="setCommand('MEASURE|START')">Measure</v-btn>
+                                <v-btn @click="getValue()">Export</v-btn>
+                            </div>
+                        </div>
                     </v-card>
                 </b-col>
             </b-row>
