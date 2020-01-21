@@ -31,6 +31,16 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: () => import('./views/News.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('./views/Logout.vue')
     }
   ]
 })

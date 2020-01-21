@@ -4,6 +4,9 @@ import i18n from '@/i18n';
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+Vue.$cookies.config('7d')
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleLeft, faAngleRight, faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
