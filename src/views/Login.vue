@@ -34,7 +34,7 @@
 <script>
 	import moment from 'moment';
     import {Root_APIService} from '@/services/Root_APIService';
-    const apiService = new Root_APIService(process.env.VUE_APP_BASE_URL+'/accounts');
+    const apiService = new Root_APIService(process.env.VUE_APP_BASE_URL+'/api/accounts');
 	export default {
 		name: 'login',
 		components: {
@@ -82,7 +82,7 @@
                         console.log(self.$cookies.get('auth_token'));
                         // self.$root.updateAuth();
                         // self.$router.push("/");
-                        location.reload();
+                        window.location.href = process.env.VUE_APP_BASE_URL;
                     }
                 })
             },
