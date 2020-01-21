@@ -6,7 +6,7 @@
       app
     >
       <v-list>
-        <template v-for="item in items">
+        <template v-for="item in side_items">
           <v-row
             v-if="item.heading"
             :key="item.heading"
@@ -35,9 +35,8 @@
             append-icon=""
           >
             <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title
-			@click="goTo(item.link)">
+              <v-list-item-content @click="goTo(item.link)">
+                <v-list-item-title>
                   {{ item.text }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -58,16 +57,16 @@
             </v-list-item>
           </v-list-group>
           <v-list-item
-            v-else
+            v-else-if="item.show"
             :key="item.text"
             link
+			@click="goTo(item.link)"
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title
-			@click="goTo(item.link)">
+              <v-list-item-title>
                 {{ item.text }}
               </v-list-item-title>
             </v-list-item-content>
@@ -90,37 +89,21 @@
         <span class="hidden-sm-and-down">RemoteLab</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn icon>
-        <v-icon>mdi-apps</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        large
-      >
-        <v-avatar
-          size="32px"
-          item
-        >
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
-          /></v-avatar>
-      </v-btn>
+
+
+		<div class="p-2 mt-2" style="cursor:pointer" @click="changeLang('en')">ENG</div>
+		<div class="p-2 mt-2" style="cursor:pointer" @click="changeLang('zh-hk')">繁</div>
+
     </v-app-bar>
     <v-content>
       <v-container
-        class="fill-height"
         fluid
       >
         <v-row
           align="center"
           justify="center"
         >
-		
-      			<router-view/>
+			<router-view/>
         </v-row>
       </v-container>
     </v-content>
@@ -226,38 +209,59 @@
       source: String,
     },
     data: () => ({
-      dialog: false,
-      drawer: null,
-      items: [
-        { 
-			icon: 'mdi-history',
-			text: 'About',
-			link: 'about'
-		},
-        { 
-			icon: 'mdi-lightbulb-on', 
-			text: 'Concept and Benefits',
-			link: 'concept'
+		auth_token:"",
+		dialog: false,
+		drawer: null,
+		side_items: [
+			{ 
+				icon: 'mdi-history',
+				text: 'About',
+				link: 'about',
+				show: true
+			},
+			{ 
+				icon: 'mdi-lightbulb-on', 
+				text: 'Concept and Benefits',
+				link: 'concept',
+				show: true
 
-		},
-        { 
-			icon: 'mdi-bullhorn', 
-			text: 'News',
-			link: 'news'
-		},
-        {
-          icon: 'mdi-chevron-up',
-          'icon-alt': 'mdi-chevron-down',
-          text: 'Remote Experiments',
-          model: false,
-          children: [
-            { icon: 'mdi-test-tube', text: 'Interference' },
-            { icon: 'mdi-test-tube', text: 'Magnetic' },
-          ],
-        },
-        { icon: 'mdi-key', text: 'Login' },
-      ],
+			},
+			{ 
+				icon: 'mdi-bullhorn', 
+				text: 'News',
+				link: 'news',
+				show: true
+			},
+			{
+				icon: 'mdi-chevron-up',
+				'icon-alt': 'mdi-chevron-down',
+				text: 'Remote Experiments',
+				model: false,
+				children: [
+					{ icon: 'mdi-test-tube', text: 'Interference' },
+					{ icon: 'mdi-test-tube', text: 'Magnetic' },
+				],
+			},
+			{ 	//must be position last one for hide show
+				icon: 'mdi-key',
+				text: 'Login',
+				link: 'login',
+				show: false
+			},
+			{ 	//must be position last one for hide show
+				icon: 'mdi-key',
+				text: 'Logout',
+				link: 'logout',
+				show: false
+			},
+		],
 	}),
+	
+	mounted:function(){
+		var self = this;
+		self.auth_token = self.$cookies.get('auth_token');
+		self.updateAuth();
+	},
 	methods:{
 		
 		goTo: function(name){
@@ -265,6 +269,20 @@
 			console.log("goto" + name);
 			self.$router.push(name);
 		},
+		changeLang: function(lang){
+			var self = this;
+			self.$i18n.locale = lang;
+		},
+		updateAuth: function(){
+			var self = this;
+			if(self.auth_token){
+				self.side_items[self.side_items.length-2].show = false;
+				self.side_items[self.side_items.length-1].show = true;
+			}else{
+				self.side_items[self.side_items.length-2].show = true;
+				self.side_items[self.side_items.length-1].show = false;
+			}
+		}
 	}
   }
 </script>
