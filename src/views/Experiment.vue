@@ -20,12 +20,7 @@
                             />
                             </b-col>
                             <b-col cols="12">
-                            <line-chart 
-                                ref="experiment_chart"
-                                :chartOptions="chartOptions"
-                                :chartData="chartData"
-                                style="width:100%; height:80px;"
-                            />
+                                <apexchart type="line" :options="options" :series="series"></apexchart>
                             </b-col>
                         </b-row>
                     </v-card>
@@ -40,8 +35,8 @@
                                 column
                             >
                                 <v-chip @click="setCommand('LASER|OFF')">Off</v-chip>
-                                <v-chip @click="setCommand('LASER|OFF')">Red</v-chip>
-                                <v-chip @click="setCommand('LASER|OFF')">Green</v-chip>
+                                <v-chip @click="setCommand('LASER|RED')">Red</v-chip>
+                                <v-chip @click="setCommand('LASER|GREEN')">Green</v-chip>
                             </v-chip-group>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -98,7 +93,6 @@
 
                         <v-card-title>Slit Position</v-card-title>
                         <v-btn-toggle
-                            v-model="toggle_exclusive"
                             rounded
                             class="ml-4">
                             <v-btn @click="setCommand('SLIT|LEFT')" >
@@ -115,7 +109,6 @@
                             Distance D 
                         </v-card-title>
                         <v-btn-toggle
-                            v-model="toggle_exclusive"
                             rounded
                             class="ml-4">
                             <v-btn @click="setCommand('DISTANCE|INCREASE')" >
@@ -132,7 +125,7 @@
                         <br>
                         <div>
                             <div class="ma-4">
-                                <v-btn @click="setCommand('MEASURE|START')">Measure</v-btn>
+                                <v-btn @click="requestChart()">Measure</v-btn>
                                 <v-btn @click="getValue()">Export</v-btn>
                             </div>
                         </div>
@@ -140,6 +133,16 @@
                 </b-col>
             </b-row>
         </b-container>
+        <v-dialog v-model="loading" fullscreen>
+            <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
+                <v-layout justify-center align-center>
+                <v-progress-circular
+                    indeterminate
+                    color="primary">
+                </v-progress-circular>
+                </v-layout>
+            </v-container>
+        </v-dialog>
     </div>
 </template>
 
@@ -150,7 +153,6 @@ import moment from 'moment';
 import LineChart from '@/components/LineChart.vue'
 import {Experiment_APIService} from '@/services/Experiment_APIService';
 const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
-// const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
   name: 'experiment',
   components: {
@@ -158,48 +160,21 @@ export default {
   },
   data:function(){
       return{
-          laser_show:false,
-          gain_show:false,
-          laser_status:"",
-          gain_status:"",
-          chartData: {
-                datasets: [{
-                    backgroundColor: [
-                        'rgba(0, 123, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(134,192,255,1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            chartOptions: {
-                animation: false,
-                layout: {
-                    padding: {
-                    left: 0,
-                    right: 0,
-                    top: 10,
-                    bottom: 0
-                    }
-                },
-                legend: {
-                    display: false,
-                },
-                scales: {
-                    xAxes:[ 
-                        {
-                            type: 'linear'
-                        }
-                    ],
-                    yAxes: [{
-                        ticks: {
-                            display: true,
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
+        inte:null,
+        laser_show:false,
+        gain_show:false,
+        laser_status:"",
+        gain_status:"",
+        loading: false,
+        api:{
+            value:""
+        },
+        options: {
+        },
+        series: [{
+            data: []
+        }],
+
       }
   },
   mounted: function(){
@@ -208,23 +183,54 @@ export default {
         self.$refs.experiment_chart.renderChart([]);
   },
   methods:{
-        getValue(){
+        getValue(callback){
             console.log("getValue");
             var self = this;
             apiService.getValue()
             .then((response) => {
-                console.log("response.value");
-                console.log(response);
-                self.$refs.experiment_chart.renderChart(response.value);
+                self.api.value = response.value;
+                if(callback){
+                    callback();
+                }
             });
         },
-        setCommand(command, value){
-            apiService.setCommand(command, value)
+        setCommand(command, callback){
+            apiService.setCommand(command)
             .then((response) => {
                 console.log("command is set");
                 console.log("response");
                 console.log(response);
+                if(callback){
+                    callback();
+                }
             });
+        },
+        requestChart(){
+            var self = this;
+            self.loading = true;
+            self.setCommand('MEASURE|START', function(){
+                self.inte = setInterval(function(){
+                    self.getValue(function(){
+                        if(self.api.value == "complete"){
+                            clearInterval(self.inte);
+                            self.getChart();
+                            self.loading = false;
+                        }
+                    });
+                },2000);
+            });
+        },
+        getChart(){
+            console.log("getChart");
+            var self = this;
+            apiService.getChart()
+            .then((response) => {
+                self.api.chart = response;
+                self.series = [{data:response}];
+                console.log("self.series");
+                console.log(self.series);
+            });
+
         }
   }
 }

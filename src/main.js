@@ -9,6 +9,8 @@ import { faAngleLeft, faAngleRight, faAngleUp, faAngleDown } from '@fortawesome/
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faAngleLeft, faAngleRight, faAngleUp, faAngleDown)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+import VueApexCharts from 'vue-apexcharts'
+Vue.component('apexchart', VueApexCharts)
 import App from './App.vue'
 import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'

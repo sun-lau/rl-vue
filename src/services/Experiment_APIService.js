@@ -8,9 +8,9 @@ export class Experiment_APIService extends APIService {
         super(api_base_url);
         this.is_dummy = is_dummy;
     }
-    getValue(){
+    getChart(){
         var self = this;
-        const url = `${this.api_base_url}/get.php`;
+        const url = `${this.api_base_url}/getChart.php`;
         var dummy_response = {
             value:[
                 {
@@ -24,48 +24,30 @@ export class Experiment_APIService extends APIService {
                 {
                     x: 20,
                     y: 106
-                }, 
-                {
-                    x: 25,
-                    y: 107
-                }, 
-                {
-                    x: 30,
-                    y: 111
-                }, 
-                {
-                    x: 35,
-                    y: 133
-                }, 
-                {
-                    x: 40,
-                    y: 133
-                }, 
-                {
-                    x: 45,
-                    y: 221
-                }, 
-                {
-                    x: 50,
-                    y: 783
-                }, 
-                {
-                    x: 55,
-                    y: 2478
                 }
             ]
         };
         if(self.is_dummy){
             return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
         }else{
-            return axios.get(url)
-            .then(response => { 
-                console.log(response);
-            })
-            // return axios.get(url).then(response => response.data);
+            return axios.get(url).then(response => response.data);
         }
     }
-    setCommand(command, value){
+    getValue(){
+        var self = this;
+        const url = `${this.api_base_url}/getValue.php?equipment_id=`+"asdfgh";
+        var dummy_response = {
+            value:[
+            ]
+        };
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+           
+            return axios.get(url).then(response => response.data);
+        }
+    }
+    setCommand(command){
         var self = this;
         const url = `${this.api_base_url}/setCommand.php`;
         var bodyFormData = new FormData();
