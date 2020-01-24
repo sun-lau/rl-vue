@@ -180,7 +180,6 @@ export default {
   mounted: function(){
         var self = this;
         console.log("mounted");
-        self.$refs.experiment_chart.renderChart([]);
   },
   methods:{
         getValue(callback){

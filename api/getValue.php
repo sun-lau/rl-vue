@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 'Off');
+date_default_timezone_set('Asia/Hong_Kong');
 header('Content-type: application/json');
 require('config.php');
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -10,28 +11,37 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+$current_time = date("Y-m-d H:i:s");
 $equipment_id = $_GET['equipment_id'];
 if(isset($_GET['equipment_id'])){
-    $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."' LIMIT 1";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
+    $sql = "UPDATE rl_experiment SET value_get_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'";
+    if ($conn->query($sql) === TRUE) { 
+        $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."' LIMIT 1";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
 
-            //if value_write_at > value_read_at
-            $value = $row["value"];
-            //update
-            $myObj->value = $value;
-            $myObj->status = "success";
+                $myObj->value = $row["value"];
+                $myObj->value_get_at = $row["value_get_at"];
+                $myObj->value_set_at = $row["value_set_at"];
+                $myObj->command_get_at = $row["command_get_at"];
+                $myObj->command_set_at = $row["command_set_at"];
+                $myObj->status = "success";
+                echo json_encode($myObj);
+                //else return not yet ready
+                $conn->close();
+                die();
+            }
+        } else {
+            $myObj->status = "fail";
+            $myObj->error = "no_record";
             echo json_encode($myObj);
-            //else return not yet ready
-            $conn->close();
-            die();
         }
-    } else {
-        $myObj->status = "fail";
-        $myObj->error = "no_record";
-        echo json_encode($myObj);
     }
+}else {
+    $myObj->status = "fail";
+    $myObj->error = "no_record";
+    echo json_encode($myObj);
 }
 
 ?>

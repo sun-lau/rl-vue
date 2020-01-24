@@ -10,7 +10,7 @@ export class Experiment_APIService extends APIService {
     }
     getChart(){
         var self = this;
-        const url = `${this.api_base_url}/getChart.php`;
+        const url = `${this.api_base_url}/api/getChart.php`;
         var dummy_response = {
             value:[
                 {
@@ -35,7 +35,7 @@ export class Experiment_APIService extends APIService {
     }
     getValue(){
         var self = this;
-        const url = `${this.api_base_url}/getValue.php?equipment_id=`+"asdfgh";
+        const url = `${this.api_base_url}/api/getValue.php?equipment_id=`+"asdfgh";
         var dummy_response = {
             value:[
             ]
@@ -49,7 +49,7 @@ export class Experiment_APIService extends APIService {
     }
     setCommand(command){
         var self = this;
-        const url = `${this.api_base_url}/setCommand.php`;
+        const url = `${this.api_base_url}/api/setCommand.php`;
         var bodyFormData = new FormData();
         bodyFormData.set('equipment_id', "asdfgh");
         bodyFormData.set('command', command);

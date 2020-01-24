@@ -1,5 +1,5 @@
 <?php
-    ini_set('display_errors', 'On');
+    date_default_timezone_set('Asia/Hong_Kong');
     header('Content-type: application/json');
     require('config.php');
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -28,8 +28,8 @@
             echo json_encode($myObj);
             die();
         }
-
-        $sql = "UPDATE rl_experiment SET command='".$command."' WHERE equipment_id='".$equipment_id."'";
+        $current_time = date("Y-m-d H:i:s");
+        $sql = "UPDATE rl_experiment SET command='".$command."',command_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'";
 
         if ($conn->query($sql) === TRUE) {
             $myObj->status = "success";
