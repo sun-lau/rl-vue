@@ -9,11 +9,13 @@
                             <div class="subheading">
                             <template v-if="options.isLoggingIn">
                                 <h4>Login</h4>
+                                <p>username: test</p>
+                                <p>password: test</p>
                             </template>
                             <template v-else="v-else">Crate a new account</template>
                             </div>
                             <v-form @submit="onSubmit">
-                            <v-text-field v-model="form.username" light="light" label="Name"></v-text-field>
+                            <v-text-field v-model="form.username" light="light" label="Username"></v-text-field>
                             <!-- <v-text-field v-model="form.email" light="light" label="Email" type="email"></v-text-field> -->
                             <v-text-field v-model="form.password" light="light" label="Password" type="password"></v-text-field>
                             <v-btn v-if="options.isLoggingIn" block="block" type="submit">Sign in</v-btn>
@@ -82,7 +84,7 @@
                         console.log(self.$cookies.get('auth_token'));
                         // self.$root.updateAuth();
                         // self.$router.push("/");
-                        window.location.href = process.env.VUE_APP_BASE_URL;
+                        window.location.href = process.env.VUE_APP_BASE_URL+"/#/experiment";
                     }
                 })
             },
