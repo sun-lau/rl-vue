@@ -47,6 +47,20 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
+    getCommand(){
+        var self = this;
+        const url = `${this.api_base_url}/api/getCommand.php?equipment_id=`+"asdfgh";
+        var dummy_response = {
+            value:[
+            ]
+        };
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+           
+            return axios.get(url).then(response => response.data);
+        }
+    }
     setCommand(command){
         var self = this;
         const url = `${this.api_base_url}/api/setCommand.php`;

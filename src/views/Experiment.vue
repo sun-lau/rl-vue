@@ -1,31 +1,31 @@
 <template>
     <div class="experiment">
-        <b-container fluid>
-            <b-row>
-                <b-col cols="6">
+        <v-container fluid>
+            <v-row>
+                <v-col xs="12" sm="6">
                     <v-card>
-                        <b-row>
-                            <b-col cols="6">
+                        <v-card-title>Live</v-card-title>
+                        <v-row class="ml-2 mr-2 mt-4">
+                            <v-col  xs="12" sm="6">
                             <b-img 
                                 src="http://158.132.254.152:8081/?action=stream"
                                 fluid
-                                rounded
                             />
-                            </b-col>
-                            <b-col cols="6">
+                            </v-col>
+                            <v-col xs="12" sm="6">
                             <b-img 
                                 src="http://158.132.254.152:8082/?action=stream"
                                 fluid
-                                rounded
                             />
-                            </b-col>
-                            <b-col cols="12">
-                                <apexchart type="line" :options="options" :series="series"></apexchart>
-                            </b-col>
-                        </b-row>
+                            </v-col>
+                        </v-row>
                     </v-card>
-                </b-col>
-                <b-col cols="6">
+                    <v-card>
+                        <v-card-title>Measure Result</v-card-title>
+                        <apexchart type="line" :options="options" :series="series"></apexchart>
+                    </v-card>
+                </v-col>
+                <v-col xs="12" sm="6">
                     <v-card>
                         <v-card-title>Laser State</v-card-title>
                         <v-card-actions class="ml-4">
@@ -120,19 +120,50 @@
                                 Decrease
                             </v-btn>
                         </v-btn-toggle>
+                        <small class="ma-4">D = 990mm</small>
                         <br>
-                        <small>D = 990mm</small>
                         <br>
-                        <div>
-                            <div class="ma-4">
-                                <v-btn @click="requestChart()">Measure</v-btn>
-                                <v-btn @click="getValue()">Export</v-btn>
-                            </div>
+                        <div class="ma-4">
+                            <v-btn block @click="requestChart()">Measure</v-btn>
+                            <br>
+                            <v-btn block @click="getValue()">Export</v-btn>
                         </div>
+                        <br>
                     </v-card>
-                </b-col>
-            </b-row>
-        </b-container>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col xs="12">
+                    <v-card>
+                        <v-card-title>Hardware Simulation</v-card-title>
+                        <v-card-text>
+                            <v-container fluid>
+                                <v-row>
+                                    <v-col cols="12" md="12">
+                                        <p>Current Color: {{simulation.color}}</p>
+                                        <p>Current Gain: {{simulation.gain}}</p>
+                                        <p>Current Slit Position: {{simulation.slit_position}}</p>
+                                        <p>Current Distance: {{simulation.distance}}</p>
+                                    </v-col>
+                                    <v-col cols="12" md="12">
+                                        <v-list two-line subheader>
+                                            <v-card v-for="(log, i) of simulation.logs" :key="i" class="ma-4">
+                                                <v-card-text>
+                                                <h6 v-text="log.api"></h6>
+                                                <small class="float-right" v-text="log.time"></small>
+                                                <p v-text="log.request"></p>
+                                                <p v-text="log.response"></p>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-list>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
         <v-dialog v-model="loading" fullscreen>
             <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
                 <v-layout justify-center align-center>
@@ -170,18 +201,47 @@ export default {
             value:""
         },
         options: {
+            width:'100%'
         },
         series: [{
             data: []
         }],
+        simulation:{
+            color:"OFF",
+            gain:"HIGH",
+            slit_position:20,
+            distance:30,
+            logs:[],
+            log:""
+        }
 
       }
   },
   mounted: function(){
         var self = this;
         console.log("mounted");
+        setInterval(function(){
+            self.simulate();
+        },1000);
   },
   methods:{
+        simulate(){
+            var self = this;
+            var message = "getCommand";
+            apiService.getCommand()
+            .then((response) => {
+                
+                self.simulation.logs.unshift({
+                    time: moment().format('HH:mm:ss'),
+                    api:"getCommand",
+                    request:{
+                        equipment_id:"asdfgh"
+                    },
+                    response:response,
+                });
+            });
+
+        },
         getValue(callback){
             console.log("getValue");
             var self = this;
