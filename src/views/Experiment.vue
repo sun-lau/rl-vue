@@ -191,29 +191,30 @@ export default {
   },
   data:function(){
       return{
-        inte:null,
-        laser_show:false,
-        gain_show:false,
-        laser_status:"",
-        gain_status:"",
-        loading: false,
-        api:{
-            value:""
-        },
-        options: {
-            width:'100%'
-        },
-        series: [{
-            data: []
-        }],
-        simulation:{
-            color:"OFF",
-            gain:"HIGH",
-            slit_position:20,
-            distance:30,
-            logs:[],
-            log:""
-        }
+            mode:"WAIT_FOR_COMMAND",
+            inte:null,
+            laser_show:false,
+            gain_show:false,
+            laser_status:"",
+            gain_status:"",
+            loading: false,
+            api:{
+                value:""
+            },
+            options: {
+                width:'100%'
+            },
+            series: [{
+                data: []
+            }],
+            simulation:{
+                color:"OFF",
+                gain:"HIGH",
+                slit_position:20,
+                distance:30,
+                logs:[],
+                log:""
+            }
 
       }
   },
@@ -222,24 +223,35 @@ export default {
         console.log("mounted");
         setInterval(function(){
             self.simulate();
-        },1000);
+        },5000);
   },
   methods:{
         simulate(){
             var self = this;
-            var message = "getCommand";
-            apiService.getCommand()
-            .then((response) => {
-                
+            if(self.mode == "WAIT_FOR_COMMAND"){
+                apiService.getCommand()
+                .then((response) => {
+                    if(response.command == "MEASURE|START"){
+                        self.mode = "MEASURING";
+                        setTimeout(function(){
+                            self.mode = "WAIT_FOR_COMMAND";
+                        },10000);
+                    }
+                    self.simulation.logs.unshift({
+                        time: moment().format('HH:mm:ss'),
+                        api:"getCommand",
+                        request:{
+                            equipment_id:"asdfgh"
+                        },
+                        response:response,
+                    });
+                });
+            }else{
                 self.simulation.logs.unshift({
                     time: moment().format('HH:mm:ss'),
-                    api:"getCommand",
-                    request:{
-                        equipment_id:"asdfgh"
-                    },
-                    response:response,
+                    api:"measuring"
                 });
-            });
+            }
 
         },
         getValue(callback){
