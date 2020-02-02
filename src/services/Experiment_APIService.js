@@ -8,6 +8,32 @@ export class Experiment_APIService extends APIService {
         super(api_base_url);
         this.is_dummy = is_dummy;
     }
+    setChart(device_id, chart){
+        var self = this;
+        const url = `${this.api_base_url}/api/setChart.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('equipment_id', "asdfgh");
+        bodyFormData.set('device_id', device_id);
+        bodyFormData.set('chart', chart);
+        var dummy_response = {
+            status:"success"
+        };
+        
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+            return axios({
+                method: 'post',
+                url: url,
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'multipart/form-data' }}
+                })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            });
+        }
+    }
     getChart(){
         var self = this;
         const url = `${this.api_base_url}/api/getChart.php`;
@@ -20,10 +46,6 @@ export class Experiment_APIService extends APIService {
                 {
                     x: 15,
                     y: 114
-                }, 
-                {
-                    x: 20,
-                    y: 106
                 }
             ]
         };
@@ -33,9 +55,9 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
-    getValue(){
+    getValue(device_id){
         var self = this;
-        const url = `${this.api_base_url}/api/getValue.php?equipment_id=`+"asdfgh";
+        const url = `${this.api_base_url}/api/getValue.php?equipment_id=`+"asdfgh&device_id="+device_id;
         var dummy_response = {
             value:[
             ]
@@ -47,9 +69,35 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
-    getCommand(){
+    setValue(device_id, value){
         var self = this;
-        const url = `${this.api_base_url}/api/getCommand.php?equipment_id=`+"asdfgh";
+        const url = `${this.api_base_url}/api/setValue.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('equipment_id', "asdfgh");
+        bodyFormData.set('device_id', device_id);
+        bodyFormData.set('value', value);
+        var dummy_response = {
+            status:"success"
+        };
+        
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+            return axios({
+                method: 'post',
+                url: url,
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'multipart/form-data' }}
+                })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            });
+        }
+    }
+    getCommand(device_id){
+        var self = this;
+        const url = `${this.api_base_url}/api/getCommand.php?equipment_id=`+"asdfgh&device_id="+device_id;
         var dummy_response = {
             value:[
             ]
@@ -61,11 +109,12 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
-    setCommand(command){
+    setCommand(device_id, command){
         var self = this;
         const url = `${this.api_base_url}/api/setCommand.php`;
         var bodyFormData = new FormData();
         bodyFormData.set('equipment_id', "asdfgh");
+        bodyFormData.set('device_id', device_id);
         bodyFormData.set('command', command);
         var dummy_response = {
             status:"success"

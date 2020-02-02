@@ -34,9 +34,9 @@
                                 active-class="deep-purple accent-4 white--text"
                                 column
                             >
-                                <v-chip @click="setCommand('LASER|OFF')">Off</v-chip>
-                                <v-chip @click="setCommand('LASER|RED')">Red</v-chip>
-                                <v-chip @click="setCommand('LASER|GREEN')">Green</v-chip>
+                                <v-chip @click="setCommand('device_0','LASER|OFF')">Off</v-chip>
+                                <v-chip @click="setCommand('device_0','LASER|RED')">Red</v-chip>
+                                <v-chip @click="setCommand('device_0','LASER|GREEN')">Green</v-chip>
                             </v-chip-group>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -65,10 +65,10 @@
                                 active-class="deep-purple accent-4 white--text"
                                 column
                             >
-                                <v-chip @click="setCommand('GAIN|VERY_LOW')">Very Low</v-chip>
-                                <v-chip @click="setCommand('GAIN|LOW')">Low</v-chip>
-                                <v-chip @click="setCommand('GAIN|HIGH')">High</v-chip>
-                                <v-chip @click="setCommand('GAIN|VERY_HIGH')">Very High</v-chip>
+                                <v-chip @click="setCommand('device_0', 'GAIN|VERY_LOW')">Very Low</v-chip>
+                                <v-chip @click="setCommand('device_0', 'GAIN|LOW')">Low</v-chip>
+                                <v-chip @click="setCommand('device_0', 'GAIN|HIGH')">High</v-chip>
+                                <v-chip @click="setCommand('device_0', 'GAIN|VERY_HIGH')">Very High</v-chip>
                             </v-chip-group>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -95,11 +95,11 @@
                         <v-btn-toggle
                             rounded
                             class="ml-4">
-                            <v-btn @click="setCommand('SLIT|LEFT')" >
+                            <v-btn @click="setCommand('device_1', 'SLIT|LEFT')" >
                                 <font-awesome-icon icon="angle-left" /> 
                                 Left
                             </v-btn>
-                            <v-btn variant="info" @click="setCommand('SLIT|RIGHT')">
+                            <v-btn variant="info" @click="setCommand('device_1', 'SLIT|RIGHT')">
                                 <font-awesome-icon icon="angle-right" /> 
                                 Right
                             </v-btn>
@@ -111,16 +111,16 @@
                         <v-btn-toggle
                             rounded
                             class="ml-4">
-                            <v-btn @click="setCommand('DISTANCE|INCREASE')" >
+                            <v-btn @click="setCommand('device_1', 'DISTANCE|INCREASE')" >
                                 <font-awesome-icon icon="angle-up" />
                                 Increase
                             </v-btn>
-                            <v-btn variant="info" @click="setCommand('DISTANCE|DECREASE')">
+                            <v-btn variant="info" @click="setCommand('device_1', 'DISTANCE|DECREASE')">
                                 <font-awesome-icon icon="angle-down" />
                                 Decrease
                             </v-btn>
                         </v-btn-toggle>
-                        <small class="ma-4">D = 990mm</small>
+                        <small class="ma-4">D = {{api.value.distance}}mm</small>
                         <br>
                         <br>
                         <div class="ma-4">
@@ -133,21 +133,38 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col xs="12">
+                <v-col xs="6">
                     <v-card>
-                        <v-card-title>Hardware Simulation</v-card-title>
+                        <v-card-title>Device 0 Simulation</v-card-title>
                         <v-card-text>
                             <v-container fluid>
                                 <v-row>
                                     <v-col cols="12" md="12">
-                                        <p>Current Color: {{simulation.color}}</p>
-                                        <p>Current Gain: {{simulation.gain}}</p>
-                                        <p>Current Slit Position: {{simulation.slit_position}}</p>
-                                        <p>Current Distance: {{simulation.distance}}</p>
+                                        <v-list two-line subheader>
+                                            <v-card v-for="(log, i) of simulation.device_0.logs" :key="i" class="ma-4">
+                                                <v-card-text>
+                                                <h6 v-text="log.api"></h6>
+                                                <small class="float-right" v-text="log.time"></small>
+                                                <p v-text="log.request"></p>
+                                                <p v-text="log.response"></p>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-list>
                                     </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col xs="6">
+                    <v-card>
+                        <v-card-title>Device 1 Simulation</v-card-title>
+                        <v-card-text>
+                            <v-container fluid>
+                                <v-row>
                                     <v-col cols="12" md="12">
                                         <v-list two-line subheader>
-                                            <v-card v-for="(log, i) of simulation.logs" :key="i" class="ma-4">
+                                            <v-card v-for="(log, i) of simulation.device_1.logs" :key="i" class="ma-4">
                                                 <v-card-text>
                                                 <h6 v-text="log.api"></h6>
                                                 <small class="float-right" v-text="log.time"></small>
@@ -191,7 +208,6 @@ export default {
   },
   data:function(){
       return{
-            mode:"WAIT_FOR_COMMAND",
             inte:null,
             laser_show:false,
             gain_show:false,
@@ -199,7 +215,9 @@ export default {
             gain_status:"",
             loading: false,
             api:{
-                value:""
+                value:"",
+                value_got_at:null,
+                value_set_at:null
             },
             options: {
                 width:'100%'
@@ -208,12 +226,14 @@ export default {
                 data: []
             }],
             simulation:{
-                color:"OFF",
-                gain:"HIGH",
-                slit_position:20,
-                distance:30,
-                logs:[],
-                log:""
+                device_0:{
+                    logs:[],
+                    status:"WAIT_FOR_COMMAND"
+                },
+                device_1:{
+                    logs:[],
+                    status:"WAIT_FOR_COMMAND"
+                }
             }
 
       }
@@ -222,51 +242,136 @@ export default {
         var self = this;
         console.log("mounted");
         setInterval(function(){
-            self.simulate();
+            self.simulate_device_0();
         },5000);
+        setInterval(function(){
+            self.simulate_device_1();
+        },3000);
+        setInterval(function(){
+            self.getValue("device_1");
+        },3000);
   },
   methods:{
-        simulate(){
+        simulate_device_0(){
             var self = this;
-            if(self.mode == "WAIT_FOR_COMMAND"){
-                apiService.getCommand()
+            if(self.simulation.device_0.status == "WAIT_FOR_COMMAND"){
+                apiService.getCommand("device_0")
                 .then((response) => {
-                    if(response.command == "MEASURE|START"){
-                        self.mode = "MEASURING";
-                        setTimeout(function(){
-                            self.mode = "WAIT_FOR_COMMAND";
-                        },10000);
+                    if(response.command_got_at <= response.command_set_at){
+                        self.simulation.device_0.logs.unshift({
+                            time: moment().format('HH:mm:ss'),
+                            api:"getCommand",
+                            request:{
+                                equipment_id:"asdfgh"
+                            },
+                            response:response,
+                        });
+                    }else{
+                        self.simulation.device_0.logs.unshift({
+                            time: moment().format('HH:mm:ss'),
+                            api:"getCommand [IGNORE]",
+                            response:response,
+                        });
+
                     }
-                    self.simulation.logs.unshift({
+                });
+            }
+
+        },
+        simulate_device_1(){
+            var self = this;
+            if(self.simulation.device_1.status == "WAIT_FOR_COMMAND"){
+                apiService.getCommand("device_1")
+                .then((response) => {
+                    if(response.command_got_at <= response.command_set_at){ //New Command
+                        if(response.command == "MEASURE|START"){
+                            self.simulation.device_1.status = "MEASURING";
+                            setTimeout(function(){
+                                self.simulation.device_1.status = "SET_CHART";
+                            },10000);
+                        }else{
+                            self.simulation.device_1.logs.unshift({
+                                time: moment().format('HH:mm:ss'),
+                                api:"getCommand",
+                                request:{
+                                    equipment_id:"asdfgh"
+                                },
+                                response:response,
+                            });
+                            var value = JSON.stringify({ 
+                                    distance: Math.floor(Math.random() * 100)+100
+                                });
+                            apiService.setValue("device_1", value)
+                            .then((response) => {
+                                self.simulation.device_1.logs.unshift({
+                                    time: moment().format('HH:mm:ss'),
+                                    api:"setValue",
+                                    request:{
+                                        equipment_id:"asdfgh",
+                                        value:"set chart"
+                                    },
+                                    response:response,
+                                });
+                                self.simulation.device_1.status = "WAIT_FOR_COMMAND";
+                            });
+
+                        }
+
+                    }else{
+                        self.simulation.device_1.logs.unshift({
+                            time: moment().format('HH:mm:ss'),
+                            api:"getCommand [IGNORE]",
+                            response:response,
+                        });
+
+                    }
+                });
+            }else if(self.simulation.device_1.status == "SET_CHART"){ 
+                var rand_0 = Math.floor(Math.random() * 100);
+                var rand_1 = Math.floor(Math.random() * 100);
+                var rand_2 = Math.floor(Math.random() * 100);
+                var rand_3 = Math.floor(Math.random() * 100);
+                apiService.setChart("device_1", "0,"+rand_0+"|0.1,"+rand_1+"|0.2,"+rand_2+"|0.3,"+rand_3)
+                .then((response) => {
+                    self.simulation.device_1.logs.unshift({
                         time: moment().format('HH:mm:ss'),
-                        api:"getCommand",
+                        api:"setChart",
                         request:{
                             equipment_id:"asdfgh"
                         },
                         response:response,
                     });
+
+                    self.simulation.device_1.status = "WAIT_FOR_COMMAND";
+
                 });
-            }else{
-                self.simulation.logs.unshift({
+            }else if(self.simulation.device_1.status == "MEASURING"){
+                self.simulation.device_1.logs.unshift({
                     time: moment().format('HH:mm:ss'),
                     api:"measuring"
                 });
             }
 
         },
-        getValue(callback){
+        getValue(device_id, callback){
             console.log("getValue");
             var self = this;
-            apiService.getValue()
+            apiService.getValue(device_id)
             .then((response) => {
-                self.api.value = response.value;
+                self.api.value_got_at = response.value_got_at;
+                self.api.value_set_at = response.value_set_at;
+                self.api.command_got_at = response.command_got_at;
+                self.api.command_set_at = response.command_set_at;
+                self.api.value = JSON.parse(response.value)
+                console.log("self.api.value");
+                console.log(self.api.value);
                 if(callback){
                     callback();
                 }
             });
         },
-        setCommand(command, callback){
-            apiService.setCommand(command)
+        setCommand(device_id, command, callback){
+            apiService.setCommand(device_id, command)
             .then((response) => {
                 console.log("command is set");
                 console.log("response");
@@ -279,16 +384,14 @@ export default {
         requestChart(){
             var self = this;
             self.loading = true;
-            self.setCommand('MEASURE|START', function(){
+            self.setCommand('device_1', 'MEASURE|START', function(){
                 self.inte = setInterval(function(){
-                    self.getValue(function(){
-                        if(self.api.value == "complete"){
-                            clearInterval(self.inte);
-                            self.getChart();
-                            self.loading = false;
-                        }
-                    });
-                },2000);
+                    if(self.api.value.chart_at > self.api.command_set_at){
+                        clearInterval(self.inte);
+                        self.setCommand('device_1', 'MEASURE|END');
+                        self.getChart();
+                    }
+                },1000);
             });
         },
         getChart(){
@@ -300,6 +403,7 @@ export default {
                 self.series = [{data:response}];
                 console.log("self.series");
                 console.log(self.series);
+                self.loading = false;
             });
 
         }

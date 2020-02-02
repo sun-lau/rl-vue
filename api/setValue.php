@@ -17,9 +17,10 @@
     }
     $value = $_POST['value'];
     $equipment_id = $_POST['equipment_id'];
+    $device_id = $_POST['device_id'];
     if(isset($value)){
 
-        $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."' LIMIT 1";
+        $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
         $result = $conn->query($sql);
         if ($result->num_rows == 0) {
             $myObj->status = "fail";
@@ -28,8 +29,22 @@
             die();
         }
 
-        $current_time = date("Y-m-d H:i:s");
-        $sql = "UPDATE rl_experiment SET value='".$value."',value_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'";
+        while($row = $result->fetch_assoc()) {
+            $db_value = $row["value"];
+            $db_value_json = json_decode($db_value);
+        }
+
+        //insert new key or update key of value
+        $value_json = json_decode($value);
+        foreach($db_value_json as $name => $v){
+            $new_value_json[$name] = $v;
+        }
+        foreach($value_json as $name => $v){
+            $new_value_json[$name] = $v;
+        }
+        $new_value = json_encode($new_value_json);
+        $current_time = time();
+        $sql = "UPDATE rl_experiment SET value='".$new_value."',value_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
 
         if ($conn->query($sql) === TRUE) {
             $myObj->status = "success";

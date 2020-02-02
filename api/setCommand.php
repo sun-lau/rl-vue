@@ -9,7 +9,6 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
     if(!isset($_POST['command'])){
         $myObj->status = "fail";
         $myObj->error = "no_post_command";
@@ -18,9 +17,10 @@
     }
     $command = $_POST['command'];
     $equipment_id = $_POST['equipment_id'];
+    $device_id = $_POST['device_id'];
     if(isset($command)){
 
-        $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."' LIMIT 1";
+        $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
         $result = $conn->query($sql);
         if ($result->num_rows == 0) {
             $myObj->status = "fail";
@@ -28,8 +28,9 @@
             echo json_encode($myObj);
             die();
         }
-        $current_time = date("Y-m-d H:i:s");
-        $sql = "UPDATE rl_experiment SET command='".$command."',command_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'";
+
+        $current_time = time();
+        $sql = "UPDATE rl_experiment SET command='".$command."',command_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
 
         if ($conn->query($sql) === TRUE) {
             $myObj->status = "success";
