@@ -9,24 +9,27 @@
                             <div class="subheading">
                             <template v-if="options.isLoggingIn">
                                 <h4>Login</h4>
-                                <p>username: test</p>
-                                <p>password: test</p>
                             </template>
-                            <template v-else="v-else">Crate a new account</template>
+                            <template v-else>
+                                <h4>Crate a new account</h4>
+                            </template>
                             </div>
                             <v-form @submit="onSubmit">
-                            <v-text-field v-model="form.username" light="light" label="Username"></v-text-field>
-                            <!-- <v-text-field v-model="form.email" light="light" label="Email" type="email"></v-text-field> -->
-                            <v-text-field v-model="form.password" light="light" label="Password" type="password"></v-text-field>
-                            <v-btn v-if="options.isLoggingIn" block="block" type="submit">Sign in</v-btn>
-
-                            <v-btn v-else="v-else" block="block" type="submit" @click.prevent="options.isLoggingIn = true">Sign up</v-btn>
+                                <v-text-field v-model="form.username" light="light" label="Username"></v-text-field>
+                                <v-text-field v-if="!options.isLoggingIn" v-model="form.email" light="light" label="Email"></v-text-field>
+                                <v-text-field v-model="form.password" light="light" label="Password (6+ characters)" type="password"></v-text-field>
+                                <v-text-field v-if="!options.isLoggingIn" v-model="form.confirm_password" light="light" label="Confirm Password" type="password"></v-text-field>
+                                <v-btn v-if="options.isLoggingIn" block="block" type="submit">Login</v-btn>
+                                <v-btn v-else block="block" type="submit" >Register</v-btn>
                             </v-form>
                         </v-card-text>
                     </v-card>
-                    <!-- <div class="mt-4" v-if="options.isLoggingIn">Don't have an account?
-                        <v-btn light="light" @click="options.isLoggingIn = false">Sign up</v-btn>
-                    </div> -->
+                    <div class="mt-4 float-right" v-if="options.isLoggingIn">Don't have an account?<br>
+                        <v-btn class="mt-4 float-right" light="light" @click="options.isLoggingIn = false">Register</v-btn>
+                    </div>
+                    <div class="mt-4 float-right" v-else>Already had an account?<br>
+                        <v-btn class="mt-4 float-right" light="light" @click="options.isLoggingIn = true">Login</v-btn>
+                    </div>
                 </v-flex>
                 </v-layout>
             </v-container>
@@ -35,31 +38,22 @@
 </template>
 <script>
 	import moment from 'moment';
-    import {Root_APIService} from '@/services/Root_APIService';
-    const apiService = new Root_APIService(process.env.VUE_APP_BASE_URL+'/api/accounts');
+    import {Auth_APIService} from '@/services/Auth_APIService';
+    const apiService = new Auth_APIService(process.env.VUE_APP_BASE_URL+'/../auth/');
 	export default {
 		name: 'login',
 		components: {
 		},
 		data:function(){
 			return{
-                rules: {
-                required: value => !!value || 'Required.',
-                min: v => v.length >= 8 || 'Min 8 characters',
-                emailMatch: () => ('The email and password you entered don\'t match'),
-                },
                 form: {
                     username: '',
-                    password: ''
-                },
-                user: {
-                // email: 'admin@example.com',
-                // password: 'admin',
-                // name: 'John Doe',
+                    email: '',
+                    password: '',
+                    confirm_password: ''
                 },
                 options: {
                     isLoggingIn: true,
-                    shouldStayLoggedIn: true,
                 },
 			}
 		},
@@ -69,24 +63,36 @@
 		methods:{
             onSubmit(evt) {
                 var self = this;
-                console.log("on submit");
                 evt.preventDefault()
                 self.overlay = true;
-                apiService.postLogin(self.form.username, self.form.password)
-                .then((response) => {
-                    console.log("response");
-                    console.log(response);
-                    if(response.error){
-                        alert(response.error);
-                    }else{
-                        self.$cookies.set('auth_token', response.auth_token);
-                        self.$cookies.set('nickname', response.nickname);
-                        console.log(self.$cookies.get('auth_token'));
-                        // self.$root.updateAuth();
-                        // self.$router.push("/");
-                        window.location.href = process.env.VUE_APP_BASE_URL+"/#/experiment";
-                    }
-                })
+                if(self.options.isLoggingIn){   //login
+                    apiService.login(self.form.username, self.form.password)
+                    .then((response) => {
+                        console.log("response");
+                        console.log(response);
+                        if(response.status == "fail"){
+                            alert(response.message);
+                        }else{
+                            self.$cookies.set('auth_token', response.token);
+                            self.$cookies.set('username', response.username);
+                            console.log(self.$cookies.get('auth_token'));
+			                window.location.href = process.env.VUE_APP_BASE_URL;
+                        }
+                    })
+                }
+                else{   //register
+                    apiService.register(self.form.username, self.form.email, self.form.password, self.form.confirm_password)
+                    .then((response) => {
+                        console.log("response");
+                        console.log(response);
+                        if(response.status == "fail"){
+                            alert(response.message);
+                        }else{
+                            alert("Register Success! You can login now.");
+                            self.options.isLoggingIn = true;
+                        }
+                    })
+                }
             },
 		}
 	}

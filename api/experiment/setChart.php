@@ -5,7 +5,7 @@ require('config.php');
 $chart = $_POST['chart'];
 $equipment_id = $_POST['equipment_id'];
 
-$file = "experiment/chart.json";
+$file = "chart.json";
 // $str = "0,38|0.1,39|0.2,40|0.3,41";
 $array = explode("|", $chart);
 $json = array();

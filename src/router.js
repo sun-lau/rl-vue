@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Experiment from './views/Experiment.vue'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -15,7 +13,7 @@ export default new Router({
     {
       path: '/experiment',
       name: 'experiment',
-      component: Experiment
+      component: () => import('./views/Experiment.vue')
     },
     {
       path: '/about',
@@ -33,6 +31,14 @@ export default new Router({
       component: () => import('./views/News.vue')
     },
     {
+      path: '/booking/:experiment_name',
+      name: 'booking',
+      component: () => import('./views/Booking.vue'),
+      meta: { 
+          requiresAuth: true
+      }
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('./views/Login.vue')
@@ -41,6 +47,40 @@ export default new Router({
       path: '/logout',
       name: 'logout',
       component: () => import('./views/Logout.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('./views/Admin.vue')
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+      if ($cookies.get('auth_token') == null) {
+        // $cookies.set('after_login', to.fullPath);
+          next({
+              path: '/login',
+              params: { nextUrl: to.fullPath }
+          })
+      } else {
+          // let user = JSON.parse(localStorage.getItem('user'))
+          // if(to.matched.some(record => record.meta.is_admin)) {
+          //     if(user.is_admin == 1){
+          //         next()
+          //     }
+          //     else{
+          //         next({ name: 'userboard'})
+          //     }
+          // }else {
+              next()
+          // }
+      }
+  } 
+  else {
+      next() 
+  }
+})
+
+export default router

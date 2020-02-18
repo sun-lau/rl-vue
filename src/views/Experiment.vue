@@ -99,6 +99,38 @@
                             </v-btn>
                         </v-btn-toggle>
 
+                    <v-card>
+
+                        <v-card-title>Step</v-card-title>
+                        <v-card-actions class="ml-4">
+                            <v-chip-group
+                                v-model="step_status"
+                                active-class="deep-purple accent-4 white--text"
+                                column
+                            >
+                                <v-chip @click="setCommand('device_0','STEP|SMALL')">Small</v-chip>
+                                <v-chip @click="setCommand('device_0','STEP|LARGE')">Large</v-chip>
+                            </v-chip-group>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                icon
+                                @click="step_show = !step_show"
+                            >
+                                <v-icon>{{ step_show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+
+                        <v-expand-transition>
+                        <div v-show="step_show">
+                            <v-divider></v-divider>
+
+                            <v-card-text>
+                            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+                            </v-card-text>
+                        </div>
+                        </v-expand-transition>
+                    </v-card>
+
                         <v-card-title>
                             Distance D 
                         </v-card-title>
@@ -212,7 +244,10 @@ export default {
             inte:null,
             laser_show:false,
             gain_show:false,
+            laser_show:false,
+            step_show: false,
             laser_status:"",
+            step_status:"",
             power:0,
             loading: false,
             api:{
@@ -254,9 +289,12 @@ export default {
                 self.simulate_device_1();
             }
         },3000);
-        setInterval(function(){
-            self.getValue("device_1");
-        },3000);
+        setInterval(function(){ //loop distance value
+            self.getValue("device_0");
+        },1000);
+        setInterval(function(){ //hard protect
+            location.reload();
+        },1000*60*60);
   },
   methods:{
         simulate_device_0(){
@@ -399,12 +437,15 @@ export default {
             self.loading = true;
             self.setCommand('device_1', 'MEASURE|START', function(){
                 self.inte = setInterval(function(){
-                    if(self.api.value.chart_at > self.api.command_set_at){
-                        clearInterval(self.inte);
-                        self.setCommand('device_1', 'MEASURE|END');
-                        self.getChart();
-                    }
-                },1000);
+                    self.getValue("device_1",function(){
+                        if(self.api.value.chart_at > self.api.command_set_at){
+                            clearInterval(self.inte);
+                            // self.setCommand('device_1', 'MEASURE|END');
+                            self.getChart();
+                        }
+                    });
+
+                },4000);
             });
         },
         getChart(){

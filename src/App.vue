@@ -124,20 +124,20 @@
 			{ 
 				icon: 'mdi-history',
 				text: 'About',
-				link: 'about',
+				link: '/about',
 				show: true
 			},
 			{ 
 				icon: 'mdi-lightbulb-on', 
 				text: 'Concept and Benefits',
-				link: 'concept',
+				link: '/concept',
 				show: true
 
 			},
 			{ 
 				icon: 'mdi-bullhorn', 
 				text: 'News',
-				link: 'news',
+				link: '/news',
 				show: true
 			},
 			{
@@ -149,22 +149,21 @@
 					{ 
 						icon: 'mdi-test-tube',
 						text: 'Interference',
-						link: 'experiment',
+						link: '/booking/interference',
 						show: true
 					},
-					// { icon: 'mdi-test-tube', text: 'Magnetic' },
 				],
 			},
 			{ 	//must be position last one for hide show
 				icon: 'mdi-key',
 				text: 'Login',
-				link: 'login',
+				link: '/login',
 				show: false
 			},
 			{ 	//must be position last one for hide show
 				icon: 'mdi-key',
 				text: 'Logout',
-				link: 'logout',
+				link: '/logout',
 				show: false
 			},
 		],
