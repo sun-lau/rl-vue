@@ -21,6 +21,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vuetify from './plugins/vuetify';
 Vue.config.productionTip = false
 Vue.use(require('vue-moment'));
+import JsonCSV from 'vue-json-csv'
+Vue.component('downloadCsv', JsonCSV)
 
 
 

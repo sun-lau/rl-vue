@@ -8,7 +8,7 @@ export class Booking_APIService extends APIService {
         super(api_base_url);
         // this.is_dummy = true;
     }
-    getSlotsByDate(date){
+    getSlotsByDate(equipment_id, date){
         var self = this;
         const url = `${this.api_base_url}/api/booking/getSlotsByDates.php`;
         var dummy_response = {
@@ -34,7 +34,7 @@ export class Booking_APIService extends APIService {
                 params: {
                     start_date: date,
                     end_date: date,
-                    equipment_id: "asdfgh",
+                    equipment_id: equipment_id,
 
                 }
             }).then(response => response.data);

@@ -300,7 +300,7 @@ export default {
         simulate_device_0(){
             var self = this;
             if(self.simulation.device_0.status == "WAIT_FOR_COMMAND"){
-                apiService.getCommand("device_0")
+                apiService.getCommand("INTERFERENCE", "asdfgh", "device_0")
                 .then((response) => {
                     if(response.command_got_at <= response.command_set_at){
                         self.simulation.device_0.logs.unshift({
@@ -326,7 +326,7 @@ export default {
         simulate_device_1(){
             var self = this;
             if(self.simulation.device_1.status == "WAIT_FOR_COMMAND"){
-                apiService.getCommand("device_1")
+                apiService.getCommand("INTERFERENCE", "asdfgh", "device_1")
                 .then((response) => {
                     if(response.command_got_at <= response.command_set_at){ //New Command
                         if(response.command == "MEASURE|START"){
@@ -347,7 +347,7 @@ export default {
                                 var value = JSON.stringify({ 
                                         distance: Math.floor(Math.random() * 100)+100
                                     });
-                                apiService.setValue("device_0", value)
+                                apiService.setValue("INTERFERENCE", "asdfgh", "device_0", value)
                                 .then((response) => {
                                     self.simulation.device_1.logs.unshift({
                                         time: moment().format('HH:mm:ss'),
@@ -379,7 +379,7 @@ export default {
                 var rand_1 = Math.floor(Math.random() * 100);
                 var rand_2 = Math.floor(Math.random() * 100);
                 var rand_3 = Math.floor(Math.random() * 100);
-                apiService.setChart("device_1", "0,"+rand_0+"|0.1,"+rand_1+"|0.2,"+rand_2+"|0.3,"+rand_3)
+                apiService.setChart("INTERFERENCE", "asdfgh", "device_1", "0,"+rand_0+"|0.1,"+rand_1+"|0.2,"+rand_2+"|0.3,"+rand_3)
                 .then((response) => {
                     self.simulation.device_1.logs.unshift({
                         time: moment().format('HH:mm:ss'),
@@ -404,7 +404,7 @@ export default {
         getValue(device_id, callback){
             console.log("getValue");
             var self = this;
-            apiService.getValue(device_id)
+            apiService.getValue("INTERFERENCE", "asdfgh", device_id)
             .then((response) => {
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
@@ -422,7 +422,7 @@ export default {
             console.log("set command");
             console.log(device_id);
             console.log(command);
-            apiService.setCommand(device_id, command)
+            apiService.setCommand("INTERFERENCE", "asdfgh", device_id, command)
             .then((response) => {
                 console.log("command is set");
                 console.log("response");
@@ -451,7 +451,7 @@ export default {
         getChart(){
             console.log("getChart");
             var self = this;
-            apiService.getChart()
+            apiService.getChart("INTERFERENCE", "asdfgh")
             .then((response) => {
                 self.api.chart = response;
                 self.series = [{data:response}];

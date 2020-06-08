@@ -14,7 +14,7 @@
                 <v-btn @click="enterLab">Demo Enter</v-btn>
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" md="6" lg="8" class="my-2 px-1">
-                <div class="title">{{$route.params.experiment_name}}</div>
+                <!-- <div class="title">{{$route.params.experiment_name}}</div> -->
                 <div class="subheading">{{current_date}}</div>
                      <v-simple-table height="300px">
                         <template v-slot:default>
@@ -77,9 +77,29 @@
         
         mounted () {
             var self = this;
+            self.assignEquipmentId();
             self.getSlotsByDate();
         },
+        watch: {
+            $route(to, from) {
+                //change from one experiment to another
+                var self = this;
+                self.assignEquipmentId();
+                self.getSlotsByDate();
+            }
+        },
 		methods:{
+            assignEquipmentId: function(){
+                var self = this;
+                switch(self.$route.params.experiment_name){
+                    case "visible_spectrum":
+                        self.equipment_id = "xcvbnm";
+                    break;
+                    case "apparent_depth":
+                        self.equipment_id = "zxcvbn";
+                    break;
+                }
+            },
             isBookedNow: function(slot){
                 if(moment(slot.start_at) < moment() 
                     && slot.status == 'BOOKED' 
@@ -103,17 +123,22 @@
             getSlotsByDate: function(){
                 var self = this;
                 console.log("getSlotsByDate: " + self.current_date);
-                apiService.getSlotsByDate(self.current_date)
+                self.api.slots = [];
+                apiService.getSlotsByDate(self.equipment_id, self.current_date)
                 .then((response) => {
-                    for(var slot of response.slots){
-                        if(moment(slot.end_at) < moment()){
-                            slot.display = false;
-                        }else{
-                            slot.display = true;
+                    if(typeof response.slots != 'undefined'){
+                        for(var slot of response.slots){
+                            if(moment(slot.end_at) < moment()){
+                                slot.display = false;
+                            }else{
+                                slot.display = true;
 
+                            }
                         }
+                        self.api.slots = response.slots;
+                    }else{
+                        alert("No Slots Assigned From Admin");
                     }
-                    self.api.slots = response.slots;
                 });
             },
             bookSlot: function(slot_id){
@@ -136,7 +161,9 @@
             },
             enterLab: function(){
                 var self = this;
-                self.$router.push("/experiment");
+                var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
+                self.$cookies.set('kick_time', kick_time);
+                self.$router.push("/experiment/"+self.$route.params.experiment_name);
 
             }
 		}

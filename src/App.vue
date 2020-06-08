@@ -74,6 +74,7 @@
           </v-list-item>
         </template>
       </v-list>
+		<small class="ma-4">0510.1</small>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -97,16 +98,7 @@
 
     </v-app-bar>
     <v-content>
-      <v-container
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-			<router-view/>
-        </v-row>
-      </v-container>
+		<router-view class="ma-4"/>
     </v-content>
   </v-app>
 </template>
@@ -121,6 +113,12 @@
 		dialog: false,
 		drawer: null,
 		side_items: [
+			{ 
+				icon: 'mdi-home',
+				text: 'Home',
+				link: '/home',
+				show: true
+			},
 			{ 
 				icon: 'mdi-history',
 				text: 'About',
@@ -146,10 +144,37 @@
 				text: 'Remote Experiments',
 				model: false,
 				children: [
+					// { 
+					// 	icon: 'mdi-test-tube',
+					// 	text: 'Interference',
+					// 	link: '/booking/interference',
+					// 	show: true
+					// },
 					{ 
-						icon: 'mdi-test-tube',
-						text: 'Interference',
-						link: '/booking/interference',
+						// icon: 'mdi-food-apple',
+						text: 'Physics',
+						show: true
+					},
+					{ 
+						icon: 'mdi-minus',
+						text: 'Apparent depth',
+						link: '/booking/apparent_depth',
+						show: true
+					},
+					{ 
+						// icon: 'mdi-test-tube',
+						text: 'Chemistry',
+						show: true
+					},
+					{ 
+						icon: 'mdi-minus',
+						text: 'Visible Spectrum',
+						link: '/booking/visible_spectrum',
+						show: true
+					},
+					{ 
+						// icon: 'mdi-human-handsdown',
+						text: 'Biology',
 						show: true
 					},
 				],

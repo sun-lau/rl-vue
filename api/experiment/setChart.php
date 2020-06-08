@@ -5,7 +5,8 @@ require('config.php');
 $chart = $_POST['chart'];
 $equipment_id = $_POST['equipment_id'];
 
-$file = "chart.json";
+// $file = "chart.json";
+$file = "charts/".$equipment_id.".json";
 // $str = "0,38|0.1,39|0.2,40|0.3,41";
 $array = explode("|", $chart);
 $json = array();
@@ -33,7 +34,7 @@ $value_json = array(
     "chart_at"=>time()
 ); 
    
-$equipment_id = "asdfgh";
+$equipment_id = $_POST['equipment_id'];
 $device_id = $_POST['device_id'];
 
 

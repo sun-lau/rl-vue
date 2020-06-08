@@ -7,13 +7,13 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('./views/About.vue')
+      name: 'base',
+      component: () => import('./views/Home.vue')
     },
     {
-      path: '/experiment',
-      name: 'experiment',
-      component: () => import('./views/Experiment.vue')
+      path: '/home',
+      name: 'home',
+      component: () => import('./views/Home.vue')
     },
     {
       path: '/about',
@@ -37,6 +37,21 @@ let router = new Router({
       meta: { 
           requiresAuth: true
       }
+    },
+    {
+      path: '/experiment/interference',
+      name: 'experiment_interference',
+      component: () => import('./views/Experiments/Interference.vue')
+    },
+    {
+      path: '/experiment/apparent_depth',
+      name: 'experiment_apparent_depth',
+      component: () => import('./views/Experiments/ApparentDepth.vue')
+    },
+    {
+      path: '/experiment/visible_spectrum',
+      name: 'experiment_visible_spectrum',
+      component: () => import('./views/Experiments/VisibleSpectrum.vue')
     },
     {
       path: '/login',

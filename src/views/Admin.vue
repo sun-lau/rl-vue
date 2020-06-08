@@ -13,6 +13,17 @@
                         <hr>
                         <v-row>
                             <v-col>
+                                <v-select
+                                :items="equipment_ids"
+                                item-text="text"
+                                item-value="value"
+                                v-model="form.equipment_id"
+                                label="Equipment ID"
+                                ></v-select>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
                                 <v-text-field v-model="form.start_from" light="light" label="Start From"></v-text-field>
                             </v-col>
                             <v-col>
@@ -41,10 +52,25 @@
 		},
         data: () => ({
             dates: [],
+            equipment_ids:[
+                {
+                    text:"INTERFERENCE (asdfgh)",
+                    value:"asdfgh"
+                },
+                {
+                    text:"APPARENT_DEPTH (zxcvbn)",
+                    value:"zxcvbn"
+                },
+                {
+                    text:"Visible Spectrum (xcvbnm)",
+                    value:"xcvbnm"
+                }
+            ],
             form:{
                 start_from:"00:00",
                 duration:"55",
-                rest:"5"
+                rest:"5",
+                equipment_id:"zxcvbn"
             }
         }),
         computed: {
@@ -58,7 +84,6 @@
         },
         mounted () {
             var self = this;
-            self.getSlotsByDate();
         },
 		methods:{
             checkSlots: function(){
@@ -76,7 +101,7 @@
                     self.form.start_from,
                     self.form.duration,
                     self.form.rest,
-                    "asdfgh"
+                    self.form.equipment_id
                 )
                 .then((response) => {
                     if(response.status == "success"){
