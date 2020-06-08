@@ -74,7 +74,7 @@
           </v-list-item>
         </template>
       </v-list>
-		<small class="ma-4">0510.1</small>
+		<small class="ma-4">0608.1</small>
     </v-navigation-drawer>
 
     <v-app-bar
@@ -144,15 +144,15 @@
 				text: 'Remote Experiments',
 				model: false,
 				children: [
-					// { 
-					// 	icon: 'mdi-test-tube',
-					// 	text: 'Interference',
-					// 	link: '/booking/interference',
-					// 	show: true
-					// },
 					{ 
 						// icon: 'mdi-food-apple',
 						text: 'Physics',
+						show: true
+					},
+					{ 
+						icon: 'mdi-minus',
+						text: 'Interference',
+						link: '/booking/interference',
 						show: true
 					},
 					{ 

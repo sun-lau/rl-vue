@@ -39,20 +39,28 @@ let router = new Router({
       }
     },
     {
-      path: '/experiment/interference',
-      name: 'experiment_interference',
-      component: () => import('./views/Experiments/Interference.vue')
+      path: '/experiment',
+      name: 'experiment',
+      component: () => import('./views/Experiment.vue'),
+      meta: { 
+          requiresAuth: true
+      }
     },
-    {
-      path: '/experiment/apparent_depth',
-      name: 'experiment_apparent_depth',
-      component: () => import('./views/Experiments/ApparentDepth.vue')
-    },
-    {
-      path: '/experiment/visible_spectrum',
-      name: 'experiment_visible_spectrum',
-      component: () => import('./views/Experiments/VisibleSpectrum.vue')
-    },
+    // {
+    //   path: '/experiment/interference',
+    //   name: 'experiment_interference',
+    //   component: () => import('./views/Experiments/Interference.vue')
+    // },
+    // {
+    //   path: '/experiment/apparent_depth',
+    //   name: 'experiment_apparent_depth',
+    //   component: () => import('./views/Experiments/ApparentDepth.vue')
+    // },
+    // {
+    //   path: '/experiment/visible_spectrum',
+    //   name: 'experiment_visible_spectrum',
+    //   component: () => import('./views/Experiments/VisibleSpectrum.vue')
+    // },
     {
       path: '/login',
       name: 'login',

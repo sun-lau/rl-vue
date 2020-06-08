@@ -1,5 +1,5 @@
 <template>
-    <div class="experiment">
+    <div class="">
         <v-container fluid>
             <v-row>
                 <v-col xs="12" sm="6">
@@ -235,7 +235,7 @@ import LineChart from '@/components/LineChart.vue'
 import {Experiment_APIService} from '@/services/Experiment_APIService';
 const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
-  name: 'experiment',
+  name: 'Interference',
   components: {
       LineChart
   },

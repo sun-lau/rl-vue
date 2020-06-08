@@ -82,7 +82,7 @@ import LineChart from '@/components/LineChart.vue'
 import {Experiment_APIService} from '@/services/Experiment_APIService';
 const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
-  name: 'experiment',
+  name: 'VisibleSpectrum',
   components: {
       LineChart
   },

@@ -12,6 +12,7 @@
                     @change="getSlotsByDate"
                 ></v-date-picker>
                 <v-btn @click="enterLab">Demo Enter</v-btn>
+                <v-btn @click="observeLab">Observe Laboratory</v-btn>
                 </v-col>
                 <v-col cols="12" xs="12" sm="6" md="6" lg="8" class="my-2 px-1">
                 <!-- <div class="title">{{$route.params.experiment_name}}</div> -->
@@ -163,8 +164,13 @@
                 var self = this;
                 var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
                 self.$cookies.set('kick_time', kick_time);
-                self.$router.push("/experiment/"+self.$route.params.experiment_name);
-
+                self.$router.push("/experiment?name="+self.$route.params.experiment_name+"&role=player&token=");
+            },
+            observeLab: function(){
+                var self = this;
+                var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
+                self.$cookies.set('kick_time', kick_time);
+                self.$router.push("/experiment?name="+self.$route.params.experiment_name+"&role=observer&token=");
             }
 		}
 	}
