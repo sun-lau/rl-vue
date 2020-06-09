@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div>
         <v-container fluid>
             <v-row>
                 <v-col xs="12" sm="6">
@@ -7,16 +7,18 @@
                         <v-card-title>Live</v-card-title>
                         <v-row class="ml-2 mr-2 mt-4">
                             <v-col  xs="12" sm="6">
-                            <b-img 
-                                src="http://158.132.254.155:8081/?action=stream"
-                                fluid
-                            />
+                                {{api.camera_0}}
+                                <b-img 
+                                    :src="api.camera_0"
+                                    fluid
+                                />
                             </v-col>
                             <v-col xs="12" sm="6">
-                            <b-img 
-                                src="http://158.132.254.164:8081/?action=stream"
-                                fluid
-                            />
+                                    {{api.camera_1}}
+                                <b-img 
+                                    :src="api.camera_1"
+                                    fluid
+                                />
                             </v-col>
                         </v-row>
                     </v-card>
@@ -62,7 +64,7 @@
 
                     </v-card>
                 </v-col>
-                <v-col xs="12" sm="6">
+                <v-col xs="12" sm="6" v-if="$route.query.role=='player'">
                     <v-card>
                         <v-card-title>Control</v-card-title>
                         <v-card-title>Horizontal:</v-card-title>
@@ -131,12 +133,12 @@
         </v-dialog>
 
 		<v-btn
-		absolute
-		dark
-		top
-		right
-		color="green"
-		class="mt-4"
+            absolute
+            dark
+            top
+            right
+            color="green"
+            class="mt-4"
 		>
             <v-icon>mdi-clock</v-icon> {{parseInt(kick_time/60)}} mins left
 		</v-btn>
@@ -254,6 +256,8 @@ export default {
                 
             ],
             api:{
+                camera_0:"http://158.132.254.155:8081/?action=stream",
+                camera_1:"http://158.132.254.164:8081/?action=stream",
                 value:"",
                 value_got_at:null,
                 value_set_at:null
@@ -282,10 +286,7 @@ export default {
   },
   mounted: function(){
         var self = this;
-        console.log("role");
-        console.log(this.$route.query.role);
         self.setCommand("device_0","RESTART|1");
-
         setInterval(function(){ //hard protect
             location.reload();
         },1000*60*60);
