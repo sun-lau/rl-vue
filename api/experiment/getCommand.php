@@ -12,12 +12,13 @@ if ($conn->connect_error) {
 }
 
 $current_time = time();
+$experiment = $_GET['experiment'];
 $equipment_id = $_GET['equipment_id'];
 $device_id = $_GET['device_id'];
 if(isset($_GET['equipment_id'])){
 
 
-    $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
+    $sql = "SELECT * FROM rl_experiment WHERE experiment='".$experiment."'AND equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -29,7 +30,7 @@ if(isset($_GET['equipment_id'])){
             $myObj->command_set_at = $row["command_set_at"];
             $myObj->status = "success";
             //else return not yet ready
-            $sql = "UPDATE rl_experiment SET command_got_at=".$current_time."  WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
+            $sql = "UPDATE rl_experiment SET command_got_at=".$current_time."  WHERE experiment='".$experiment."'AND equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
             if ($conn->query($sql) === TRUE) { 
                 echo json_encode($myObj);
                 //else return not yet ready

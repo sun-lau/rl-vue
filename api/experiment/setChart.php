@@ -3,10 +3,12 @@ header('Content-Type: application/json');
 require('config.php');
 
 $chart = $_POST['chart'];
+$experiment = $_POST['experiment'];
 $equipment_id = $_POST['equipment_id'];
+$device_id = $_POST['device_id'];
 
 // $file = "chart.json";
-$file = "charts/".$equipment_id.".json";
+$file = "charts/".$experiment."_".$equipment_id.".json";
 // $str = "0,38|0.1,39|0.2,40|0.3,41";
 $array = explode("|", $chart);
 $json = array();
@@ -34,11 +36,9 @@ $value_json = array(
     "chart_at"=>time()
 ); 
    
-$equipment_id = $_POST['equipment_id'];
-$device_id = $_POST['device_id'];
 
 
-$sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
+$sql = "SELECT * FROM rl_experiment WHERE experiment='".$experiment."'AND equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
 $result = $conn->query($sql);
 if ($result->num_rows == 0) {
     $myObj->status = "fail";

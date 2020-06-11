@@ -16,11 +16,12 @@
         die();
     }
     $command = $_POST['command'];
+    $experiment = $_POST['experiment'];
     $equipment_id = $_POST['equipment_id'];
     $device_id = $_POST['device_id'];
     if(isset($command)){
 
-        $sql = "SELECT * FROM rl_experiment WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
+        $sql = "SELECT * FROM rl_experiment WHERE experiment='".$experiment."'AND equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
         $result = $conn->query($sql);
         if ($result->num_rows == 0) {
             $myObj->status = "fail";
@@ -30,7 +31,7 @@
         }
 
         $current_time = time();
-        $sql = "UPDATE rl_experiment SET command='".$command."',command_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
+        $sql = "UPDATE rl_experiment SET command='".$command."',command_set_at='".$current_time."'  WHERE experiment='".$experiment."'AND equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
 
         if ($conn->query($sql) === TRUE) {
             $myObj->status = "success";

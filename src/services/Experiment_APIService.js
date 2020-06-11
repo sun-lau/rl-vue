@@ -12,6 +12,7 @@ export class Experiment_APIService extends APIService {
         var self = this;
         const url = `${this.api_base_url}/api/experiment/setChart.php`;
         var bodyFormData = new FormData();
+        bodyFormData.set('experiment', experiment);
         bodyFormData.set('equipment_id', equipment_id);
         bodyFormData.set('device_id', device_id);
         bodyFormData.set('chart', chart);
@@ -36,7 +37,7 @@ export class Experiment_APIService extends APIService {
     }
     getChart(experiment, equipment_id){
         var self = this;
-        const url = `${this.api_base_url}/api/experiment/getChart.php?equipment_id=`+equipment_id;
+        const url = `${this.api_base_url}/api/experiment/getChart.php?experiment=`+experiment+`&equipment_id=`+equipment_id;
         var dummy_response = {
             value:[
                 {
@@ -57,7 +58,7 @@ export class Experiment_APIService extends APIService {
     }
     getValue(experiment, equipment_id, device_id){
         var self = this;
-        const url = `${this.api_base_url}/api/experiment/getValue.php?equipment_id=`+equipment_id+"&device_id="+device_id;
+        const url = `${this.api_base_url}/api/experiment/getValue.php?equipment_id=`+equipment_id+"&device_id="+device_id+"&experiment="+experiment;
         var dummy_response = {
             value:[
             ]
@@ -73,6 +74,7 @@ export class Experiment_APIService extends APIService {
         var self = this;
         const url = `${this.api_base_url}/api/experiment/setValue.php`;
         var bodyFormData = new FormData();
+        bodyFormData.set('experiment', experiment);
         bodyFormData.set('equipment_id', equipment_id);
         bodyFormData.set('device_id', device_id);
         bodyFormData.set('value', value);
@@ -97,7 +99,7 @@ export class Experiment_APIService extends APIService {
     }
     getCommand(experiment, equipment_id, device_id){
         var self = this;
-        const url = `${this.api_base_url}/api/experiment/getCommand.php?equipment_id=`+equipment_id+"&device_id="+device_id;
+        const url = `${this.api_base_url}/api/experiment/getCommand.php?equipment_id=`+equipment_id+"&device_id="+device_id+"&experiment="+experiment;
         var dummy_response = {
             value:[
             ]
@@ -113,6 +115,7 @@ export class Experiment_APIService extends APIService {
         var self = this;
         const url = `${this.api_base_url}/api/experiment/setCommand.php`;
         var bodyFormData = new FormData();
+        bodyFormData.set('experiment', experiment);
         bodyFormData.set('equipment_id', equipment_id);
         bodyFormData.set('device_id', device_id);
         bodyFormData.set('command', command);
