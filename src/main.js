@@ -23,13 +23,14 @@ Vue.config.productionTip = false
 Vue.use(require('vue-moment'));
 import JsonCSV from 'vue-json-csv'
 Vue.component('downloadCsv', JsonCSV)
-
+import { store } from './store/store'
 
 
 Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
 new Vue({
+  store,
   i18n,
   router,
   vuetify,

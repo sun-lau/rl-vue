@@ -64,7 +64,7 @@
 
                     </v-card>
                 </v-col>
-                <v-col xs="12" sm="6" v-if="$route.query.role=='player'">
+                <v-col xs="12" sm="6" v-if="$store.getters.role=='player'">
                     <v-card>
                         <v-card-title>Control</v-card-title>
                         <v-card-title>Horizontal:</v-card-title>
@@ -131,17 +131,6 @@
                 </v-layout>
             </v-container>
         </v-dialog>
-
-		<v-btn
-            absolute
-            dark
-            top
-            right
-            color="green"
-            class="mt-4"
-		>
-            <v-icon>mdi-clock</v-icon> {{parseInt(kick_time/60)}} mins left
-		</v-btn>
     </div>
 </template>
 
@@ -157,82 +146,15 @@ export default {
   components: {
       LineChart
   },
+  props: {
+      role:String
+  },
   data:function(){
       return{
             inte:null,
             loading: false,
             map:[
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,0,0],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1],
-                [1,1,1]
+                [1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1]
             ],
             current:{
                 horizontal_position:0,
@@ -275,8 +197,9 @@ export default {
                 }
             },
             simluate_0_mode: false,
-            kick_time: 3600
-
+            token:"",
+            experiment_name:"",
+            equipment_id:""
       }
   },
   computed: {
@@ -286,49 +209,41 @@ export default {
   },
   mounted: function(){
         var self = this;
+        self.experiment_name = "APPARENT_DEPTH";
+        self.token = self.$cookies.get('token');
+        self.equipment_id = self.$cookies.get('equipment_id');
         self.setCommand("device_0","RESTART|1");
-        setInterval(function(){ //hard protect
-            location.reload();
-        },1000*60*60);
-        self.kick_time = self.$cookies.get('kick_time');
-        setInterval(function(){ //countdown protect
-            self.kick_time = self.kick_time -1;
-            if(self.kick_time < 0){
-                window.location.href = process.env.VUE_APP_BASE_URL;
-            }
-        },1000);
   },
   methods:{
-        simulate_device_0(){
-            var self = this;
-            if(self.simulation.device_0.status == "WAIT_FOR_COMMAND"){
-                apiService.getCommand("APPARENT_DEPTH", "zxcvbn", "device_0")
-                .then((response) => {
-                    if(response.command_got_at <= response.command_set_at){
-                        self.simulation.device_0.logs.unshift({
-                            time: moment().format('HH:mm:ss'),
-                            api:"getCommand",
-                            request:{
-                                equipment_id:"asdfgh"
-                            },
-                            response:response,
-                        });
-                    }else{
-                        self.simulation.device_0.logs.unshift({
-                            time: moment().format('HH:mm:ss'),
-                            api:"getCommand [IGNORE]",
-                            response:response,
-                        });
+        // simulate_device_0(){
+        //     var self = this;
+        //     if(self.simulation.device_0.status == "WAIT_FOR_COMMAND"){
+        //         apiService.getCommand("APPARENT_DEPTH", "set_0", "device_0")
+        //         .then((response) => {
+        //             if(response.command_got_at <= response.command_set_at){
+        //                 self.simulation.device_0.logs.unshift({
+        //                     time: moment().format('HH:mm:ss'),
+        //                     api:"getCommand",
+        //                     request:{
+        //                         equipment_id:"set_0"
+        //                     },
+        //                     response:response,
+        //                 });
+        //             }else{
+        //                 self.simulation.device_0.logs.unshift({
+        //                     time: moment().format('HH:mm:ss'),
+        //                     api:"getCommand [IGNORE]",
+        //                     response:response,
+        //                 });
 
-                    }
-                });
-            }
-
-        },
+        //             }
+        //         });
+        //     }
+        // },
         getValue(device_id, callback){
             console.log("getValue");
             var self = this;
-            apiService.getValue("APPARENT_DEPTH", "zxcvbn", device_id)
+            apiService.getValue(self.token, self.experiment_name, self.equipment_id, device_id)
             .then((response) => {
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
@@ -346,7 +261,7 @@ export default {
             console.log("set command");
             console.log(device_id);
             console.log(command);
-            apiService.setCommand("APPARENT_DEPTH", "zxcvbn", device_id, command)
+            apiService.setCommand(self.token, self.experiment_name, self.equipment_id, device_id, command)
             .then((response) => {
                 console.log("command is set");
                 console.log("response");
@@ -359,8 +274,6 @@ export default {
         setHorizontal(h){
             var self = this;
             if(self.isAllowedToMoveHorizontal(h)){
-                console.log("here");
-                console.log(h);
                 self.current.horizontal_position = h;
                 self.setCommand("device_0","POSITION_MAP|"+self.current.horizontal_position+","+self.current.vertical_position);
             }else{

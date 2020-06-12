@@ -35,7 +35,7 @@ export class Experiment_APIService extends APIService {
             });
         }
     }
-    getChart(experiment, equipment_id){
+    getChart(experiment, equipment_id){    //user side
         var self = this;
         const url = `${this.api_base_url}/api/experiment/getChart.php?experiment=`+experiment+`&equipment_id=`+equipment_id;
         var dummy_response = {
@@ -56,9 +56,9 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
-    getValue(experiment, equipment_id, device_id){
+    getValue(token, experiment, equipment_id, device_id){    //user side
         var self = this;
-        const url = `${this.api_base_url}/api/experiment/getValue.php?equipment_id=`+equipment_id+"&device_id="+device_id+"&experiment="+experiment;
+        const url = `${this.api_base_url}/api/experiment/getValue.php`;
         var dummy_response = {
             value:[
             ]
@@ -67,7 +67,14 @@ export class Experiment_APIService extends APIService {
             return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
         }else{
            
-            return axios.get(url).then(response => response.data);
+            return axios.get(url, {
+                params: {
+                  token: token,
+                  experiment: experiment,
+                  equipment_id: equipment_id,
+                  device_id: device_id,
+                }
+              }).then(response => response.data);
         }
     }
     setValue(experiment, equipment_id, device_id, value){
@@ -99,7 +106,7 @@ export class Experiment_APIService extends APIService {
     }
     getCommand(experiment, equipment_id, device_id){
         var self = this;
-        const url = `${this.api_base_url}/api/experiment/getCommand.php?equipment_id=`+equipment_id+"&device_id="+device_id+"&experiment="+experiment;
+        const url = `${this.api_base_url}/api/experiment/getCommand.php`;
         var dummy_response = {
             value:[
             ]
@@ -108,13 +115,20 @@ export class Experiment_APIService extends APIService {
             return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
         }else{
            
-            return axios.get(url).then(response => response.data);
+            return axios.get(url, {
+                params: {
+                  experiment: experiment,
+                  equipment_id: equipment_id,
+                  device_id: device_id,
+                }
+              }).then(response => response.data);
         }
     }
-    setCommand(experiment, equipment_id, device_id, command){
+    setCommand(token, experiment, equipment_id, device_id, command){    //user side
         var self = this;
         const url = `${this.api_base_url}/api/experiment/setCommand.php`;
         var bodyFormData = new FormData();
+        bodyFormData.set('token', token);
         bodyFormData.set('experiment', experiment);
         bodyFormData.set('equipment_id', equipment_id);
         bodyFormData.set('device_id', device_id);
