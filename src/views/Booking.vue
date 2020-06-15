@@ -166,6 +166,7 @@
                 self.$cookies.set('kick_time', kick_time);
                 self.$store.dispatch('checkToken', "aaaaaa").then(() => {
                     console.log(self.$store.getters.role );
+                    self.$cookies.set('equipment_id', "set_0");
                     self.$router.push("/experiment?name="+self.$route.params.experiment_name);
                 });
                 // self.$cookies.set('equipment_id', "set_0");

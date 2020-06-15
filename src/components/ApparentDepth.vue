@@ -213,6 +213,12 @@ export default {
         self.token = self.$cookies.get('token');
         self.equipment_id = self.$cookies.get('equipment_id');
         self.setCommand("device_0","RESTART|1");
+        self.getValue("camera_0", function(){
+            self.api.camera_0 = self.api.value.url;
+        });
+        self.getValue("camera_1", function(){
+            self.api.camera_1 = self.api.value.url;
+        });
   },
   methods:{
         // simulate_device_0(){
