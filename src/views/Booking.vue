@@ -164,11 +164,11 @@
                 var self = this;
                 var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
                 self.$cookies.set('kick_time', kick_time);
-                self.$store.dispatch('checkToken', "aaaaaa").then(() => {
-                    console.log(self.$store.getters.role );
+                // self.$store.dispatch('checkToken', "aaaaaa").then(() => {
+                    // console.log(self.$store.getters.role );
                     self.$cookies.set('equipment_id', "set_0");
                     self.$router.push("/experiment?name="+self.$route.params.experiment_name);
-                });
+                // });
                 // self.$cookies.set('equipment_id', "set_0");
                 // self.$cookies.set('token', "aaaaaa");
                 // self.$router.push("/experiment?name="+self.$route.params.experiment_name);
