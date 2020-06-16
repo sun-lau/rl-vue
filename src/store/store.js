@@ -10,13 +10,15 @@ export const store = new Vuex.Store({
       role: "anonymous"
     },
     actions: {
-      checkToken ({ commit, state }, token) {
+      getToken ({ commit, state }, args) {
         return new Promise((resolve, reject) => {
-          console.log("token");
-          console.log(token);
-        axios.get(`https://stem-ap.polyu.edu.hk/remotelab/api/experiment/checkToken.php`, {
+            console.log("hey");
+            console.log(args.username);
+            console.log(args.slot_id);
+        axios.get(`https://stem-ap.polyu.edu.hk/remotelab/api/booking/getToken.php`, {
             params: {
-                token: token
+                username: args.username,
+                slot_id: args.slot_id
             }
           }).then(function(response){
             commit('updateRole', response.data);

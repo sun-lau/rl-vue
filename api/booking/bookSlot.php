@@ -20,14 +20,17 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    //check slot is available for booking
 
-
-    $stmt = $conn->prepare("UPDATE bookings SET username = ?, status = ? WHERE id = ?");
-    $stmt->bind_param("ssi", $username, $status, $id);
+    //book it
+    $stmt = $conn->prepare("UPDATE bookings SET username = ?, status = ?, token = ? WHERE id = ?");
+    $stmt->bind_param("sssi", $username, $status, $token_json,  $id);
     $username = $_POST['username'];
     $status = "BOOKED";
     $id = $_POST['slot_id'];
-    
+    $token->player = "aaaaaa";
+    $token->observer = "bbbbbb";
+    $token_json = json_encode($token);
     $stmt->execute();
 
     $myObj->status = "success";

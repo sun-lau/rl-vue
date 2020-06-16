@@ -74,9 +74,12 @@
                             alert(response.message);
                         }else{
                             self.$cookies.set('auth_token', response.token);
-                            self.$cookies.set('username', response.username);
+                            self.$cookies.set('nickname', response.username);
                             console.log(self.$cookies.get('auth_token'));
-			                window.location.href = process.env.VUE_APP_BASE_URL;
+                            self.$router.push("/");
+                            alert("Login Success");
+
+			                // window.location.href = process.env.VUE_APP_BASE_URL;
                         }
                     })
                 }

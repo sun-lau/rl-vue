@@ -38,7 +38,7 @@
                                     >Book</v-btn>
                                     <v-btn color="success"
                                         v-if="isBookedNow(slot)"
-                                        @click="enterLab"
+                                        @click="enterLab(slot.id)"
                                     >Enter Lab</v-btn>
                                     <v-btn 
                                         v-if="isBookedSoon(slot)"
@@ -160,15 +160,20 @@
                 });
 
             },
-            enterLab: function(){
+            enterLab: function(slot_id){
                 var self = this;
+                console.log("enter lab");
+                console.log(slot_id);
                 var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
                 self.$cookies.set('kick_time', kick_time);
-                // self.$store.dispatch('checkToken', "aaaaaa").then(() => {
+                self.$store.dispatch('getToken', {
+                    username: self.$cookies.get('username'), 
+                    slot_id: slot_id
+                    }).then(() => {
                     // console.log(self.$store.getters.role );
                     self.$cookies.set('equipment_id', "set_0");
                     self.$router.push("/experiment?name="+self.$route.params.experiment_name);
-                // });
+                });
                 // self.$cookies.set('equipment_id', "set_0");
                 // self.$cookies.set('token', "aaaaaa");
                 // self.$router.push("/experiment?name="+self.$route.params.experiment_name);
