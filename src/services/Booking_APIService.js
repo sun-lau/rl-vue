@@ -8,7 +8,7 @@ export class Booking_APIService extends APIService {
         super(api_base_url);
         // this.is_dummy = true;
     }
-    getSlotsByDate(equipment_id, date){
+    getSlotsByDate(experiment, date){
         var self = this;
         const url = `${this.api_base_url}/api/booking/getSlotsByDates.php`;
         var dummy_response = {
@@ -34,18 +34,17 @@ export class Booking_APIService extends APIService {
                 params: {
                     start_date: date,
                     end_date: date,
-                    equipment_id: equipment_id,
-
+                    experiment: experiment
                 }
             }).then(response => response.data);
         }
     }
-    bookSlot(slot_id, username){
+    bookSlot(slot_id, auth_token){
         var self = this;
         const url = `${this.api_base_url}/api/booking/bookSlot.php`;
         var bodyFormData = new FormData();
         bodyFormData.set('slot_id', slot_id);
-        bodyFormData.set('username', username);
+        bodyFormData.set('auth_token', auth_token);
         return axios({
             method: 'post',
             url: url,
@@ -57,12 +56,12 @@ export class Booking_APIService extends APIService {
             })
             .then(response => response.data);
     }
-    releaseSlot(slot_id, username){
+    releaseSlot(slot_id, auth_token){
         var self = this;
         const url = `${this.api_base_url}/api/booking/releaseSlot.php`;
         var bodyFormData = new FormData();
         bodyFormData.set('slot_id', slot_id);
-        bodyFormData.set('username', username);
+        bodyFormData.set('auth_token', auth_token);
         return axios({
             method: 'post',
             url: url,
@@ -74,5 +73,23 @@ export class Booking_APIService extends APIService {
             })
             .then(response => response.data);
     }
+    enterLab(slot_id, auth_token){
+        var self = this;
+        const url = `${this.api_base_url}/api/booking/enterLab.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('slot_id', slot_id);
+        bodyFormData.set('auth_token', auth_token);
+        return axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .then(response => response.data);
+    }
+
 
 }

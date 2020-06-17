@@ -8,7 +8,7 @@ export class Admin_APIService extends APIService {
         super(api_base_url);
         // this.is_dummy = true;
     }
-    getSlotsByDates(start_date, end_date){
+    getSlotsByDates(experiment, equipment_id, start_date, end_date){
         var self = this;
         const url = `${this.api_base_url}/api/booking/getSlotsByDates.php`;
         var dummy_response = {
@@ -34,12 +34,13 @@ export class Admin_APIService extends APIService {
                 params: {
                     start_date: start_date,
                     end_date: end_date,
-                    equipment_id: "asdfgh",
+                    experiment: experiment,
+                    equipment_id: equipment_id,
                 }
             }).then(response => response.data);
         }
     }
-    assignSlotsToDates(start_date, end_date, start_from, duration, rest, equipment_id){
+    assignSlotsToDates(start_date, end_date, start_from, duration, rest, experiment, equipment_id){
         var self = this;
         const url = `${this.api_base_url}/api/booking/assignSlotsToDates.php`;
         var bodyFormData = new FormData();
@@ -48,6 +49,7 @@ export class Admin_APIService extends APIService {
         bodyFormData.set('start_from', start_from);
         bodyFormData.set('duration', duration);
         bodyFormData.set('rest', rest);
+        bodyFormData.set('experiment', experiment);
         bodyFormData.set('equipment_id', equipment_id);
         return axios({
             method: 'post',

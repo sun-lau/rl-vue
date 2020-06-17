@@ -20,8 +20,9 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $stmt = $conn->prepare("INSERT INTO bookings (date, start_at, end_at, equipment_id, status) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $param_date, $param_start_at, $param_end_at, $param_equipment_id, $param_status);
+    $stmt = $conn->prepare("INSERT INTO bookings (date, start_at, end_at, experiment, equipment_id, status) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $param_date, $param_start_at, $param_end_at, $param_experiment, $param_equipment_id, $param_status);
+    $experiment = $_POST['experiment'];
     $equipment_id = $_POST['equipment_id'];
     $status = "IDLE";
     $date = $_POST['start_date'];
@@ -46,6 +47,7 @@
         $param_date = date('Y-m-d',strtotime($current) );
         $param_start_at = $start_at;
         $param_end_at = $end_at;
+        $param_experiment = $experiment;
         $param_equipment_id = $equipment_id;
         $param_status = $status;
         $stmt->execute();

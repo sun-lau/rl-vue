@@ -14,6 +14,15 @@
                         <v-row>
                             <v-col>
                                 <v-select
+                                :items="experiments"
+                                item-text="text"
+                                item-value="value"
+                                v-model="form.experiment"
+                                label="Experiment"
+                                ></v-select>
+                            </v-col>
+                            <v-col>
+                                <v-select
                                 :items="equipment_ids"
                                 item-text="text"
                                 item-value="value"
@@ -35,7 +44,7 @@
                         </v-row>
                         <v-btn class="ma-4" @click="assignSlots">Assign {{ calculated_no_of_slots }} Slots To Each of Selected Date Range</v-btn>
                         <hr>
-                        <v-btn class="ma-4" color="error">Remove Selected Booking Slots</v-btn>
+                        <!-- <v-btn class="ma-4" color="error">Remove Selected Booking Slots</v-btn> -->
                     </v-col>
                 </v-row>
             </v-container>
@@ -52,25 +61,36 @@
 		},
         data: () => ({
             dates: [],
+            experiments:[
+                {
+                    text:"INTERFERENCE",
+                    value:"INTERFERENCE"
+                },
+                {
+                    text:"APPARENT_DEPTH",
+                    value:"APPARENT_DEPTH"
+                },
+                {
+                    text:"VISIBLE_SPECTRUM",
+                    value:"VISIBLE_SPECTRUM"
+                }
+            ],
             equipment_ids:[
                 {
-                    text:"INTERFERENCE (asdfgh)",
-                    value:"asdfgh"
+                    text:"Set 0",
+                    value:"set_0"
                 },
                 {
-                    text:"APPARENT_DEPTH (zxcvbn)",
-                    value:"zxcvbn"
+                    text:"Set 1",
+                    value:"set_1"
                 },
-                {
-                    text:"Visible Spectrum (xcvbnm)",
-                    value:"xcvbnm"
-                }
             ],
             form:{
                 start_from:"00:00",
                 duration:"55",
                 rest:"5",
-                equipment_id:"zxcvbn"
+                experiment:"",
+                equipment_id:""
             }
         }),
         computed: {
@@ -88,9 +108,9 @@
 		methods:{
             checkSlots: function(){
                 var self = this;
-                apiService.checkSlots(self.dates[0], self.dates[1])
+                apiService.getSlotsByDates(self.form.experiment, self.form.equipment_id, self.dates[0], self.dates[1])
                 .then((response) => {
-                    
+                    alert("There are "+response.slots.length +" slots exist in this range");
                 });
             },
             assignSlots: function(){
@@ -101,6 +121,7 @@
                     self.form.start_from,
                     self.form.duration,
                     self.form.rest,
+                    self.form.experiment,
                     self.form.equipment_id
                 )
                 .then((response) => {

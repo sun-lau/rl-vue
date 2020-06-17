@@ -14,18 +14,20 @@ if ($conn->connect_error) {
 $current_time = date('Y-m-d H:i:s');
 $start_date =  $_GET['start_date'];
 $end_date =  $_GET['end_date'];
+$experiment = $_GET['experiment'];
 $equipment_id = $_GET['equipment_id'];
 $date = $_GET['date'];
 
 if(isset($start_date)){
 
-    $sql = "SELECT * FROM bookings WHERE equipment_id='".$equipment_id."'AND date>='".$start_date."'AND date<='".$end_date."' ";
+    $sql = "SELECT * FROM bookings WHERE experiment='".$experiment."'AND date>='".$start_date."'AND date<='".$end_date."' ORDER BY start_at, date";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         $slots = array();
         while($row = $result->fetch_assoc()) {
             array_push($slots, array(
                 "id" => $row["id"],
+                "equipment_id" => $row["equipment_id"],
                 "username" => $row["username"],
                 "start_at" => $row["start_at"],
                 "end_at" =>  $row["end_at"],

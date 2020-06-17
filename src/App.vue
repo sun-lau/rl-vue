@@ -100,6 +100,22 @@
     <v-content>
 		<router-view class="ma-4"/>
     </v-content>
+	<v-snackbar
+      v-model="$store.getters.snackbar.modal"
+    >
+      {{ $store.getters.snackbar.message }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 

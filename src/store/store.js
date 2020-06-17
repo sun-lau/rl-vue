@@ -6,8 +6,12 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-      token: '',
-      role: "anonymous"
+        token: '',
+        role: "anonymous",
+        snackbar:{
+            modal: false,
+            message:""
+        }
     },
     actions: {
       getToken ({ commit, state }, args) {
@@ -25,18 +29,23 @@ export const store = new Vuex.Store({
             resolve();
           });
         })
-      }
+      },
     },
     mutations: {
-      updateRole(state, role) {
-          console.log(role);
-          console.log("update role");
-          //temp
-          role = "player";
-        state.role = role;
-      }
+        updateRole(state, role) {
+            console.log(role);
+            console.log("update role");
+            //temp
+            role = "player";
+          state.role = role;
+        },
+        showSnackBar(state, message) {
+          state.snackbar.message = message;
+          state.snackbar.modal = true;
+        }
     },
     getters: {
-      role: state => state.role
+        role: state => state.role,
+        snackbar: state => state.snackbar
     }
   })

@@ -77,9 +77,7 @@
                             self.$cookies.set('nickname', response.username);
                             console.log(self.$cookies.get('auth_token'));
                             self.$router.push("/");
-                            alert("Login Success");
-
-			                // window.location.href = process.env.VUE_APP_BASE_URL;
+                            self.$store.commit('showSnackBar', "Login Success");
                         }
                     })
                 }
@@ -91,7 +89,7 @@
                         if(response.status == "fail"){
                             alert(response.message);
                         }else{
-                            alert("Register Success! You can login now.");
+                            self.$store.commit('showSnackBar', "Register Success! You can login now.");
                             self.options.isLoggingIn = true;
                         }
                     })
