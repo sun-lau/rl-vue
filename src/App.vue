@@ -74,6 +74,34 @@
           </v-list-item>
         </template>
       </v-list>
+      <v-list>
+		  <v-list-item v-if="!$cookies.get('username')"
+		   @click="goTo('/login')"
+		  >
+            <v-list-item-action>
+              <v-icon>mdi-key</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                Login
+              </v-list-item-title>
+            </v-list-item-content>
+		  </v-list-item>
+		  
+		  <v-list-item v-if="$cookies.get('username')"
+		   @click="goTo('/logout')"
+		   >
+            <v-list-item-action>
+              <v-icon>mdi-key</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                Logout
+              </v-list-item-title>
+            </v-list-item-content>
+		  </v-list-item>
+      </v-list>
+
 		<small class="ma-4">0608.1</small>
     </v-navigation-drawer>
 
@@ -194,26 +222,12 @@
 						show: true
 					},
 				],
-			},
-			{ 	//must be position last one for hide show
-				icon: 'mdi-key',
-				text: 'Login',
-				link: '/login',
-				show: false
-			},
-			{ 	//must be position last one for hide show
-				icon: 'mdi-key',
-				text: 'Logout',
-				link: '/logout',
-				show: false
-			},
+			}
 		],
 	}),
 	
 	mounted:function(){
 		var self = this;
-		self.auth_token = self.$cookies.get('auth_token');
-		self.updateAuth();
 	},
 	methods:{
 		
@@ -225,16 +239,6 @@
 		changeLang: function(lang){
 			var self = this;
 			self.$i18n.locale = lang;
-		},
-		updateAuth: function(){
-			var self = this;
-			if(self.auth_token){
-				self.side_items[self.side_items.length-2].show = false;
-				self.side_items[self.side_items.length-1].show = true;
-			}else{
-				self.side_items[self.side_items.length-2].show = true;
-				self.side_items[self.side_items.length-1].show = false;
-			}
 		}
 	}
   }

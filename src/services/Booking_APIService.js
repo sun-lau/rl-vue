@@ -73,12 +73,13 @@ export class Booking_APIService extends APIService {
             })
             .then(response => response.data);
     }
-    enterLab(slot_id, auth_token){
+    enterLab(slot_id, auth_token, role){
         var self = this;
         const url = `${this.api_base_url}/api/booking/enterLab.php`;
         var bodyFormData = new FormData();
         bodyFormData.set('slot_id', slot_id);
         bodyFormData.set('auth_token', auth_token);
+        bodyFormData.set('role', role);
         return axios({
             method: 'post',
             url: url,

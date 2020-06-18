@@ -17,9 +17,9 @@
 		mounted: function(){
             var self = this;
             self.$cookies.remove("auth_token");
-            self.$cookies.remove("nickname");
-            // self.$router.push("/");
-			window.location.href = process.env.VUE_APP_BASE_URL;
+            self.$cookies.remove("username");
+            self.$router.push("/");
+			// window.location.href = process.env.VUE_APP_BASE_URL;
 		},
 		methods:{
 		}

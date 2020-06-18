@@ -74,7 +74,8 @@
                             alert(response.message);
                         }else{
                             self.$cookies.set('auth_token', response.token);
-                            self.$cookies.set('nickname', response.username);
+                            self.$cookies.set('username', response.username);
+                            console.log(self.$cookies.get('username'));
                             console.log(self.$cookies.get('auth_token'));
                             self.$router.push("/");
                             self.$store.commit('showSnackBar', "Login Success");
