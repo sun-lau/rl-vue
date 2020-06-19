@@ -201,8 +201,7 @@
                     }else{
                         self.$store.commit('showSnackBar', "Enter Lab Success");
                         self.$cookies.set('session_token', response.session_token);
-                        console.log("session_token");
-                        console.log(response.session_token);
+                        self.$cookies.set('role', role);
                         var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
                         self.$cookies.set('kick_time', kick_time);
                         self.$cookies.set('equipment_id', equipment_id);

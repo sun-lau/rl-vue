@@ -64,7 +64,7 @@
 
                     </v-card>
                 </v-col>
-                <v-col xs="12" sm="6" v-if="$store.getters.role=='player'">
+                <v-col xs="12" sm="6">
                     <v-card>
                         <v-card-title>Control</v-card-title>
                         <v-card-title>Horizontal:</v-card-title>
@@ -197,9 +197,7 @@ export default {
                 }
             },
             simluate_0_mode: false,
-            token:"",
-            experiment_name:"",
-            equipment_id:""
+            experiment_name:""
       }
   },
   computed: {
@@ -210,8 +208,6 @@ export default {
   mounted: function(){
         var self = this;
         self.experiment_name = "APPARENT_DEPTH";
-        self.token = self.$cookies.get('token');
-        self.equipment_id = self.$cookies.get('equipment_id');
         self.setCommand("device_0","RESTART|1");
         self.getValue("camera_0", function(){
             self.api.camera_0 = self.api.value.url;
@@ -221,35 +217,10 @@ export default {
         });
   },
   methods:{
-        // simulate_device_0(){
-        //     var self = this;
-        //     if(self.simulation.device_0.status == "WAIT_FOR_COMMAND"){
-        //         apiService.getCommand("APPARENT_DEPTH", "set_0", "device_0")
-        //         .then((response) => {
-        //             if(response.command_got_at <= response.command_set_at){
-        //                 self.simulation.device_0.logs.unshift({
-        //                     time: moment().format('HH:mm:ss'),
-        //                     api:"getCommand",
-        //                     request:{
-        //                         equipment_id:"set_0"
-        //                     },
-        //                     response:response,
-        //                 });
-        //             }else{
-        //                 self.simulation.device_0.logs.unshift({
-        //                     time: moment().format('HH:mm:ss'),
-        //                     api:"getCommand [IGNORE]",
-        //                     response:response,
-        //                 });
-
-        //             }
-        //         });
-        //     }
-        // },
         getValue(device_id, callback){
             console.log("getValue");
             var self = this;
-            apiService.getValue(self.token, self.experiment_name, self.equipment_id, device_id)
+            apiService.getValue(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
             .then((response) => {
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
@@ -265,11 +236,12 @@ export default {
         },
         setCommand(device_id, command, callback){
             console.log("set command");
-            console.log(device_id);
-            console.log(command);
-            apiService.setCommand(self.token, self.experiment_name, self.equipment_id, device_id, command)
+            var self = this;
+            apiService.setCommand(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id, command)
             .then((response) => {
                 console.log("command is set");
+                console.log(self.experiment_name);
+
                 console.log("response");
                 console.log(response);
                 if(callback){

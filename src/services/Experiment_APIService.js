@@ -56,27 +56,6 @@ export class Experiment_APIService extends APIService {
             return axios.get(url).then(response => response.data);
         }
     }
-    getValue(token, experiment, equipment_id, device_id){    //user side
-        var self = this;
-        const url = `${this.api_base_url}/api/experiment/getValue.php`;
-        var dummy_response = {
-            value:[
-            ]
-        };
-        if(self.is_dummy){
-            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
-        }else{
-           
-            return axios.get(url, {
-                params: {
-                  token: token,
-                  experiment: experiment,
-                  equipment_id: equipment_id,
-                  device_id: device_id,
-                }
-              }).then(response => response.data);
-        }
-    }
     setValue(experiment, equipment_id, device_id, value){
         var self = this;
         const url = `${this.api_base_url}/api/experiment/setValue.php`;
@@ -124,11 +103,34 @@ export class Experiment_APIService extends APIService {
               }).then(response => response.data);
         }
     }
-    setCommand(token, experiment, equipment_id, device_id, command){    //user side
+    getValue(session_token, role, experiment, equipment_id, device_id){    //user side
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/getValue.php`;
+        var dummy_response = {
+            value:[
+            ]
+        };
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+           
+            return axios.get(url, {
+                params: {
+                  session_token: session_token,
+                  role: role,
+                  experiment: experiment,
+                  equipment_id: equipment_id,
+                  device_id: device_id,
+                }
+              }).then(response => response.data);
+        }
+    }
+    setCommand(session_token, role, experiment, equipment_id, device_id, command){    //user side
         var self = this;
         const url = `${this.api_base_url}/api/experiment/setCommand.php`;
         var bodyFormData = new FormData();
-        bodyFormData.set('token', token);
+        bodyFormData.set('session_token', session_token);
+        bodyFormData.set('role', role);
         bodyFormData.set('experiment', experiment);
         bodyFormData.set('equipment_id', equipment_id);
         bodyFormData.set('device_id', device_id);
