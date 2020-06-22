@@ -117,6 +117,9 @@
                     case "apparent_depth":
                         self.experiment = "APPARENT_DEPTH";
                     break;
+                    case "bacteria_growth":
+                        self.experiment = "BACTERIA_GROWTH";
+                    break;
                 }
             },
             isBookedByMe: function(slot){

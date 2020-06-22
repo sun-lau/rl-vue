@@ -46,21 +46,6 @@ let router = new Router({
           requiresAuth: true
       }
     },
-    // {
-    //   path: '/experiment/interference',
-    //   name: 'experiment_interference',
-    //   component: () => import('./views/Experiments/Interference.vue')
-    // },
-    // {
-    //   path: '/experiment/apparent_depth',
-    //   name: 'experiment_apparent_depth',
-    //   component: () => import('./views/Experiments/ApparentDepth.vue')
-    // },
-    // {
-    //   path: '/experiment/visible_spectrum',
-    //   name: 'experiment_visible_spectrum',
-    //   component: () => import('./views/Experiments/VisibleSpectrum.vue')
-    // },
     {
       path: '/login',
       name: 'login',

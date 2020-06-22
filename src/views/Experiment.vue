@@ -6,10 +6,16 @@
             />
         </div>
         <div v-if="name=='visible_spectrum'">
-            <VisibleSpectrum />
+            <VisibleSpectrum 
+                :role="role"/>
         </div>
         <div v-if="name=='interference'">
-            <Interference />
+            <Interference 
+                :role="role"/>
+        </div>
+        <div v-if="name=='bacteria_growth'">
+            <BacteriaGrowth 
+                :role="role"/>
         </div>
         
 		<v-btn
@@ -29,12 +35,14 @@
     import ApparentDepth from '@/components/ApparentDepth.vue'
     import VisibleSpectrum from '@/components/VisibleSpectrum.vue'
     import Interference from '@/components/Interference.vue'
+    import BacteriaGrowth from '@/components/BacteriaGrowth.vue'
 	export default {
 		name: 'experiment',
 		components: {
             ApparentDepth,
             VisibleSpectrum,
             Interference,
+            BacteriaGrowth
 		},
 		data:function(){
 			return{

@@ -9,7 +9,6 @@
                         </v-col>
                     <v-col cols="12" xs="12" sm="6" md="6" lg="8" class="my-2 px-1">
                         <v-text-field v-model="dateRangeText" label="Date range" readonly></v-text-field>
-                        <v-btn class="ma-4" @click="checkSlots">Check Booking Slots</v-btn>
                         <hr>
                         <v-row>
                             <v-col>
@@ -73,6 +72,10 @@
                 {
                     text:"VISIBLE_SPECTRUM",
                     value:"VISIBLE_SPECTRUM"
+                },
+                {
+                    text:"BACTERIA_GROWTH",
+                    value:"BACTERIA_GROWTH"
                 }
             ],
             equipment_ids:[
@@ -106,13 +109,6 @@
             var self = this;
         },
 		methods:{
-            checkSlots: function(){
-                var self = this;
-                apiService.getSlotsByDates(self.form.experiment, self.form.equipment_id, self.dates[0], self.dates[1])
-                .then((response) => {
-                    alert("There are "+response.slots.length +" slots exist in this range");
-                });
-            },
             assignSlots: function(){
                 var self = this;
                 apiService.assignSlotsToDates(

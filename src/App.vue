@@ -221,6 +221,12 @@
 						text: 'Biology',
 						show: true
 					},
+					{ 
+						icon: 'mdi-minus',
+						text: 'Bacteria Growth',
+						link: '/booking/bacteria_growth',
+						show: true
+					},
 				],
 			}
 		],
