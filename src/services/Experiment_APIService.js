@@ -34,8 +34,8 @@ export class Experiment_APIService extends APIService {
                 console.log(response);
             });
         }
-    }
-    getChart(experiment, equipment_id){    //user side
+    }    
+    getChart(session_token, role, experiment, equipment_id){    //user side
         var self = this;
         const url = `${this.api_base_url}/api/experiment/getChart.php?experiment=`+experiment+`&equipment_id=`+equipment_id;
         var dummy_response = {
@@ -53,7 +53,14 @@ export class Experiment_APIService extends APIService {
         if(self.is_dummy){
             return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
         }else{
-            return axios.get(url).then(response => response.data);
+            return axios.get(url, {
+                params: {
+                  session_token: session_token,
+                  role: role,
+                  experiment: experiment,
+                  equipment_id: equipment_id
+                }
+              }).then(response => response.data);
         }
     }
     setValue(experiment, equipment_id, device_id, value){

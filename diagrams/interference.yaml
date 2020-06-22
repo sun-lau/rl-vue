@@ -1,0 +1,143 @@
+title RemoteLab - Interference
+Client->Server: /setCommand
+note over Client,Server: 
+    {
+        commands:[
+            {
+                "device_id":0,
+                "command":"DEVICE|RESTART"
+            },
+            {
+                "device_id":1,
+                "command":"DEVICE|RESTART"
+            }
+        ]
+    },
+end note
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    {
+        "command":"DEVICE|RESTART"
+    }
+end note
+
+Device 1->Server: /getCommand
+note over Server,Device 1: 
+    {
+        "command":"DEVICE|RESTART"
+    }
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    {
+        "command":"HANDLED"
+    }
+end note
+
+Device 1->Server: /getCommand
+note over Server,Device 1: 
+    {
+        "command":"HANDLED"
+    }
+end note
+
+Client->Server: /setCommand
+note over Client,Server: 
+    {
+        commands:[
+            {
+                "device_id":0,
+                "command":"LASER|RED"
+            },
+            {
+                "device_id":1,
+                "command":"DEVICE|RESTART"
+            }
+        ]
+    },
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    {
+        "command":"LASER|RED"
+    }
+end note
+Device 1->Server: /getCommand
+note over Server,Device 1: 
+    {
+        "command":"HANDLED"
+    }
+end note
+
+Client->Server: /setCommand
+note over Client,Server: 
+    {
+        commands:[
+            {
+                "device_id":0,
+                "command":"DEVICE|RESTART"
+            },
+            {
+                "device_id":1,
+                "command":"SCAN|START"
+            }
+        ]
+    },
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    {
+        "command":"HANDLED"
+    }
+end note
+Device 1->Server: /getCommand
+note over Server,Device 1: 
+    {
+        "command":"SCAN|START"
+    }
+end note
+Client->Server: /getValue
+note over Client,Server: 
+    {
+        values:[
+            {
+                "device_id":0,
+                "value":""
+            },
+            {
+                "device_id":1,
+                "value":""
+            }
+        ]
+    },
+end note
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    {
+        "command":"HANDLED"
+    }
+end note
+Device 1->Server: /setValue
+note over Server,Device 1: 
+    {
+        "value":[[1,12],[2,15],[3,14]]
+    },
+end note
+Client->Server: /getValue
+note over Client,Server: 
+    {
+        values:[
+            {
+                "device_id":0,
+                "value":""
+            },
+            {
+                "device_id":1,
+                "value":[[1,12],[2,15],[3,14]]
+            }
+        ]
+    },
+end note

@@ -1,0 +1,63 @@
+title RemoteLab - Visible Spectrum
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"RESTART|1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: loading popup 5 sec.
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"SOURCE|XXX"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"MEASURE|START"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note

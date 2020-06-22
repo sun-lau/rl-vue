@@ -128,16 +128,21 @@ export default {
   },
   mounted: function(){
         var self = this;
-        console.log("mounted");
-        setInterval(function(){ //hard protect
-            location.reload();
-        },1000*60*60);
+        self.experiment_name = "VISIBLE_SPECTRUM";
+        self.setCommand("device_0","RESTART|1");
+        self.getValue("camera_0", function(){
+            self.api.camera_0 = self.api.value.url;
+        });
+        self.loading = true;
+        setTimeout(function(){
+            self.loading = false;
+        },5000);
   },
   methods:{
         getValue(device_id, callback){
             console.log("getValue");
             var self = this;
-            apiService.getValue("VISIBLE_SPECTRUM", "xcvbnm", device_id)
+            apiService.getValue(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
             .then((response) => {
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
@@ -151,13 +156,26 @@ export default {
                 }
             });
         },
+        getChart(){
+            console.log("getChart");
+            var self = this;
+            apiService.getChart(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'))
+            .then((response) => {
+                self.api.chart = response;
+                self.series = [{data:response}];
+                console.log("self.series");
+                console.log(self.series);
+                self.loading = false;
+            });
+        },
         setCommand(device_id, command, callback){
             console.log("set command");
-            console.log(device_id);
-            console.log(command);
-            apiService.setCommand("VISIBLE_SPECTRUM", "xcvbnm", device_id, command)
+            var self = this;
+            apiService.setCommand(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id, command)
             .then((response) => {
                 console.log("command is set");
+                console.log(self.experiment_name);
+
                 console.log("response");
                 console.log(response);
                 if(callback){
@@ -175,26 +193,12 @@ export default {
                         console.log(self.api.value);
                         if(self.api.value.chart_at > self.api.command_set_at){
                             clearInterval(self.inte);
-                            // self.setCommand('device_1', 'MEASURE|END');
                             self.getChart();
                         }
                     });
 
                 },4000);
             });
-        },
-        getChart(){
-            console.log("getChart");
-            var self = this;
-            apiService.getChart("VISIBLE_SPECTRUM", "xcvbnm")
-            .then((response) => {
-                self.api.chart = response;
-                self.series = [{data:response}];
-                console.log("self.series");
-                console.log(self.series);
-                self.loading = false;
-            });
-
         }
   }
 }

@@ -1,21 +1,16 @@
 <template>
 	<div class="experiment">
         <div v-if="name=='apparent_depth'">
-            <ApparentDepth 
-                :role="role"
-            />
+            <ApparentDepth />
         </div>
         <div v-if="name=='visible_spectrum'">
-            <VisibleSpectrum 
-                :role="role"/>
+            <VisibleSpectrum />
         </div>
         <div v-if="name=='interference'">
-            <Interference 
-                :role="role"/>
+            <Interference />
         </div>
         <div v-if="name=='bacteria_growth'">
-            <BacteriaGrowth 
-                :role="role"/>
+            <BacteriaGrowth />
         </div>
         
 		<v-btn
@@ -61,17 +56,8 @@
                     window.location.href = process.env.VUE_APP_BASE_URL;
                 }
             },1000);
-            self.role = self.checkToken();
 		},
 		methods:{
-            checkToken: function(){
-                var self = this;
-                console.log("waiting to check token");
-                setTimeout(function(){
-                    console.log("checked token");
-                    return "player";
-                },5000);
-            }
 		}
 	}
 </script>

@@ -215,6 +215,10 @@ export default {
         self.getValue("camera_1", function(){
             self.api.camera_1 = self.api.value.url;
         });
+        self.loading = true;
+        setTimeout(function(){
+            self.loading = false;
+        },5000);
   },
   methods:{
         getValue(device_id, callback){

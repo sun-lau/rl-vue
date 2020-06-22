@@ -86,6 +86,8 @@
                     return "Room 1"
                     case "set_1":
                     return "Room 2" 
+                    case "set_2":
+                    return "Room 3" 
                 }
             }
         },
@@ -202,7 +204,7 @@
                     if(response.status == "fail"){
                         self.$store.commit('showSnackBar', response.message);
                     }else{
-                        self.$store.commit('showSnackBar', "Enter Lab Success");
+                        self.$store.commit('showSnackBar', "Preparing...");
                         self.$cookies.set('session_token', response.session_token);
                         self.$cookies.set('role', role);
                         var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)

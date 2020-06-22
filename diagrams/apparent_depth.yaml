@@ -1,0 +1,37 @@
+title RemoteLab - Apparent Depth
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"APPARENT_DEPTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"RESTART|1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: loading popup 5 sec.
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"APPARENT_DEPTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"APPARENT_DEPTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"POSITION_MAP|X,X"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"APPARENT_DEPTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
