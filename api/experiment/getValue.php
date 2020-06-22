@@ -19,9 +19,15 @@ $session_token = $_GET['session_token'];
 $role = $_GET['role'];
 $session_device = "session";
 if(!isset($_GET['equipment_id'])){
-
     $myObj->status = "fail";
-    $myObj->error = "invalid_arguments";
+    $myObj->error = "missing_equipment_id";
+    echo json_encode($myObj);
+    die();
+}
+
+if(!isset($_GET['session_token'])){
+    $myObj->status = "fail";
+    $myObj->error = "missing_session_token";
     echo json_encode($myObj);
     die();
 }
@@ -64,7 +70,4 @@ while ($row = $res->fetch_assoc()) {
         die();
     }
 }
-
-
-
 ?>

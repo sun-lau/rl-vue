@@ -12,7 +12,13 @@
     }
     if(!isset($_POST['command'])){
         $myObj->status = "fail";
-        $myObj->error = "no_post_command";
+        $myObj->error = "missing_post_command";
+        echo json_encode($myObj);
+        die();
+    }
+    if(!isset($_POST['session_token'])){
+        $myObj->status = "fail";
+        $myObj->error = "missing_session_token";
         echo json_encode($myObj);
         die();
     }
@@ -41,7 +47,6 @@
         $myObj->error = "invalid_session_token";
         echo json_encode($myObj);
         die();
-
     }
     //set command
     $current_time = time();
@@ -50,9 +55,5 @@
     $stmt->execute();
     $myObj->status = "success";
     echo json_encode($myObj);
-
     $conn->close();
-
-
-
 ?>

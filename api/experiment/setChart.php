@@ -1,4 +1,7 @@
 <?php
+
+//append to value field of DB table
+
 header('Content-Type: application/json');
 require('config.php');
 
