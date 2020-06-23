@@ -7,7 +7,7 @@
                     <v-row class="ml-2 mr-2 mt-4">
                         <v-col  xs="12">
                         <b-img 
-                            src="http://158.132.254.152:8081/?action=stream"
+                            :src="api.camera_0"
                             fluid
                         />
                         </v-col>
@@ -101,7 +101,8 @@ export default {
                         'x': 0,
                         'y': 0
                     }
-                ]
+                ],
+                camera_0:""
             },
             options: {
                 width:'100%',
@@ -120,9 +121,6 @@ export default {
             series: [{
                 data: []
             }],
-            simulation:{
-            },
-            simluate_0_mode: false,
 
       }
   },
@@ -156,10 +154,10 @@ export default {
                 }
             });
         },
-        getChart(){
+        getChart(device_id){
             console.log("getChart");
             var self = this;
-            apiService.getChart(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'))
+            apiService.getChart(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
             .then((response) => {
                 self.api.chart = response;
                 self.series = [{data:response}];
@@ -193,7 +191,7 @@ export default {
                         console.log(self.api.value);
                         if(self.api.value.chart_at > self.api.command_set_at){
                             clearInterval(self.inte);
-                            self.getChart();
+                            self.getChart('device_0');
                         }
                     });
 

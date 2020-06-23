@@ -1,143 +1,156 @@
 title RemoteLab - Interference
 Client->Server: /setCommand
 note over Client,Server: 
-    {
-        commands:[
-            {
-                "device_id":0,
-                "command":"DEVICE|RESTART"
-            },
-            {
-                "device_id":1,
-                "command":"DEVICE|RESTART"
-            }
-        ]
-    },
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"RESTART|1"
+    "session_token":"XXXXXX"
+    "role":"player"
 end note
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "command":"RESTART|1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: loading popup 5 sec.
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    {
-        "command":"DEVICE|RESTART"
-    }
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
 end note
 
 Device 1->Server: /getCommand
-note over Server,Device 1: 
-    {
-        "command":"DEVICE|RESTART"
-    }
-end note
-
-Device 0->Server: /getCommand
 note over Server,Device 0: 
-    {
-        "command":"HANDLED"
-    }
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
 end note
 
-Device 1->Server: /getCommand
-note over Server,Device 1: 
-    {
-        "command":"HANDLED"
-    }
+
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
 end note
 
 Client->Server: /setCommand
 note over Client,Server: 
-    {
-        commands:[
-            {
-                "device_id":0,
-                "command":"LASER|RED"
-            },
-            {
-                "device_id":1,
-                "command":"DEVICE|RESTART"
-            }
-        ]
-    },
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"LASER|RED/GREEN"
+    "command":"POWER|0/1"
+    "command":"SLIT|LEFT/RIGHT"
+    "command":"STEP|SMALL/LARGE"
+    "session_token":"XXXXXX"
+    "role":"player"
 end note
 
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    {
-        "command":"LASER|RED"
-    }
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
 end note
+
 Device 1->Server: /getCommand
-note over Server,Device 1: 
-    {
-        "command":"HANDLED"
-    }
+note over Server,Device 0: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
 end note
+
 
 Client->Server: /setCommand
 note over Client,Server: 
-    {
-        commands:[
-            {
-                "device_id":0,
-                "command":"DEVICE|RESTART"
-            },
-            {
-                "device_id":1,
-                "command":"SCAN|START"
-            }
-        ]
-    },
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"DISTANCE|INCREASE/DECREASE"
+    "role":"player"
 end note
 
-Device 0->Server: /getCommand
-note over Server,Device 0: 
-    {
-        "command":"HANDLED"
-    }
+Client->Client: loop getValue until set_at >=  got_at
+
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
 end note
+
+
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "command":"MEASURE|START"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: loading popup until chart_at >= command_at.
+
 Device 1->Server: /getCommand
-note over Server,Device 1: 
-    {
-        "command":"SCAN|START"
-    }
-end note
-Client->Server: /getValue
-note over Client,Server: 
-    {
-        values:[
-            {
-                "device_id":0,
-                "value":""
-            },
-            {
-                "device_id":1,
-                "value":""
-            }
-        ]
-    },
-end note
-Device 0->Server: /getCommand
 note over Server,Device 0: 
-    {
-        "command":"HANDLED"
-    }
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
 end note
-Device 1->Server: /setValue
-note over Server,Device 1: 
-    {
-        "value":[[1,12],[2,15],[3,14]]
-    },
+
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "session_token":"XXXXXX"
+    "role":"player"
 end note
 Client->Server: /getValue
 note over Client,Server: 
-    {
-        values:[
-            {
-                "device_id":0,
-                "value":""
-            },
-            {
-                "device_id":1,
-                "value":[[1,12],[2,15],[3,14]]
-            }
-        ]
-    },
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Device 1->Server: /setChart
+note over Server,Device 0: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "chart":"0,38|0.1,39|0.2,40|0.3,41"
+end note
+
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Server: /getChart
+note over Client,Server: 
+    "equipment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_1"
+    "session_token":"XXXXXX"
+    "role":"player"
 end note

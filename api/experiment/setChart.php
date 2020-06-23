@@ -10,8 +10,32 @@ $experiment = $_POST['experiment'];
 $equipment_id = $_POST['equipment_id'];
 $device_id = $_POST['device_id'];
 
+if(!isset($_POST['experiment'])){
+    $myObj->status = "fail";
+    $myObj->error = "missing_experiment";
+    echo json_encode($myObj);
+    die();
+}
+if(!isset($_POST['equipment_id'])){
+    $myObj->status = "fail";
+    $myObj->error = "missing_equipment_id";
+    echo json_encode($myObj);
+    die();
+}
+if(!isset($_POST['device_id'])){
+    $myObj->status = "fail";
+    $myObj->error = "missing_device_id";
+    echo json_encode($myObj);
+    die();
+}
+if(!isset($_POST['chart'])){
+    $myObj->status = "fail";
+    $myObj->error = "missing_chart";
+    echo json_encode($myObj);
+    die();
+}
 // $file = "chart.json";
-$file = "charts/".$experiment."_".$equipment_id.".json";
+$file = "charts/".$experiment."-".$equipment_id."-".$device_id.".json";
 // $str = "0,38|0.1,39|0.2,40|0.3,41";
 $array = explode("|", $chart);
 $json = array();

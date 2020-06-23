@@ -8,13 +8,13 @@
                         <v-row class="ml-2 mr-2 mt-4">
                             <v-col  xs="12" sm="6">
                             <b-img 
-                                src="http://158.132.254.152:8081/?action=stream"
+                                :src="api.camera_0"
                                 fluid
                             />
                             </v-col>
                             <v-col xs="12" sm="6">
                             <b-img 
-                                src="http://158.132.254.152:8082/?action=stream"
+                                :src="api.camera_1"
                                 fluid
                             />
                             </v-col>
@@ -134,11 +134,11 @@
                         <v-btn-toggle
                             rounded
                             class="ml-4">
-                            <v-btn @click="setCommand('device_0', 'DISTANCE|INCREASE')" >
+                            <v-btn @click="setCommand('device_0', 'DISTANCE|INCREASE');loop_flag= true;" >
                                 <font-awesome-icon icon="angle-up" />
                                 Increase
                             </v-btn>
-                            <v-btn variant="info" @click="setCommand('device_0', 'DISTANCE|DECREASE')">
+                            <v-btn variant="info" @click="setCommand('device_0', 'DISTANCE|DECREASE');loop_flag= true;">
                                 <font-awesome-icon icon="angle-down" />
                                 Decrease
                             </v-btn>
@@ -152,61 +152,6 @@
                             <!-- <v-btn block @click="getValue()">Export</v-btn> -->
                         </div>
                         <br>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col xs="6">
-                    <v-card>
-                        <v-card-title>Device 0 Simulation
-                            <v-switch
-                            v-model="simluate_0_mode"
-                            ></v-switch>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-container fluid>
-                                <v-row>
-                                    <v-col cols="12" md="12">
-                                        <v-list two-line subheader>
-                                            <v-card v-for="(log, i) of simulation.device_0.logs" :key="i" class="ma-4">
-                                                <v-card-text>
-                                                <h6 v-text="log.api"></h6>
-                                                <small class="float-right" v-text="log.time"></small>
-                                                <p v-text="log.request"></p>
-                                                <p v-text="log.response"></p>
-                                                </v-card-text>
-                                            </v-card>
-                                        </v-list>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col xs="6">
-                    <v-card>
-                        <v-card-title>Device 1 Simulation
-                            <v-switch
-                            v-model="simluate_1_mode"
-                            ></v-switch></v-card-title>
-                        <v-card-text>
-                            <v-container fluid>
-                                <v-row>
-                                    <v-col cols="12" md="12">
-                                        <v-list two-line subheader>
-                                            <v-card v-for="(log, i) of simulation.device_1.logs" :key="i" class="ma-4">
-                                                <v-card-text>
-                                                <h6 v-text="log.api"></h6>
-                                                <small class="float-right" v-text="log.time"></small>
-                                                <p v-text="log.request"></p>
-                                                <p v-text="log.response"></p>
-                                                </v-card-text>
-                                            </v-card>
-                                        </v-list>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
@@ -250,7 +195,9 @@ export default {
             api:{
                 value:"",
                 value_got_at:null,
-                value_set_at:null
+                value_set_at:null,
+                camera_0:"",
+                camera_1:"",
             },
             options: {
                 width:'100%'
@@ -258,150 +205,41 @@ export default {
             series: [{
                 data: []
             }],
-            simulation:{
-                device_0:{
-                    logs:[],
-                    status:"WAIT_FOR_COMMAND"
-                },
-                device_1:{
-                    logs:[],
-                    status:"WAIT_FOR_COMMAND"
-                }
-            },
-            simluate_0_mode: false,
-            simluate_1_mode: false,
+            loop_flag: false
 
       }
   },
   mounted: function(){
         var self = this;
-        console.log("mounted");
-        setInterval(function(){
-            if(self.simluate_0_mode){
-                self.simulate_device_0();
-            }
-        },5000);
-        setInterval(function(){
-            if(self.simluate_1_mode){
-                self.simulate_device_1();
-            }
-        },3000);
-        setInterval(function(){ //loop distance value
+        self.experiment_name = "INTERFERENCE";
+        self.setCommand("device_0","RESTART|1");
+        self.setCommand("device_1","RESTART|1");
+        self.getValue("camera_0", function(){
+            self.api.camera_0 = self.api.value.url;
+        });
+        self.getValue("camera_1", function(){
+            self.api.camera_1 = self.api.value.url;
+        });
+        self.loading = true;
+        setTimeout(function(){
+            self.loading = false;
             self.getValue("device_0");
+        },5000);
+        setInterval(function(){ //loop distance value
+            if(self.loop_flag){
+                self.getValue("device_0", function(){
+                    if(self.api.value_set_at >= self.api.value_got_at){
+                        self.loop_flag = false;
+                    }
+                });
+            }
         },1000);
-        setInterval(function(){ //hard protect
-            location.reload();
-        },1000*60*60);
   },
   methods:{
-        simulate_device_0(){
-            var self = this;
-            if(self.simulation.device_0.status == "WAIT_FOR_COMMAND"){
-                apiService.getCommand("INTERFERENCE", "asdfgh", "device_0")
-                .then((response) => {
-                    if(response.command_got_at <= response.command_set_at){
-                        self.simulation.device_0.logs.unshift({
-                            time: moment().format('HH:mm:ss'),
-                            api:"getCommand",
-                            request:{
-                                equipment_id:"asdfgh"
-                            },
-                            response:response,
-                        });
-                    }else{
-                        self.simulation.device_0.logs.unshift({
-                            time: moment().format('HH:mm:ss'),
-                            api:"getCommand [IGNORE]",
-                            response:response,
-                        });
-
-                    }
-                });
-            }
-
-        },
-        simulate_device_1(){
-            var self = this;
-            if(self.simulation.device_1.status == "WAIT_FOR_COMMAND"){
-                apiService.getCommand("INTERFERENCE", "asdfgh", "device_1")
-                .then((response) => {
-                    if(response.command_got_at <= response.command_set_at){ //New Command
-                        if(response.command == "MEASURE|START"){
-                            self.simulation.device_1.status = "MEASURING";
-                            setTimeout(function(){
-                                self.simulation.device_1.status = "SET_CHART";
-                            },10000);
-                        }else{
-                            self.simulation.device_1.logs.unshift({
-                                time: moment().format('HH:mm:ss'),
-                                api:"getCommand",
-                                request:{
-                                    equipment_id:"asdfgh"
-                                },
-                                response:response,
-                            });
-                            if(response.command == "DISTANCE|INCREASE" || response.command == "DISTANCE|DECREASE"){
-                                var value = JSON.stringify({ 
-                                        distance: Math.floor(Math.random() * 100)+100
-                                    });
-                                apiService.setValue("INTERFERENCE", "asdfgh", "device_0", value)
-                                .then((response) => {
-                                    self.simulation.device_1.logs.unshift({
-                                        time: moment().format('HH:mm:ss'),
-                                        api:"setValue",
-                                        request:{
-                                            equipment_id:"asdfgh",
-                                            value:value
-                                        },
-                                        response:response,
-                                    });
-                                    self.simulation.device_1.status = "WAIT_FOR_COMMAND";
-                                });
-
-                            }
-
-                        }
-
-                    }else{
-                        self.simulation.device_1.logs.unshift({
-                            time: moment().format('HH:mm:ss'),
-                            api:"getCommand [IGNORE]",
-                            response:response,
-                        });
-
-                    }
-                });
-            }else if(self.simulation.device_1.status == "SET_CHART"){ 
-                var rand_0 = Math.floor(Math.random() * 100);
-                var rand_1 = Math.floor(Math.random() * 100);
-                var rand_2 = Math.floor(Math.random() * 100);
-                var rand_3 = Math.floor(Math.random() * 100);
-                apiService.setChart("INTERFERENCE", "asdfgh", "device_1", "0,"+rand_0+"|0.1,"+rand_1+"|0.2,"+rand_2+"|0.3,"+rand_3)
-                .then((response) => {
-                    self.simulation.device_1.logs.unshift({
-                        time: moment().format('HH:mm:ss'),
-                        api:"setChart",
-                        request:{
-                            equipment_id:"asdfgh"
-                        },
-                        response:response,
-                    });
-
-                    self.simulation.device_1.status = "WAIT_FOR_COMMAND";
-
-                });
-            }else if(self.simulation.device_1.status == "MEASURING"){
-                self.simulation.device_1.logs.unshift({
-                    time: moment().format('HH:mm:ss'),
-                    api:"measuring"
-                });
-            }
-
-        },
         getValue(device_id, callback){
             console.log("getValue");
             var self = this;
-            apiService.getValue("INTERFERENCE", "asdfgh", device_id)
+            apiService.getValue(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
             .then((response) => {
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
@@ -415,13 +253,25 @@ export default {
                 }
             });
         },
+        getChart(device_id){
+            console.log("getChart");
+            var self = this;
+            apiService.getChart(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
+            .then((response) => {
+                self.api.chart = response;
+                self.series = [{data:response}];
+                console.log("self.series");
+                console.log(self.series);
+                self.loading = false;
+            });
+        },
         setCommand(device_id, command, callback){
             console.log("set command");
-            console.log(device_id);
-            console.log(command);
-            apiService.setCommand("INTERFERENCE", "asdfgh", device_id, command)
+            var self = this;
+            apiService.setCommand(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id, command)
             .then((response) => {
                 console.log("command is set");
+                console.log(self.experiment_name);
                 console.log("response");
                 console.log(response);
                 if(callback){
@@ -435,28 +285,16 @@ export default {
             self.setCommand('device_1', 'MEASURE|START', function(){
                 self.inte = setInterval(function(){
                     self.getValue("device_1",function(){
-                        if(self.api.value.chart_at > self.api.command_set_at){
+                        console.log("self.api.value");
+                        console.log(self.api.value);
+                        if(self.api.value.chart_at >= self.api.command_set_at){
                             clearInterval(self.inte);
-                            // self.setCommand('device_1', 'MEASURE|END');
-                            self.getChart();
+                            self.getChart('device_1');
                         }
                     });
 
                 },4000);
             });
-        },
-        getChart(){
-            console.log("getChart");
-            var self = this;
-            apiService.getChart("INTERFERENCE", "asdfgh")
-            .then((response) => {
-                self.api.chart = response;
-                self.series = [{data:response}];
-                console.log("self.series");
-                console.log(self.series);
-                self.loading = false;
-            });
-
         }
   }
 }

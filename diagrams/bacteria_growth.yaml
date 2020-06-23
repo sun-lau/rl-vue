@@ -1,0 +1,37 @@
+title RemoteLab - Bacteria Growth (Player)
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"BACTERIA_GROWTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"RESTART|1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: loading popup 5 sec.
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"BACTERIA_GROWTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "equipment":"BACTERIA_GROWTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"SAMPLE|1/2/3/4"
+    "command":"SAMPLE|5/6/7/8"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"BACTERIA_GROWTH"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note

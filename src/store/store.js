@@ -16,10 +16,9 @@ export const store = new Vuex.Store({
     actions: {
       getToken ({ commit, state }, args) {
         return new Promise((resolve, reject) => {
-            console.log("hey");
             console.log(args.username);
             console.log(args.slot_id);
-        axios.get(`https://stem-ap.polyu.edu.hk/remotelab/api/booking/getToken.php`, {
+        axios.get(`${this.api_base_url}/api/booking/getToken.php`, {
             params: {
                 username: args.username,
                 slot_id: args.slot_id

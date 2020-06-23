@@ -100,8 +100,8 @@ export default {
             inte:null,
             loading: false,
             api:{
-                camera_0:"http://158.132.254.155:8081/?action=stream",
-                camera_1:"http://158.132.254.164:8081/?action=stream",
+                camera_0:"",
+                camera_1:"",
                 value:"",
                 value_got_at:null,
                 value_set_at:null
@@ -144,7 +144,6 @@ export default {
             .then((response) => {
                 console.log("command is set");
                 console.log(self.experiment_name);
-
                 console.log("response");
                 console.log(response);
                 if(callback){

@@ -23,7 +23,8 @@ note over Client,Server:
     "equipment":"VISIBLE_SPECTRUM"
     "equipment_id":"set_0"
     "device_id":"device_0"
-    "command":"SOURCE|XXX"
+    "command":"SOURCE|OFF/WHITE/BLUE/GREEN"
+    "command":"SOURCE|RED/SODIUM/MERCURY"
     "session_token":"XXXXXX"
     "role":"player"
 end note
@@ -45,6 +46,15 @@ note over Client,Server:
     "role":"player"
 end note
 
+Client->Client: loading popup until chart_at >= command_at.
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
 Client->Server: /getValue
 note over Client,Server: 
     "equipment":"VISIBLE_SPECTRUM"
@@ -60,4 +70,37 @@ note over Client,Server:
     "device_id":"device_0"
     "session_token":"XXXXXX"
     "role":"player"
+end note
+
+Device 0->Server: /setChart
+note over Server,Device 0: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "chart":"0,38|0.1,39|0.2,40|0.3,41"
+end note
+
+Client->Server: /getValue
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Server: /getChart
+note over Client,Server: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "equipment":"VISIBLE_SPECTRUM"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
 end note

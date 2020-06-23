@@ -1,3 +1,4 @@
+/*crontab -e */
 /* create new set of experiment */
 
 INSERT INTO `rl_experiment` 

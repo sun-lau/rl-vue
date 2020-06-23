@@ -178,8 +178,8 @@ export default {
                 
             ],
             api:{
-                camera_0:"http://158.132.254.155:8081/?action=stream",
-                camera_1:"http://158.132.254.164:8081/?action=stream",
+                camera_0:"",
+                camera_1:"",
                 value:"",
                 value_got_at:null,
                 value_set_at:null

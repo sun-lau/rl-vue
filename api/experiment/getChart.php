@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 require('config.php');
 $experiment = $_GET['experiment'];
 $equipment_id = $_GET['equipment_id'];
+$device_id = $_GET['device_id'];
 $role = $_GET['role'];
 $session_token = $_GET['session_token'];
 
@@ -15,6 +16,12 @@ if(!isset($_GET['experiment'])){
 if(!isset($_GET['equipment_id'])){
     $myObj->status = "fail";
     $myObj->error = "missing_equipment_id";
+    echo json_encode($myObj);
+    die();
+}
+if(!isset($_GET['device_id'])){
+    $myObj->status = "fail";
+    $myObj->error = "missing_device_id";
     echo json_encode($myObj);
     die();
 }
@@ -35,6 +42,7 @@ if ($conn->connect_error) {
 
 //check session_token valid
 $with_valid_session_token = false;
+$session_device = 'session';
 $stmt = $conn->prepare("SELECT * FROM rl_experiment WHERE experiment = ? AND equipment_id = ? AND device_id = ? LIMIT 1");
 $stmt->bind_param("sss", $experiment, $equipment_id, $session_device );
 $stmt->execute();
@@ -52,7 +60,7 @@ if(!$with_valid_session_token){
 
 }
 
-$file = "charts/".$experiment."_".$equipment_id.".json";
+$file = "charts/".$experiment."-".$equipment_id."-".$device_id.".json";
 $json = json_decode(file_get_contents($file),TRUE);
 
 echo json_encode($json);
