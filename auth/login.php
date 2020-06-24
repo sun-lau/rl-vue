@@ -53,35 +53,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $auth_token);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
+                            // Prepare an update statement
+                            $sql = "UPDATE users SET auth_token = ?, last_login_at = NOW() WHERE id = ?";
                             
-                            if($auth_token==""){    //first login
-                                // Prepare an update statement
-                                $sql = "UPDATE users SET auth_token = ? WHERE id = ?";
+                            if($stmt = mysqli_prepare($link, $sql)){
+                                // Bind variables to the prepared statement as parameters
+                                mysqli_stmt_bind_param($stmt, "si", $param_token, $id);
                                 
-                                if($stmt = mysqli_prepare($link, $sql)){
-                                    // Bind variables to the prepared statement as parameters
-                                    mysqli_stmt_bind_param($stmt, "si", $param_token, $id);
-                                    
-                                    // Set parameters
-                                    $param_token =  generateRandomString();
-                                    
-                                    // Attempt to execute the prepared statement
-                                    if(mysqli_stmt_execute($stmt)){
-                                        $myObj->status = "success";
-                                        $myObj->username = $username;
-                                        $myObj->token = $param_token;
-                                        echo json_encode($myObj);
-                                    } else{
-                                        $myObj->status = "fail";
-                                        $myObj->message = "update token error";
-                                        echo json_encode($myObj);
-                                    }
+                                // Set parameters
+                                $param_token =  generateRandomString();
+                                
+                                // Attempt to execute the prepared statement
+                                if(mysqli_stmt_execute($stmt)){
+                                    $myObj->status = "success";
+                                    $myObj->username = $username;
+                                    $myObj->token = $param_token;
+                                    echo json_encode($myObj);
+                                } else{
+                                    $myObj->status = "fail";
+                                    $myObj->message = "update token error";
+                                    echo json_encode($myObj);
                                 }
-                            }else{  //not first login, return old token
-                                $myObj->status = "success";
-                                $myObj->username = $username;
-                                $myObj->token = $auth_token;
-                                echo json_encode($myObj);
                             }
                         } else{
                             // Display an error message if password is not valid

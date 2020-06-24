@@ -61,7 +61,39 @@ export class Admin_APIService extends APIService {
                 console.log(error);
             })
             .then(response => response.data);
-
+    }
+    removeSlotsWithinDates(start_date, end_date, experiment, equipment_id){
+        var self = this;
+        const url = `${this.api_base_url}/api/booking/removeSlotsWithinDates.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('start_date', start_date);
+        bodyFormData.set('end_date', end_date);
+        bodyFormData.set('experiment', experiment);
+        bodyFormData.set('equipment_id', equipment_id);
+        return axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .then(response => response.data);
+    }
+    listAllUsers(){
+        var self = this;
+        const url = `${this.api_base_url}/../auth/listAllUsers.php`;
+        var dummy_response = {
+        };
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+            return axios.get(url,{
+                params: {
+                }
+            }).then(response => response.data);
+        }
     }
 
 }
