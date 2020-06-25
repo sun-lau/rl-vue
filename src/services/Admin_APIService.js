@@ -95,5 +95,22 @@ export class Admin_APIService extends APIService {
             }).then(response => response.data);
         }
     }
+    batchCreateUsers(auth_token, batch_content){
+        var self = this;
+        const url = `${this.api_base_url}/../auth/batchCreateUsers.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('auth_token', auth_token);
+        bodyFormData.set('batch_content', batch_content);
+        return axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .then(response => response.data);
+    }
 
 }

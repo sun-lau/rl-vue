@@ -11,6 +11,9 @@
       <v-tab :href="`#tab-bookings`">
         Bookings
       </v-tab>
+      <v-tab :href="`#tab-bookings`">
+        Equipments
+      </v-tab>
 
       <v-tab-item :value="'tab-users'">
         <AdminUser />
