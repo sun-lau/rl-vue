@@ -3,6 +3,7 @@ ini_set('display_errors', 'Off');
 chdir(dirname(__FILE__));
 header('Content-type: application/json');
 date_default_timezone_set('Asia/Hong_Kong');
+require('config.php');
 $experiment = $_POST['experiment'];
 $equipment_id = $_POST['equipment_id'];
 $filename_prefix = $_POST['filename_prefix'];

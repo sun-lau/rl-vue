@@ -11,7 +11,7 @@
       <v-tab :href="`#tab-bookings`">
         Bookings
       </v-tab>
-      <v-tab :href="`#tab-bookings`">
+      <v-tab :href="`#tab-equipments`">
         Equipments
       </v-tab>
 
@@ -21,17 +21,22 @@
       <v-tab-item :value="'tab-bookings'">
         <AdminBooking />
       </v-tab-item>
+      <v-tab-item :value="'tab-equipments'">
+        <AdminEquipment />
+      </v-tab-item>
     </v-tabs>
   </div>
 </template>
 <script>
 import AdminUser from "@/components/AdminUser.vue";
 import AdminBooking from "@/components/AdminBooking.vue";
+import AdminEquipment from "@/components/AdminEquipment.vue";
 export default {
   name: "admin",
   components: {
     AdminUser,
-    AdminBooking
+    AdminBooking,
+    AdminEquipment
   },
   data: () => ({
     tab: null

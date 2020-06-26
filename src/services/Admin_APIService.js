@@ -112,5 +112,19 @@ export class Admin_APIService extends APIService {
             })
             .then(response => response.data);
     }
+    listAllEquipments(){
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/listAllEquipments.php`;
+        var dummy_response = {
+        };
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+            return axios.get(url,{
+                params: {
+                }
+            }).then(response => response.data);
+        }
+    }
 
 }

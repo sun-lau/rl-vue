@@ -58,8 +58,11 @@
                     </v-card>
                     <v-card>
                         <v-card-title>Records</v-card-title>
-                        <v-btn class="ma-4" @click="measure">
-                            Download All Pictures
+                        <v-btn class="ma-4" @click="capture">
+                            Capture
+                        </v-btn>
+                        <v-btn class="ma-4" @click="downloadPhotos">
+                            Download All Photos
                         </v-btn>
                         <br>
 
@@ -106,7 +109,8 @@ export default {
                 value_got_at:null,
                 value_set_at:null
             },
-            experiment_name:""
+            experiment_name:"",
+            current_sample:1
       }
   },
   mounted: function(){
@@ -129,9 +133,7 @@ export default {
                 self.api.value_set_at = response.value_set_at;
                 self.api.command_got_at = response.command_got_at;
                 self.api.command_set_at = response.command_set_at;
-                self.api.value = JSON.parse(response.value)
-                console.log("self.api.value");
-                console.log(self.api.value);
+                self.api.value = JSON.parse(response.value);
                 if(callback){
                     callback();
                 }
@@ -142,10 +144,6 @@ export default {
             var self = this;
             apiService.setCommand(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id, command)
             .then((response) => {
-                console.log("command is set");
-                console.log(self.experiment_name);
-                console.log("response");
-                console.log(response);
                 if(callback){
                     callback();
                 }
@@ -153,10 +151,21 @@ export default {
         },
         setSample(target_sample){
             var self = this;
+            self.current_sample = target_sample;
             self.setCommand("device_0","SAMPLE|"+target_sample);
         },
-        measure(){
+        capture(){
             var self = this;
+            apiService.setPhoto(self.experiment_name, self.$cookies.get('equipment_id'), "sample_"+self.current_sample, function(){
+                self.$store.commit('showSnackBar', "Photo Captured");
+            });
+        },
+        downloadPhotos(){
+            var self = this;
+            apiService.zipPhotos(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), "device_0",  function(){
+                window.open(process.env.VUE_APP_BASE_URL+"/api/experiment/storage/"+self.experiment_name+"-"+self.$cookies.get('equipment_id')+".zip");
+            });
+
         }
   }
 }

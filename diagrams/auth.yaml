@@ -1,0 +1,29 @@
+title RemoteLab - Auth 
+Client->Server: /login
+note over Client,Server:
+    username, password
+end note
+
+note over Client,Server:
+    auth_token
+end note
+
+
+Client->Server: /bookSlot
+note over Client,Server:
+    auth_token
+end note
+
+Client->Server: /enterLab
+note over Client,Server:
+    auth_token
+end note
+note over Client,Server:
+    session_token
+end note
+
+
+Client->Server: /setCommand, getValue
+note over Client,Server:
+    session_token
+end note

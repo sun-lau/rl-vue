@@ -137,7 +137,8 @@
             isBookedByOthers: function(slot){
                 if(moment(slot.start_at) < moment() 
                     && slot.status == 'BOOKED' 
-                    && slot.username != $cookies.get('username')){
+                    && slot.username != $cookies.get('username')
+                    && self.experiment == "BACTERIA_GROWTH"){
                         return true;
                 }
                 else{

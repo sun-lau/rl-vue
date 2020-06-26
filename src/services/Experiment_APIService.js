@@ -155,9 +155,62 @@ export class Experiment_APIService extends APIService {
                 data: bodyFormData,
                 config: { headers: {'Content-Type': 'multipart/form-data' }}
                 })
+            .then(response => response.data);
+        }
+    }
+    setPhoto(experiment, equipment_id, filename_prefix, cb){    //user side
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/setPhoto.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('experiment', experiment);
+        bodyFormData.set('equipment_id', equipment_id);
+        bodyFormData.set('filename_prefix', filename_prefix);
+        var dummy_response = {
+            status:"success"
+        };
+        
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+            return axios({
+                method: 'post',
+                url: url,
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'multipart/form-data' }}
+                })
+                .then(function (response) {
+                    if(cb){
+                        cb();
+                    }
+                });
+        }
+    }
+    zipPhotos(session_token, role, experiment, equipment_id, device_id, cb){    //user side
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/zipPhotos.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('session_token', session_token);
+        bodyFormData.set('role', role);
+        bodyFormData.set('experiment', experiment);
+        bodyFormData.set('equipment_id', equipment_id);
+        bodyFormData.set('device_id', device_id);
+        var dummy_response = {
+            status:"success"
+        };
+        
+        if(self.is_dummy){
+            return new Promise(function(resolve){setTimeout(function(){resolve(dummy_response)},1000);});
+        }else{
+            return axios({
+                method: 'post',
+                url: url,
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'multipart/form-data' }}
+                })
             .then(function (response) {
-                //handle success
-                console.log(response);
+                if(cb){
+                    cb();
+                }
             });
         }
     }
