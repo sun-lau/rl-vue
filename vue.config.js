@@ -1,5 +1,5 @@
 module.exports = {
-  "publicPath": "remotelab/",
+  "publicPath": "remotelab/platform/",
   "pluginOptions": {
     "i18n": {
       "locale": "en",
