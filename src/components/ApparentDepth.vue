@@ -208,17 +208,17 @@ export default {
   mounted: function(){
         var self = this;
         self.experiment_name = "APPARENT_DEPTH";
-        self.setCommand("device_0","RESTART|1");
+        // self.setCommand("device_0","RESTART|1");
         self.getValue("camera_0", function(){
             self.api.camera_0 = self.api.value.url;
         });
         self.getValue("camera_1", function(){
             self.api.camera_1 = self.api.value.url;
         });
-        self.loading = true;
-        setTimeout(function(){
-            self.loading = false;
-        },5000);
+        // self.loading = true;
+        // setTimeout(function(){
+        //     self.loading = false;
+        // },5000);
   },
   methods:{
         getValue(device_id, callback){

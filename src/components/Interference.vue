@@ -46,14 +46,6 @@
                             </v-btn>
                         </v-card-actions>
 
-                        <v-expand-transition>
-                        <div v-show="laser_show">
-                            <v-divider></v-divider>
-
-                            <v-card-text>
-                            </v-card-text>
-                        </div>
-                        </v-expand-transition>
                     </v-card>
                     <v-card>
                         <v-card-title>Power</v-card-title>
@@ -61,7 +53,7 @@
                             <v-slider
                                 v-model="power"
                                 thumb-label="always"
-                                @end="setCommand('device_0','POWER|'+power)"
+                                @change="setCommand('device_0','POWER|'+power)"
                             ></v-slider>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -72,14 +64,6 @@
                             </v-btn>
                         </v-card-actions>
 
-                        <v-expand-transition>
-                        <div v-show="gain_show">
-                            <v-divider></v-divider>
-
-                            <v-card-text>
-                            </v-card-text>
-                        </div>
-                        </v-expand-transition>
                     </v-card>
                     <v-card>
 
@@ -118,14 +102,6 @@
                             </v-btn>
                         </v-card-actions>
 
-                        <v-expand-transition>
-                        <div v-show="step_show">
-                            <v-divider></v-divider>
-
-                            <v-card-text>
-                            </v-card-text>
-                        </div>
-                        </v-expand-transition>
                     </v-card>
 
                         <v-card-title>
@@ -212,19 +188,19 @@ export default {
   mounted: function(){
         var self = this;
         self.experiment_name = "INTERFERENCE";
-        self.setCommand("device_0","RESTART|1");
-        self.setCommand("device_1","RESTART|1");
+        // self.setCommand("device_0","RESTART|1");
+        // self.setCommand("device_1","RESTART|1");
         self.getValue("camera_0", function(){
             self.api.camera_0 = self.api.value.url;
         });
         self.getValue("camera_1", function(){
             self.api.camera_1 = self.api.value.url;
         });
-        self.loading = true;
-        setTimeout(function(){
-            self.loading = false;
+        // self.loading = true;
+        // setTimeout(function(){
+        //     self.loading = false;
+        // },5000);
             self.getValue("device_0");
-        },5000);
         setInterval(function(){ //loop distance value
             if(self.loop_flag){
                 self.getValue("device_0", function(){

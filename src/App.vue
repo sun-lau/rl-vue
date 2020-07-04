@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      v-if="$route.query.site_mode==1"
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
       app
@@ -102,10 +103,10 @@
 		  </v-list-item>
       </v-list>
 
-		<small class="ma-4">0704.1</small>
     </v-navigation-drawer>
 
     <v-app-bar
+      v-if="$route.query.site_mode==1"
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
       color="blue darken-3"
@@ -144,6 +145,10 @@
         </v-btn>
       </template>
     </v-snackbar>
+    
+		<small class="ma-4">0704.1 
+      <span v-if="$cookies.get('username')" @click="goTo('/logout')">Logout</span>
+    </small>
   </v-app>
 </template>
 

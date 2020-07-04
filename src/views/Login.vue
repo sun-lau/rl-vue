@@ -77,7 +77,7 @@
                             self.$cookies.set('username', response.username);
                             console.log(self.$cookies.get('username'));
                             console.log(self.$cookies.get('auth_token'));
-                            self.$router.push("/");
+                            self.$router.go(-1);
                             self.$store.commit('showSnackBar', "Login Success");
                         }
                     })

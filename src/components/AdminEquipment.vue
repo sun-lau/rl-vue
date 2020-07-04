@@ -20,6 +20,7 @@
                     {{ formatDate(item.value_got_at) }}
                 </template>
             </v-data-table>
+            <v-btn @click="listAllEquipments">Refresh</v-btn>
         </v-card>
     </div>
 </template>
@@ -69,14 +70,19 @@
             }else{
                 return false;
             }
+        },
+        listAllEquipments(){
+            var self = this;
+            apiService.listAllEquipments()
+            .then((response) => {
+                self.api.equipments = response.equipments;
+            });
+
         }
     },
     mounted:function(){
         var self = this;
-        apiService.listAllEquipments()
-        .then((response) => {
-            self.api.equipments = response.equipments;
-        });
+        self.listAllEquipments();
     }
 }
 </script>

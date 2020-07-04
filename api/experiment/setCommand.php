@@ -32,21 +32,23 @@
     
     $session_device = "session";
     //check session_token valid
-    $with_valid_session_token = false;
-    $stmt = $conn->prepare("SELECT * FROM rl_experiment WHERE experiment = ? AND equipment_id = ? AND device_id = ? LIMIT 1");
-    $stmt->bind_param("sss", $experiment, $equipment_id, $session_device );
-    $stmt->execute();
-    $res = $stmt->get_result();
-    while ($row = $res->fetch_assoc()) {
-        if($session_token == json_decode($row["value"])->{$role}){
-            $with_valid_session_token = true;
+    if($role!="super"){
+        $with_valid_session_token = false;
+        $stmt = $conn->prepare("SELECT * FROM rl_experiment WHERE experiment = ? AND equipment_id = ? AND device_id = ? LIMIT 1");
+        $stmt->bind_param("sss", $experiment, $equipment_id, $session_device );
+        $stmt->execute();
+        $res = $stmt->get_result();
+        while ($row = $res->fetch_assoc()) {
+            if($session_token == json_decode($row["value"])->{$role}){
+                $with_valid_session_token = true;
+            }
         }
-    }
-    if(!$with_valid_session_token){
-        $myObj->status = "fail";
-        $myObj->error = "invalid_session_token";
-        echo json_encode($myObj);
-        die();
+        if(!$with_valid_session_token){
+            $myObj->status = "fail";
+            $myObj->error = "invalid_session_token";
+            echo json_encode($myObj);
+            die();
+        }
     }
     //set command
     $current_time = time();
