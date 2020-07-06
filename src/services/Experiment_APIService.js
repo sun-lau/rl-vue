@@ -35,9 +35,9 @@ export class Experiment_APIService extends APIService {
             });
         }
     }    
-    getChart(session_token, role, experiment, equipment_id){    //user side
+    getChart(session_token, role, experiment, equipment_id, device_id){    //user side
         var self = this;
-        const url = `${this.api_base_url}/api/experiment/getChart.php?experiment=`+experiment+`&equipment_id=`+equipment_id;
+        const url = `${this.api_base_url}/api/experiment/getChart.php?experiment=`+experiment+`&equipment_id=`+equipment_id+`&device_id=`+device_id;
         var dummy_response = {
             value:[
                 {
@@ -58,7 +58,8 @@ export class Experiment_APIService extends APIService {
                   session_token: session_token,
                   role: role,
                   experiment: experiment,
-                  equipment_id: equipment_id
+                  equipment_id: equipment_id,
+                  device_id: device_id
                 }
               }).then(response => response.data);
         }
