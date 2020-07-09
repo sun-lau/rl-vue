@@ -88,7 +88,7 @@ foreach($value_json as $name => $v){
 }
 $new_value = json_encode($new_value_json);
 $current_time = time();
-$sql = "UPDATE rl_experiment SET value='".$new_value."',value_set_at='".$current_time."'  WHERE equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
+$sql = "UPDATE rl_experiment SET value='".$new_value."',value_set_at='".$current_time."'  WHERE experiment='".$experiment."'AND equipment_id='".$equipment_id."'AND device_id='".$device_id."' LIMIT 1";
 
 if ($conn->query($sql) === TRUE) {
     $myObj->status = "success";
