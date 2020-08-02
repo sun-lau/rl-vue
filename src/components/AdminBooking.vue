@@ -141,6 +141,10 @@
                 {
                     text:"BACTERIA_GROWTH",
                     value:"BACTERIA_GROWTH"
+                },
+                {
+                    text:"EM_INDUCTION",
+                    value:"EM_INDUCTION"
                 }
             ],
             equipment_ids:[

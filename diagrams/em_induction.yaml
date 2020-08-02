@@ -1,7 +1,7 @@
-title RemoteLab - Visible Spectrum
+title RemoteLab - Electomagnetic Induction
 Client->Server: /setCommand
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "command":"RESTART|1"
@@ -12,33 +12,45 @@ end note
 Client->Client: loading popup 5 sec.
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
 end note
 
 
-Client->Server: /setCommand
+Client->Server: /getValue
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
-    "command":"SOURCE|OFF/WHITE/BLUE/GREEN"
-    "command":"SOURCE|RED/SODIUM/MERCURY"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "experiment":"EM_INDUCTION"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"MAGNET|1/2/3"
+    "command":"COIL|1/2/3"
+    "command":"SPEED|1/2/3"
     "session_token":"XXXXXX"
     "role":"player"
 end note
 
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
 end note
 
+
+
 Client->Server: /setCommand
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "command":"MEASURE|START"
@@ -50,14 +62,14 @@ Client->Client: loading popup until chart_at >= command_at.
 
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
 end note
 
 Client->Server: /getValue
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "session_token":"XXXXXX"
@@ -65,7 +77,7 @@ note over Client,Server:
 end note
 Client->Server: /getValue
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "session_token":"XXXXXX"
@@ -74,7 +86,7 @@ end note
 
 Device 0->Server: /setChart
 note over Server,Device 0: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "chart":"0,38|0.1,39|0.2,40|0.3,41"
@@ -82,7 +94,7 @@ end note
 
 Client->Server: /getValue
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "session_token":"XXXXXX"
@@ -91,16 +103,9 @@ end note
 
 Client->Server: /getChart
 note over Client,Server: 
-    "experiment":"VISIBLE_SPECTRUM"
+    "experiment":"EM_INDUCTION"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "session_token":"XXXXXX"
     "role":"player"
-end note
-
-Device 0->Server: /getCommand
-note over Server,Device 0: 
-    "experiment":"VISIBLE_SPECTRUM"
-    "equipment_id":"set_0"
-    "device_id":"device_0"
 end note

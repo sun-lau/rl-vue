@@ -146,7 +146,7 @@
       </template>
     </v-snackbar>
     
-		<small class="ma-4">0706.1 
+		<small class="ma-4">0802.1 
       <span v-if="$cookies.get('username')" @click="goTo('/logout')">Logout</span>
     </small>
   </v-app>

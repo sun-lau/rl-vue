@@ -12,6 +12,9 @@
         <div v-if="name=='bacteria_growth'">
             <BacteriaGrowth />
         </div>
+        <div v-if="name=='em_induction'">
+            <EmInduction />
+        </div>
         
 		<v-btn
             absolute
@@ -31,13 +34,15 @@
     import VisibleSpectrum from '@/components/VisibleSpectrum.vue'
     import Interference from '@/components/Interference.vue'
     import BacteriaGrowth from '@/components/BacteriaGrowth.vue'
+    import EmInduction from '@/components/EmInduction.vue'
 	export default {
 		name: 'experiment',
 		components: {
             ApparentDepth,
             VisibleSpectrum,
             Interference,
-            BacteriaGrowth
+            BacteriaGrowth,
+            EmInduction
 		},
 		data:function(){
 			return{

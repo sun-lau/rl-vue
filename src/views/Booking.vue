@@ -122,6 +122,9 @@
                     case "bacteria_growth":
                         self.experiment = "BACTERIA_GROWTH";
                     break;
+                    case "em_induction":
+                        self.experiment = "EM_INDUCTION";
+                    break;
                 }
             },
             isBookedByMe: function(slot){

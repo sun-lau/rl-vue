@@ -1,7 +1,7 @@
 title RemoteLab - Bacteria Growth (Player)
 Client->Server: /setCommand
 note over Client,Server: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "command":"RESTART|1"
@@ -12,7 +12,7 @@ end note
 Client->Client: loading popup 5 sec.
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
 end note
@@ -20,7 +20,7 @@ end note
 
 Client->Server: /setCommand
 note over Client,Server: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "command":"SAMPLE|1/2/3/4"
@@ -31,7 +31,7 @@ end note
 
 Device 0->Server: /getCommand
 note over Server,Device 0: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
 end note
@@ -39,7 +39,7 @@ end note
 
 Server->Device 0: /setCommand (CRON)
 note over Server,Device 0: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "command":"AUTO|1"
@@ -47,7 +47,7 @@ end note
 
 Device 0->Server: /setPhoto
 note over Server,Device 0: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "filename_prefix":"sample_18"
@@ -55,7 +55,7 @@ end note
 
 Device 0->Server: /setPhoto
 note over Server,Device 0: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "filename_prefix":"sample_2...8"
@@ -64,7 +64,7 @@ end note
 
 Client->Server: /setPhoto
 note over Client,Server: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "filename_prefix":"sample_1/sample_2...8"
@@ -72,7 +72,7 @@ end note
 
 Client->Server: /zipPhotos
 note over Client,Server: 
-    "equipment":"BACTERIA_GROWTH"
+    "experiment":"BACTERIA_GROWTH"
     "equipment_id":"set_0"
     "device_id":"device_0"
     "session_token":"XXXXXX"
