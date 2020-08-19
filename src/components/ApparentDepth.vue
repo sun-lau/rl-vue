@@ -7,14 +7,12 @@
                         <v-card-title>Live</v-card-title>
                         <v-row class="ml-2 mr-2 mt-4">
                             <v-col  xs="12" sm="6">
-                                {{api.camera_0}}
                                 <b-img 
                                     :src="api.camera_0"
                                     fluid
                                 />
                             </v-col>
                             <v-col xs="12" sm="6">
-                                    {{api.camera_1}}
                                 <b-img 
                                     :src="api.camera_1"
                                     fluid
