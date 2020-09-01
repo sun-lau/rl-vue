@@ -24,12 +24,12 @@
                             </v-form>
                         </v-card-text>
                     </v-card>
-                    <div class="mt-4 float-right" v-if="options.isLoggingIn">Don't have an account?<br>
+                    <!-- <div class="mt-4 float-right" v-if="options.isLoggingIn">Don't have an account?<br>
                         <v-btn class="mt-4 float-right" light="light" @click="options.isLoggingIn = false">Register</v-btn>
                     </div>
                     <div class="mt-4 float-right" v-else>Already had an account?<br>
                         <v-btn class="mt-4 float-right" light="light" @click="options.isLoggingIn = true">Login</v-btn>
-                    </div>
+                    </div> -->
                 </v-flex>
                 </v-layout>
             </v-container>

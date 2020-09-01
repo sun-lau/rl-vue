@@ -145,10 +145,10 @@
         </v-btn>
       </template>
     </v-snackbar>
-    
-		<small class="ma-4">0802.1 
-      <span v-if="$cookies.get('username')" @click="goTo('/logout')">Logout</span>
-    </small>
+    <div>
+		<div class="ma-4 float-left">0901.1</div>
+    <v-btn class="float-right ma-4" color="error" v-if="$cookies.get('username')" @click="goTo('/logout')">Logout</v-btn>
+    </div>
   </v-app>
 </template>
 

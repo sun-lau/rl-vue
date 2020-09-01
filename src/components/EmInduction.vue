@@ -6,7 +6,7 @@
                     <v-card>
                         <v-card-title>Live</v-card-title>
                         <v-row class="ml-2 mr-2 mt-4">
-                            <v-col  xs="12" sm="6">
+                            <v-col  cols="12">
                             <b-img 
                                 :src="api.camera_0"
                                 fluid
@@ -28,9 +28,9 @@
                                 active-class="deep-purple accent-4 white--text"
                                 column
                             >
-                                <v-chip @click="setCommand('device_0','MAGNET|1')">1</v-chip>
-                                <v-chip @click="setCommand('device_0','MAGNET|2')">2</v-chip>
-                                <v-chip @click="setCommand('device_0','MAGNET|3')">3</v-chip>
+                                <v-chip @click="setCommand('device_0','MAGNET|1')">2mm</v-chip>
+                                <v-chip @click="setCommand('device_0','MAGNET|2')">3mm</v-chip>
+                                <v-chip @click="setCommand('device_0','MAGNET|3')">5mm</v-chip>
                             </v-chip-group>
                         </v-card-actions>
 
@@ -43,9 +43,9 @@
                                 active-class="deep-purple accent-4 white--text"
                                 column
                             >
-                                <v-chip @click="setCommand('device_0','COIL|1')">1</v-chip>
-                                <v-chip @click="setCommand('device_0','COIL|2')">2</v-chip>
-                                <v-chip @click="setCommand('device_0','COIL|3')">3</v-chip>
+                                <v-chip @click="setCommand('device_0','COIL|1')">50</v-chip>
+                                <v-chip @click="setCommand('device_0','COIL|2')">150</v-chip>
+                                <v-chip @click="setCommand('device_0','COIL|3')">200</v-chip>
                             </v-chip-group>
                         </v-card-actions>
                     </v-card>
@@ -57,9 +57,9 @@
                                 active-class="deep-purple accent-4 white--text"
                                 column
                             >
-                                <v-chip @click="setCommand('device_0','SPEED|1')">1</v-chip>
-                                <v-chip @click="setCommand('device_0','SPEED|2')">2</v-chip>
-                                <v-chip @click="setCommand('device_0','SPEED|3')">3</v-chip>
+                                <v-chip @click="setCommand('device_0','SPEED|1')">1 Hz</v-chip>
+                                <v-chip @click="setCommand('device_0','SPEED|2')">2 Hz</v-chip>
+                                <v-chip @click="setCommand('device_0','SPEED|3')">5 Hz</v-chip>
                             </v-chip-group>
                         </v-card-actions>
                     </v-card>
@@ -113,7 +113,18 @@ export default {
                 camera_0:"",
             },
             options: {
-                width:'100%'
+                width:'100%',
+                stroke:1,
+                yaxis: {
+                    title: {
+                        text: "Voltage (mV)",
+                    },
+                },
+                xaxis: {
+                    title: {
+                        text: "Time (ms)",
+                    },
+                }
             },
             series: [{
                 data: []

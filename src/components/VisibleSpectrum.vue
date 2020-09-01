@@ -5,7 +5,7 @@
                 <v-card>
                     <v-card-title>Live</v-card-title>
                     <v-row class="ml-2 mr-2 mt-4">
-                        <v-col  xs="12">
+                        <v-col cols="12">
                         <b-img 
                             :src="api.camera_0"
                             fluid
@@ -22,10 +22,10 @@
                             column
                         >
                             <v-chip @click="setCommand('device_0','SOURCE|OFF')">Off</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|WHITE')">White</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|BLUE')">Blue</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|GREEN')">Green</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|RED')">Red</v-chip>
+                            <v-chip @click="setCommand('device_0','SOURCE|WHITE')">White LED</v-chip>
+                            <v-chip @click="setCommand('device_0','SOURCE|BLUE')">Blue LED</v-chip>
+                            <v-chip @click="setCommand('device_0','SOURCE|GREEN')">Green LED</v-chip>
+                            <v-chip @click="setCommand('device_0','SOURCE|RED')">Red LED</v-chip>
                             <v-chip @click="setCommand('device_0','SOURCE|SODIUM')">Sodium Lamp</v-chip>
                             <v-chip @click="setCommand('device_0','SOURCE|MERCURY')">Mercury Lamp</v-chip>
                         </v-chip-group>
@@ -106,7 +106,7 @@ export default {
             },
             options: {
                 width:'100%',
-
+                stroke:1,
                 yaxis: {
                     title: {
                         text: "Intensity (count)",

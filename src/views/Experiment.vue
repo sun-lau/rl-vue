@@ -58,7 +58,7 @@
             setInterval(function(){ //countdown protect
                 self.kick_time = self.kick_time -1;
                 if(self.kick_time < 0){
-                    window.location.href = process.env.VUE_APP_BASE_URL;
+                    // window.location.href = process.env.VUE_APP_BASE_URL;
                 }
             },1000);
 		},
