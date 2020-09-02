@@ -3,3 +3,4 @@ curl --data "experiment=INTERFERENCE&role=super&session_token=super&equipment_id
 curl --data "experiment=APPARENT_DEPTH&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
 curl --data "experiment=VISIBLE_SPECTRUM&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
 curl --data "experiment=BACTERIA_GROWTH&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=AUTO|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
+curl https://stem-ap.polyu.edu.hk/remotelab/api/health/scan.php

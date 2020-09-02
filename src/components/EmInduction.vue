@@ -114,7 +114,9 @@ export default {
             },
             options: {
                 width:'100%',
-                stroke:1,
+                stroke: {
+                    width:1
+                },
                 yaxis: {
                     title: {
                         text: "Voltage (mV)",
