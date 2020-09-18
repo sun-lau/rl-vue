@@ -27,3 +27,7 @@ UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/s
 UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/BACTERIA_GROWTH_00/CAM0009"}' WHERE id=10;   /* 10 | BACTERIA_GROWTH  | set_0        | camera_1 */
 UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/ELECTROMAGNETIC_INDUCTION_00/CAM0004"}' WHERE id=18;   /* 18 | EM_INDUCTION     | set_0        | camera_0 */
 /* UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/ELECTROMAGNETIC_INDUCTION_00/CAM0005"}' WHERE id=;  */
+
+
+
+CREATE TABLE `rl`.`rl_config` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(250) NOT NULL , `value` VARCHAR(250) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

@@ -53,12 +53,14 @@
 		},
 		mounted: function(){
 			var self = this;
-            self.name = this.$route.query.name;
+            self.$ga.page('/experiment/'+self.$route.query.name);
+            self.name = self.$route.query.name;
             self.kick_time = self.$cookies.get('kick_time');
             setInterval(function(){ //countdown protect
                 self.kick_time = self.kick_time -1;
                 if(self.kick_time < 0){
-                    // window.location.href = process.env.VUE_APP_BASE_URL;
+                    self.$ga.event('Experiment', 'kick_out');
+                    window.location.href = process.env.VUE_APP_BASE_URL;
                 }
             },1000);
 		},

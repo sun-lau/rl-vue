@@ -6,14 +6,14 @@
                     <v-card>
                         <v-card-title>Bacteria Growth</v-card-title>
                         <v-row class="ml-2 mr-2 mt-4">
-                            <v-col  xs="12" sm="6">
+                            <v-col  xs="12" sm="12">
                                 <b-img 
+                                    v-if="current_sample <= 4"
                                     :src="api.camera_0"
                                     fluid
                                 />
-                            </v-col>
-                            <v-col xs="12" sm="6">
                                 <b-img 
+                                    v-if="current_sample >= 5"
                                     :src="api.camera_1"
                                     fluid
                                 />
@@ -27,28 +27,28 @@
                             rounded
                             dense
                             class="ml-4">
-                            <v-btn @click="setSample('1')" >
+                            <v-btn @click="setSample(1)" >
                                 1
                             </v-btn>
-                            <v-btn @click="setSample('2')" >
+                            <v-btn @click="setSample(2)" >
                                 2
                             </v-btn>
-                            <v-btn @click="setSample('3')" >
+                            <v-btn @click="setSample(3)" >
                                 3
                             </v-btn>
-                            <v-btn @click="setSample('4')" >
+                            <v-btn @click="setSample(4)" >
                                 4
                             </v-btn>
-                            <v-btn @click="setSample('5')" >
+                            <v-btn @click="setSample(5)" >
                                 5
                             </v-btn>
-                            <v-btn @click="setSample('6')" >
+                            <v-btn @click="setSample(6)" >
                                 6
                             </v-btn>
-                            <v-btn @click="setSample('7')" >
+                            <v-btn @click="setSample(7)" >
                                 7
                             </v-btn>
-                            <v-btn @click="setSample('8')" >
+                            <v-btn @click="setSample(8)" >
                                 8
                             </v-btn>
                         </v-btn-toggle>

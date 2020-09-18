@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueCookies from 'vue-cookies'
+import VueAnalytics from 'vue-analytics'
 Vue.use(VueCookies)
 Vue.$cookies.config('7d')
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -26,6 +27,9 @@ Vue.component('downloadCsv', JsonCSV)
 import { store } from './store/store'
 
 
+Vue.use(VueAnalytics, {
+  id: 'UA-178397726-1'
+})
 Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)

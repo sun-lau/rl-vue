@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "scp -i ../pu_rsa -r ./dist/* root@10.13.44.37:/var/www/html/remotelab/platform/"
+    "deploy": "scp -i ../pu_rsa -r ./dist/* root@10.13.44.37:/var/www/html/remotelab/platform/",
+    "deploy_api": "scp -i ../pu_rsa -r ./api/* root@10.13.44.37:/var/www/html/remotelab/api/",
+    "deploy_stem_site": "scp -i ../pu_rsa -r ./stem-site/* root@10.13.44.37:/var/www/html/"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -22,6 +24,7 @@
     "moment": "^2.24.0",
     "qs": "^6.9.0",
     "vue": "^2.6.10",
+    "vue-analytics": "^5.22.1",
     "vue-apexcharts": "^1.5.2",
     "vue-axios": "^2.1.4",
     "vue-cookies": "^1.6.1",

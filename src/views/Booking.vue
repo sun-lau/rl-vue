@@ -95,8 +95,7 @@
             var self = this;
             self.assignEquipmentId();
             self.getSlotsByDate();
-            console.log("username");
-            console.log(self.$cookies.get("username"));
+            self.$ga.page('/booking/'+self.$route.params.experiment_name);
         },
         watch: {
             $route(to, from) {
@@ -181,6 +180,7 @@
             },
             bookSlot: function(slot_id){
                 var self = this;
+                self.$ga.event('Booking', 'book', slot_id);
                 apiService.bookSlot(slot_id, self.$cookies.get('auth_token'))
                 .then((response) => {
                     if(response.status == "fail"){
@@ -194,6 +194,7 @@
             },
             releaseSlot: function(slot_id){
                 var self = this;
+                self.$ga.event('Booking', 'cancel', slot_id);
                 apiService.releaseSlot(slot_id, self.$cookies.get('auth_token'))
                 .then((response) => {
                     self.$store.commit('showSnackBar', "Booking Cancelled");
@@ -203,6 +204,7 @@
             },
             enterLab: function(slot_id, equipment_id, role){
                 var self = this;
+                self.$ga.event('Booking', 'enter_lab', slot_id, role);
                 apiService.enterLab(slot_id, self.$cookies.get('auth_token'),role)
                 .then((response) => {
                     if(response.status == "fail"){

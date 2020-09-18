@@ -50,7 +50,7 @@
                         </v-card-actions>
                     </v-card>
                     <v-card>
-                        <v-card-title>Speed (rpm)</v-card-title>
+                        <v-card-title>Rotation Speed</v-card-title>
                         <v-card-actions class="ml-4">
                             <v-chip-group
                                 v-model="speed"

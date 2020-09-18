@@ -68,15 +68,12 @@
                 if(self.options.isLoggingIn){   //login
                     apiService.login(self.form.username, self.form.password)
                     .then((response) => {
-                        console.log("response");
-                        console.log(response);
                         if(response.status == "fail"){
                             alert(response.message);
                         }else{
+                            self.$ga.event('Booking', 'login', response.username);
                             self.$cookies.set('auth_token', response.token);
                             self.$cookies.set('username', response.username);
-                            console.log(self.$cookies.get('username'));
-                            console.log(self.$cookies.get('auth_token'));
                             self.$router.go(-1);
                             self.$store.commit('showSnackBar', "Login Success");
                         }
