@@ -82,6 +82,14 @@ end note
 
 Client->Client: loop getValue until set_at >=  got_at
 
+Device 0->Server: /setValue
+note over Server,Device 0: 
+    "experiment":"INTERFERENCE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "value":'{"distance":123}'
+end note
+
 Client->Server: /getValue
 note over Client,Server: 
     "experiment":"INTERFERENCE"

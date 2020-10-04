@@ -145,6 +145,10 @@
                 {
                     text:"EM_INDUCTION",
                     value:"EM_INDUCTION"
+                },
+                {
+                    text:"GREEN_HOUSE",
+                    value:"GREEN_HOUSE"
                 }
             ],
             equipment_ids:[
@@ -155,6 +159,14 @@
                 {
                     text:"Set 1",
                     value:"set_1"
+                },
+                {
+                    text:"Set 2",
+                    value:"set_2"
+                },
+                {
+                    text:"Set 3",
+                    value:"set_3"
                 },
             ],
             form:{

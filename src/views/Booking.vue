@@ -28,8 +28,10 @@
                         <tbody>
                             <tr v-for="(slot, index) in api.slots" :key="index">
                                 <template v-if="slot.display">
-                                <td><p v-if="index==0 || api.slots[index-1].start_at!=api.slots[index].start_at">{{ slot.start_at | moment("HH:mm") }}</p></td>
-                                <td><p v-if="index==0 || api.slots[index-1].end_at!=api.slots[index].end_at">{{ slot.end_at | moment("HH:mm") }}</p></td>
+                                <!-- <td><p v-if="index==0 || api.slots[index-1].start_at!=api.slots[index].start_at">{{ slot.start_at | moment("HH:mm") }}</p></td>
+                                <td><p v-if="index==0 || api.slots[index-1].end_at!=api.slots[index].end_at">{{ slot.end_at | moment("HH:mm") }}</p></td> -->
+                                <td><p>{{ slot.start_at | moment("HH:mm") }}</p></td>
+                                <td><p>{{ slot.end_at | moment("HH:mm") }}</p></td>
                                 <td>{{ slot.equipment_id | roomName }}</td>
                                 <td>
                                     <v-btn 
@@ -124,6 +126,9 @@
                     case "em_induction":
                         self.experiment = "EM_INDUCTION";
                     break;
+                    case "green_house":
+                        self.experiment = "GREEN_HOUSE";
+                    break;
                 }
             },
             isBookedByMe: function(slot){
@@ -169,7 +174,9 @@
                                 slot.display = false;
                             }else{
                                 slot.display = true;
-
+                            }
+                            if(slot.status == 'HOLDED'){
+                                slot.display = false;
                             }
                         }
                         self.api.slots = response.slots;
@@ -180,7 +187,7 @@
             },
             bookSlot: function(slot_id){
                 var self = this;
-                self.$ga.event('Booking', 'book', slot_id);
+                self.$ga.event('Booking', 'book', self.$route.params.experiment_name);
                 apiService.bookSlot(slot_id, self.$cookies.get('auth_token'))
                 .then((response) => {
                     if(response.status == "fail"){
@@ -194,7 +201,7 @@
             },
             releaseSlot: function(slot_id){
                 var self = this;
-                self.$ga.event('Booking', 'cancel', slot_id);
+                self.$ga.event('Booking', 'cancel', self.$route.params.experiment_name);
                 apiService.releaseSlot(slot_id, self.$cookies.get('auth_token'))
                 .then((response) => {
                     self.$store.commit('showSnackBar', "Booking Cancelled");
@@ -204,7 +211,7 @@
             },
             enterLab: function(slot_id, equipment_id, role){
                 var self = this;
-                self.$ga.event('Booking', 'enter_lab', slot_id, role);
+                self.$ga.event('Booking', 'enter_lab', self.$route.params.experiment_name, role);
                 apiService.enterLab(slot_id, self.$cookies.get('auth_token'),role)
                 .then((response) => {
                     if(response.status == "fail"){

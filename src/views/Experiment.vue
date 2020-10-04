@@ -15,6 +15,9 @@
         <div v-if="name=='em_induction'">
             <EmInduction />
         </div>
+        <div v-if="name=='green_house'">
+            <GreenHouse />
+        </div>
         
 		<v-btn
             absolute
@@ -35,6 +38,7 @@
     import Interference from '@/components/Interference.vue'
     import BacteriaGrowth from '@/components/BacteriaGrowth.vue'
     import EmInduction from '@/components/EmInduction.vue'
+    import GreenHouse from '@/components/GreenHouse.vue'
 	export default {
 		name: 'experiment',
 		components: {
@@ -42,7 +46,8 @@
             VisibleSpectrum,
             Interference,
             BacteriaGrowth,
-            EmInduction
+            EmInduction,
+            GreenHouse,
 		},
 		data:function(){
 			return{
@@ -59,10 +64,15 @@
             setInterval(function(){ //countdown protect
                 self.kick_time = self.kick_time -1;
                 if(self.kick_time < 0){
-                    self.$ga.event('Experiment', 'kick_out');
+                    self.$ga.event('Experiment', 'kick_out', self.$route.query.name);
                     window.location.href = process.env.VUE_APP_BASE_URL;
                 }
             },1000);
+            var ga_counter = 0;
+            setInterval(function(){
+                ga_counter += 10;
+                self.$ga.event('Experiment', 'stay_'+ga_counter+'_mins', self.$route.query.name);
+            },10*60*1000);
 		},
 		methods:{
 		}

@@ -1,0 +1,55 @@
+title RemoteLab - Green House
+Client->Server: /setCommand
+note over Client,Server: 
+    "experiment":"GREEN_HOUSE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"RESTART|1"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: loading popup 5 sec.
+
+Device 0->Device 0: keep looping every 5 sec.
+
+
+Device 0->Server: /getCommand
+note over Server,Device 0: 
+    "experiment":"GREEN_HOUSE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+end note
+
+Device 0->Server: /setValue
+note over Device 0,Server: 
+    "experiment":"GREEN_HOUSE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "value":'{"temperature_0":25.5,"temperature_1":28.2,"co2_value":12.34,"light":0,"air":1}'
+end note
+
+
+Client->Server: /setCommand
+note over Client,Server: 
+    "experiment":"GREEN_HOUSE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "command":"LIGHT|OFF/ON"
+    "command":"CO2|OFF/ON"
+    "command":"AIR|OFF/ON"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
+Client->Client: keep looping every 5 sec.
+
+Client->Server: /getValue
+note over Client,Server: 
+    "experiment":"GREEN_HOUSE"
+    "equipment_id":"set_0"
+    "device_id":"device_0"
+    "session_token":"XXXXXX"
+    "role":"player"
+end note
+
