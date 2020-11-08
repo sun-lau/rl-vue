@@ -146,7 +146,7 @@
       </template>
     </v-snackbar>
       <div>
-		<div class="ma-4 float-left">1004.1</div>
+		<div class="ma-4 float-left">1107.1</div>
     <v-btn class="float-right ma-4" color="error" v-if="$cookies.get('username')" @click="goTo('/logout')">Logout</v-btn>
     </div>
   </v-app>

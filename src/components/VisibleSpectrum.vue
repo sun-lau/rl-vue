@@ -8,7 +8,7 @@
                         <v-col cols="12">
                         <b-img 
                             :src="api.camera_0"
-                            fluid
+                            grow-fluid
                         />
                         </v-col>
                     </v-row>

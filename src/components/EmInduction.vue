@@ -6,11 +6,10 @@
                     <v-card>
                         <v-card-title>Live</v-card-title>
                         <v-row class="ml-2 mr-2 mt-4">
-                            <v-col  cols="12">
+                            <v-col cols="12">
                             <b-img 
                                 :src="api.camera_0"
-                                fluid
-                            />
+                                 fluid-grow />
                             </v-col>
                         </v-row>
                     </v-card>

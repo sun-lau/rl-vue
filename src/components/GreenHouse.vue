@@ -5,12 +5,57 @@
         <v-col xs="12" sm="6">
           <v-card>
             <v-card-title>Live</v-card-title>
-            <v-row class="ml-2 mr-2 mt-4">
-              <v-col xs="12" sm="6">
-                <b-img :src="api.camera_0" fluid />
-              </v-col>
+            <v-row class="ma-2">
+                <b-img class="ma-2" :src="api.camera_0" fluid-grow />
             </v-row>
           </v-card>
+			<v-row>
+				<v-col cols="4">
+				<v-card>
+					<v-card-title>Flush</v-card-title>
+					<v-card-actions class="ml-4">
+					<v-chip-group
+						v-model="air_status"
+						active-class="deep-purple accent-4 white--text"
+						column
+					>
+						<v-chip @click="setCommand('device_0', 'AIR|OFF')">Off</v-chip>
+						<v-chip @click="setCommand('device_0', 'AIR|ON')">On</v-chip>
+					</v-chip-group>
+					<v-spacer></v-spacer>
+					</v-card-actions>
+				</v-card>
+				</v-col>
+				<v-col cols="4">
+				<v-card>
+					<v-card-title>Sun</v-card-title>
+					<v-card-actions class="ml-4">
+					<v-chip-group
+						v-model="light_status"
+						active-class="deep-purple accent-4 white--text"
+						column
+					>
+						<v-chip @click="setCommand('device_0', 'LIGHT|OFF')"
+						>Off</v-chip
+						>
+						<v-chip @click="setCommand('device_0', 'LIGHT|ON')">On</v-chip>
+					</v-chip-group>
+					<v-spacer></v-spacer>
+					</v-card-actions>
+				</v-card>
+				</v-col>
+				<v-col cols="4">
+					<v-card>
+						<v-card-title>CO2 Pulse</v-card-title>
+						<v-card-actions class="ml-4">
+						<v-btn @click="setCommand('device_0', 'CO2|ON')"> Add CO2 </v-btn>
+						<v-spacer></v-spacer>
+						</v-card-actions>
+					</v-card>
+				</v-col>
+			</v-row>
+        </v-col>
+		<v-col xs="12" sm="6">
           <v-card>
             <v-card-title>Measure Result</v-card-title>
             <apexchart
@@ -53,65 +98,27 @@
                 </v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
+			  
+				<v-card-title>Real-time Values</v-card-title>
+				<v-row class="ml-1 mr-1">
+					<v-col xs="4">
+						<h6>CO2</h6>
+						<h4>{{ api.value.co2_value }} ppm</h4>
+					</v-col>
+					<v-col xs="4">
+						<small>Set 1 (More CO2)</small>
+						<h6>Temperature</h6>
+						<h4>{{ api.value.temperature_0 }} degC</h4>
+					</v-col>
+					<v-col xs="4">
+						<small>Set 2</small>
+						<h6>Temperature</h6>
+						<h4>{{ api.value.temperature_1 }} degC</h4>
+					</v-col>
+				</v-row>
             </v-card>
           </v-card>
-        </v-col>
-        <v-col xs="12" sm="6">
-          <v-card>
-            <v-card-title>Air</v-card-title>
-            <v-card-actions class="ml-4">
-              <v-chip-group
-                v-model="air_status"
-                active-class="deep-purple accent-4 white--text"
-                column
-              >
-                <v-chip @click="setCommand('device_0', 'AIR|OFF')">Off</v-chip>
-                <v-chip @click="setCommand('device_0', 'AIR|ON')">On</v-chip>
-              </v-chip-group>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-          <v-card>
-            <v-card-title>Light</v-card-title>
-            <v-card-actions class="ml-4">
-              <v-chip-group
-                v-model="light_status"
-                active-class="deep-purple accent-4 white--text"
-                column
-              >
-                <v-chip @click="setCommand('device_0', 'LIGHT|OFF')"
-                  >Off</v-chip
-                >
-                <v-chip @click="setCommand('device_0', 'LIGHT|ON')">On</v-chip>
-              </v-chip-group>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-          <v-card>
-            <v-card-title>CO2 Pulse</v-card-title>
-            <v-card-actions class="ml-4">
-              <v-btn @click="setCommand('device_0', 'CO2|ON')"> Add CO2 </v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-          <v-card>
-            <v-card-title>Real-time Values</v-card-title>
-            <v-row class="ma-4">
-              <v-col xs="4">
-                <p>CO2</p>
-                <h4>{{ api.value.co2_value }}</h4>
-              </v-col>
-              <v-col xs="4">
-                <p>Set 1 Temperature</p>
-                <h4>{{ api.value.temperature_0 }}</h4>
-              </v-col>
-              <v-col xs="4">
-                <p>Set 2 Temperature</p>
-                <h4>{{ api.value.temperature_1 }}</h4>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+		</v-col>
       </v-row>
     </v-container>
     <v-dialog v-model="loading" fullscreen>
@@ -166,6 +173,8 @@ export default {
         camera_0: "",
       },
       options: {
+        
+      colors: ["#FF0000", "#0000FF"],
         width: "100%",
         stroke: {
           width: 1,
@@ -179,12 +188,6 @@ export default {
         xaxis: {
           title: {
             text: "Time (sec)",
-          },
-
-          formatter: function (value, timestamp, index) {
-            if (value % 5 == 0) {
-              return value;
-            }
           },
 		},
 		chart: {
@@ -224,35 +227,28 @@ export default {
     });
 
     setInterval(function () {
-		self.getValue("device_0", function () {
-			if (self.is_capturing) {
-				self.series[0].data.push({
-					x:self.timer,
-					y:self.api.value.temperature_0
-				});
-				self.series[1].data.push({
-					x:self.timer,
-					y:self.api.value.temperature_1
-				});
-				self.stored_data.push([self.timer, self.api.value.temperature_0, self.api.value.temperature_1]);
-				self.$refs.realtimeChart.updateSeries(self.series, false, true);
-				// self.series[0].data.push({
-				// 	x: self.timer,
-				// 	y: Math.floor(Math.random() * 11),
-				// });
-				// self.series[1].data.push({
-				// 	x: self.timer,
-				// 	y: Math.floor(Math.random() * 11),
-				// });
-			}
-		});
-		self.timer = self.timer + self.loop_interval / 1000;
+      self.getValue("device_0", function () {
+        if (self.is_capturing) {
+          self.series[0].data.push({
+            x:self.timer,
+            y:self.api.value.temperature_0
+          });
+          self.series[1].data.push({
+            x:self.timer,
+            y:self.api.value.temperature_1
+          });
+          self.stored_data.push([self.timer, self.api.value.temperature_0, self.api.value.temperature_1]);
+          self.$refs.realtimeChart.updateSeries(self.series, false, true);
+        }
+        self.timer = self.timer + self.loop_interval / 1000;
+      });
     }, self.loop_interval);
   },
   methods: {
     startCapture: function () {
       var self = this;
       self.is_capturing = true;
+      self.timer = 0;
 	},
 	stopCapture: function(){
       var self = this;
@@ -267,7 +263,8 @@ export default {
 			self.series[0].data = [];
 			self.series[1].data = [];
 			self.stored_data = [['Time', 'Set 1 Temperature', 'Set 2 Temperature']];
-			self.timer = 0;
+      self.timer = 0;
+      self.$refs.realtimeChart.updateSeries(self.series, false, true);
 		}
     },
     exportChart: function () {

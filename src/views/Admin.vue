@@ -9,7 +9,10 @@
         Users
       </v-tab>
       <v-tab :href="`#tab-bookings`">
-        Bookings
+        Booking - Slots
+      </v-tab>
+      <v-tab :href="`#tab-history`">
+        Booking - History
       </v-tab>
       <v-tab :href="`#tab-equipments`">
         Equipments
@@ -21,6 +24,9 @@
       <v-tab-item :value="'tab-bookings'">
         <AdminBooking />
       </v-tab-item>
+      <v-tab-item :value="'tab-history'">
+        <AdminHistory />
+      </v-tab-item>
       <v-tab-item :value="'tab-equipments'">
         <AdminEquipment />
       </v-tab-item>
@@ -30,12 +36,14 @@
 <script>
 import AdminUser from "@/components/AdminUser.vue";
 import AdminBooking from "@/components/AdminBooking.vue";
+import AdminHistory from "@/components/AdminHistory.vue";
 import AdminEquipment from "@/components/AdminEquipment.vue";
 export default {
   name: "admin",
   components: {
     AdminUser,
     AdminBooking,
+    AdminHistory,
     AdminEquipment
   },
   data: () => ({

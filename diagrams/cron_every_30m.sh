@@ -1,0 +1,2 @@
+curl --data "experiment=APPARENT_DEPTH&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
+curl --data "experiment=VISIBLE_SPECTRUM&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php

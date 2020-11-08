@@ -44,6 +44,10 @@
         $stmt = $conn->prepare("UPDATE rl.rl_experiment SET value = ? WHERE experiment = ? AND equipment_id = ? AND device_id = 'session'");
         $stmt->bind_param("sss", $session_token, $experiment, $equipment_id);
         $stmt->execute();
+        
+
+        $sql = "UPDATE bookings SET has_entered=1 WHERE id=".intval($_POST['slot_id']);
+        $conn->query($sql);
 
         $myObj->status = "success";
         $myObj->session_token = json_decode($session_token)->{$_POST['role']};
