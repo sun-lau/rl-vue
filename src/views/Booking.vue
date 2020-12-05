@@ -50,10 +50,6 @@
                                         v-if="isBookedSoon(slot)"
                                         @click="releaseSlot(slot.id)"
                                     >Cancel Booking</v-btn>
-                                    <!-- <v-btn 
-                                        v-if="slot.status == 'BOOKED' && slot.username != $cookies.get('username')"
-                                        disabled
-                                    >Not Available</v-btn> -->
                                 </td>
                                 </template>
                             </tr>
@@ -90,14 +86,17 @@
                     return "Room 2" 
                     case "set_2":
                     return "Room 3" 
+                    case "set_3":
+                    return "Room 4" 
+                    case "set_4":
+                    return "Room 5" 
                 }
             }
         },
         mounted () {
-            var self = this;
-            self.assignEquipmentId();
-            self.getSlotsByDate();
-            self.$ga.page('/booking/'+self.$route.params.experiment_name);
+            this.assignEquipmentId();
+            this.getSlotsByDate();
+            this.$ga.page('/booking/'+this.$route.params.experiment_name);
         },
         watch: {
             $route(to, from) {
@@ -109,27 +108,27 @@
         },
 		methods:{
             assignEquipmentId: function(){
-                var self = this;
-                switch(self.$route.params.experiment_name){
+                switch(this.$route.params.experiment_name){
                     case "interference":
-                        self.experiment = "INTERFERENCE";
+                        this.experiment = "INTERFERENCE";
                     break;
                     case "visible_spectrum":
-                        self.experiment = "VISIBLE_SPECTRUM";
+                        this.experiment = "VISIBLE_SPECTRUM";
                     break;
                     case "apparent_depth":
-                        self.experiment = "APPARENT_DEPTH";
+                        this.experiment = "APPARENT_DEPTH";
                     break;
                     case "bacteria_growth":
-                        self.experiment = "BACTERIA_GROWTH";
+                        this.experiment = "BACTERIA_GROWTH";
                     break;
                     case "em_induction":
-                        self.experiment = "EM_INDUCTION";
+                        this.experiment = "EM_INDUCTION";
                     break;
                     case "green_house":
-                        self.experiment = "GREEN_HOUSE";
+                        this.experiment = "GREEN_HOUSE";
                     break;
                 }
+                
             },
             isBookedByMe: function(slot){
                 if(moment(slot.start_at) < moment() 
@@ -222,8 +221,9 @@
                         self.$cookies.set('role', role);
                         var kick_time = 3600-60-parseInt(moment().format("mm"))*60-parseInt(moment().format("ss"));    //in seconds to next hour (-1 min)
                         self.$cookies.set('kick_time', kick_time);
+                        self.$cookies.set('experiment', self.$route.params.experiment_name);
                         self.$cookies.set('equipment_id', equipment_id);
-                        self.$router.push("/experiment?name="+self.$route.params.experiment_name);
+                        self.$router.push("/experiment/"+self.$route.params.experiment_name);
                     }
                 });
             }

@@ -149,6 +149,10 @@
                 {
                     text:"GREEN_HOUSE",
                     value:"GREEN_HOUSE"
+                },
+                {
+                    text:"PHOTO_ELECTRIC",
+                    value:"PHOTO_ELECTRIC"
                 }
             ],
             equipment_ids:[

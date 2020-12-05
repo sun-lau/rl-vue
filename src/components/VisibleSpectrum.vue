@@ -1,205 +1,223 @@
 <template>
-    <div>
-        <v-row>
-            <v-col xs="12" sm="6">
-                <v-card>
-                    <v-card-title>Live</v-card-title>
-                    <v-row class="ml-2 mr-2 mt-4">
-                        <v-col cols="12">
-                        <b-img 
-                            :src="api.camera_0"
-                            grow-fluid
-                        />
-                        </v-col>
-                    </v-row>
-                </v-card>
-                <v-card>
-                    <v-card-title>Source</v-card-title>
-                    <v-card-actions class="ml-4">
-                        <v-chip-group
-                            v-model="source_status"
-                            active-class="deep-purple accent-4 white--text"
-                            column
-                        >
-                            <v-chip @click="setCommand('device_0','SOURCE|OFF')">Off</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|WHITE')">White LED</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|BLUE')">Blue LED</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|GREEN')">Green LED</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|RED')">Red LED</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|SODIUM')">Sodium Lamp</v-chip>
-                            <v-chip @click="setCommand('device_0','SOURCE|MERCURY')">Mercury Lamp</v-chip>
-                        </v-chip-group>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            icon
-                            @click="source_show = !source_show"
-                        >
-                            <v-icon>{{ source_show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                        </v-btn>
-                    </v-card-actions>
+  <div class="visible_spectrum">
+    <v-row>
+      <v-col xs="12" sm="5">
+        <v-card>
+          <v-card-text>
+            <v-img
+              class="clickable"
+              :src="api.camera_0"
+              @click="popCamera(api.camera_0)"
+            >
+              <template v-slot:default> Camera 1 </template>
+            </v-img>
+          </v-card-text>
+        </v-card>
+        <v-card>
+          <v-card-text>
+            <!-- material -->
+            <v-radio-group v-model="currentMaterial" row dense>
+              <template v-slot:label>
+                <strong>Material</strong>
+              </template>
+              <v-radio label="1" value="set_0"></v-radio>
+              <v-radio label="2" value="set_1"></v-radio>
+            </v-radio-group>
+            <!-- magnet -->
+            <v-radio-group v-model="source_status" row dense>
+              <template v-slot:label>
+                <strong>Light Source</strong>
+              </template>
+              <v-radio
+                label="Off"
+                value="off"
+                @click="setCommand('device_0', 'SOURCE|OFF')"
+              ></v-radio>
+              <v-radio
+                label="White LED"
+                value="white"
+                @click="setCommand('device_0', 'SOURCE|WHITE')"
+              ></v-radio>
+              <v-radio
+                label="Blue LED"
+                value="blue"
+                @click="setCommand('device_0', 'SOURCE|BLUE')"
+              ></v-radio>
+              <v-radio
+                label="Green LED"
+                value="green"
+                @click="setCommand('device_0', 'SOURCE|GREEN')"
+              ></v-radio>
+              <v-radio
+                label="Red LED"
+                value="red"
+                @click="setCommand('device_0', 'SOURCE|RED')"
+              ></v-radio>
+              <v-radio
+                label="Sodium Lamp"
+                value="sodium"
+                @click="setCommand('device_0', 'SOURCE|SODIUM')"
+              ></v-radio>
+              <v-radio
+                label="Mercury Lamp"
+                value="mercury"
+                @click="setCommand('device_0', 'SOURCE|MERCURY')"
+              ></v-radio>
+            </v-radio-group>
+            <div class="d-flex justify-end">
+            <v-btn class="mx-2" @click="requestChart('device_0')">Measure</v-btn>
+            <download-csv :data="api.chart">
+              <v-btn class="mx-2">Download</v-btn>
+            </download-csv>
+            </div>
+            <v-overlay absolute :value="loading">
+              <v-btn color="info">
+                Measuring
 
-                    <v-expand-transition>
-                    <div v-show="source_show">
-                        <v-divider></v-divider>
-
-                        <v-card-text>
-                        Details
-                        </v-card-text>
-                    </div>
-                    </v-expand-transition>
-                </v-card>
-            </v-col>
-            <v-col xs="12" sm="6">
-                <v-card>
-                    <v-card-title>Spectrum</v-card-title>
-                    <apexchart type="line" :options="options" :series="series"></apexchart>
-                    <v-btn block @click="requestChart()">Measure</v-btn>
-                    <download-csv
-                        :data   = "api.chart">
-                        <v-btn class="mt-4" block>Download</v-btn>
-                    </download-csv>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-dialog v-model="loading" fullscreen>
-            <v-container fluid fill-height style="background-color: rgba(255, 255, 255, 0.5);">
-                <v-layout justify-center align-center>
                 <v-progress-circular
-                    indeterminate
-                    color="primary">
-                </v-progress-circular>
-                </v-layout>
-            </v-container>
-        </v-dialog>
-    </div>
+                  indeterminate
+                  size="12"
+                  class="ma-4"
+                ></v-progress-circular>
+              </v-btn>
+            </v-overlay>
+
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col xs="12" sm="7">
+        <v-card>
+          <v-card-title>Spectrum</v-card-title>
+          <v-card-text>
+          <apexchart
+            type="line"
+            :options="options"
+            :series="series"
+          ></apexchart>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <CameraDialog v-model="camera_dialog" :src="camera_dialog_src" />
+
+    <!-- Confirm Dialog -->
+    <v-dialog v-model="confirmDialog" width="600" persistent>
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          Switch Material
+        </v-card-title>
+        <v-card-text>
+          <v-alert class="mt-4" type="error"
+            >Switching Material will cause measured result lost. Please download
+            the result before switching.
+          </v-alert>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="switchRoom"> Confirm</v-btn>
+          <v-btn color="primary" text @click="cancelSwitchRoom"> Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import moment from 'moment';
-import LineChart from '@/components/LineChart.vue'
-import {Experiment_APIService} from '@/services/Experiment_APIService';
+import CameraDialog from "@/components/CameraDialog.vue";
+import ExperimentBasic from "@/services/ExperimentBasic";
+import { Experiment_APIService } from "@/services/Experiment_APIService";
 const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
-  name: 'VisibleSpectrum',
+  name: "VisibleSpectrum",
   components: {
-      LineChart
+    CameraDialog,
   },
-  data:function(){
-      return{
-            inte:null,
-            source_show:false,
-            source_status:"",
-            loading: false,
-            api:{
-                value:"",
-                value_got_at:null,
-                value_set_at:null,
-                chart:[
-                    {
-                        'x': 0,
-                        'y': 0
-                    }
-                ],
-                camera_0:""
-            },
-            options: {
-                width:'100%',
-                stroke: {
-                width:1
-                },
-                yaxis: {
-                    title: {
-                        text: "Intensity (count)",
-                    },
-                },
-                xaxis: {
-                    title: {
-                        text: "Wavelength (nm)",
-                    },
-                }
-            },
-            series: [{
-                data: []
-            }],
-
-      }
+  mixins: [ExperimentBasic],
+  data: function () {
+    return {
+      inte: null,
+      source_status: 'off',
+      loading: false,
+      confirmDialog: false,
+      targetRoom: 0,
+      currentMaterial: '',
+      api: {
+        value: "",
+        value_got_at: null,
+        value_set_at: null,
+        chart: [
+          {
+            x: 0,
+            y: 0,
+          },
+        ],
+        camera_0: "",
+      },
+      options: {
+        width: "100%",
+        stroke: {
+          width: 1,
+        },
+        yaxis: {
+          title: {
+            text: "Intensity (count)",
+          },
+        },
+        xaxis: {
+          title: {
+            text: "Wavelength (nm)",
+          },
+        },
+      },
+      series: [
+        {
+          data: [],
+        },
+      ],
+    };
   },
-  mounted: function(){
-        var self = this;
-        self.experiment_name = "VISIBLE_SPECTRUM";
-        // self.setCommand("device_0","RESTART|1");
-        self.getValue("camera_0", function(){
-            self.api.camera_0 = self.api.value.url;
-        });
-        // self.loading = true;
-        // setTimeout(function(){
-        //     self.loading = false;
-        // },5000);
+  mounted: function () {
+    var self = this;
+    self.experiment_name = "VISIBLE_SPECTRUM";
+    this.currentMaterial = this.$cookies.get("equipment_id");
+    // self.setCommand("device_0","RESTART|1");
+    self.getValue("camera_0", function () {
+      self.api.camera_0 = self.api.value.url;
+    });
+    // self.loading = true;
+    // setTimeout(function(){
+    //     self.loading = false;
+    // },5000);
   },
-  methods:{
-        getValue(device_id, callback){
-            console.log("getValue");
-            var self = this;
-            apiService.getValue(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
-            .then((response) => {
-                self.api.value_got_at = response.value_got_at;
-                self.api.value_set_at = response.value_set_at;
-                self.api.command_got_at = response.command_got_at;
-                self.api.command_set_at = response.command_set_at;
-                self.api.value = JSON.parse(response.value)
-                console.log("self.api.value");
-                console.log(self.api.value);
-                if(callback){
-                    callback();
-                }
-            });
-        },
-        getChart(device_id){
-            console.log("getChart");
-            var self = this;
-            apiService.getChart(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id)
-            .then((response) => {
-                self.api.chart = response;
-                self.series = [{data:response}];
-                console.log("self.series");
-                console.log(self.series);
-                self.loading = false;
-            });
-        },
-        setCommand(device_id, command, callback){
-            console.log("set command");
-            var self = this;
-            apiService.setCommand(self.$cookies.get('session_token'), self.$cookies.get('role'), self.experiment_name, self.$cookies.get('equipment_id'), device_id, command)
-            .then((response) => {
-                console.log("command is set");
-                console.log(self.experiment_name);
-
-                console.log("response");
-                console.log(response);
-                if(callback){
-                    callback();
-                }
-            });
-        },
-        requestChart(){
-            var self = this;
-            self.loading = true;
-            self.setCommand('device_0', 'MEASURE|START', function(){
-                self.inte = setInterval(function(){
-                    self.getValue("device_0",function(){
-                        console.log("self.api.value");
-                        console.log(self.api.value);
-                        if(self.api.value.chart_at > self.api.command_set_at){
-                            clearInterval(self.inte);
-                            self.getChart('device_0');
-                        }
-                    });
-
-                },4000);
-            });
+  watch: {
+    currentMaterial: {
+      handler(newValue, oldValue) {
+        if (oldValue != "") {
+          if (newValue != this.$cookies.get("equipment_id")) {
+            this.trySwitchMaterial();
+          }
         }
-  }
-}
+      },
+    },
+  },
+  methods: {
+    trySwitchMaterial() {
+      this.confirmDialog = true;
+    },
+    switchRoom() {
+      this.$cookies.set("equipment_id", this.currentMaterial);
+      this.$cookies.set("session_token", "super");
+      this.$router.go();
+    },
+    cancelSwitchRoom() {
+      this.confirmDialog = false;
+      this.currentMaterial = this.$cookies.get("equipment_id");
+    },
+  },
+};
 </script>

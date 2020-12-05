@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { store } from './store/store'
 
 Vue.use(Router)
 
@@ -39,7 +40,7 @@ let router = new Router({
       }
     },
     {
-      path: '/experiment',
+      path: '/experiment/:experiment_name',
       name: 'experiment',
       component: () => import('./views/Experiment.vue'),
       meta: { 

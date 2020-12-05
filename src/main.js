@@ -34,9 +34,9 @@ Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
 new Vue({
-  store,
   i18n,
   router,
+  store,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

@@ -6,45 +6,57 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        token: '',
-        role: "anonymous",
-        snackbar:{
-            modal: false,
-            message:""
+      current:{
+        experiment:'',
+        equipement_id: '',
+        view:''
+      },
+      experiments:{
+        interference:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        apparent_depth:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        em_induction:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        visible_spectrum:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        green_house:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        bacteria_growth:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
         }
+      },
+      snackbar:{
+          modal: false,
+          message:""
+      }
     },
     actions: {
-      getToken ({ commit, state }, args) {
-        return new Promise((resolve, reject) => {
-            console.log(args.username);
-            console.log(args.slot_id);
-        axios.get(`${this.api_base_url}/api/booking/getToken.php`, {
-            params: {
-                username: args.username,
-                slot_id: args.slot_id
-            }
-          }).then(function(response){
-            commit('updateRole', response.data);
-            resolve();
-          });
-        })
-      },
     },
     mutations: {
-        updateRole(state, role) {
-            console.log(role);
-            console.log("update role");
-            //temp
-            role = "player";
-          state.role = role;
-        },
-        showSnackBar(state, message) {
-          state.snackbar.message = message;
-          state.snackbar.modal = true;
-        }
+      updateCurrentExperiment(state, experiment){
+        state.current.experiment = experiment;
+      },
+      showSnackBar(state, message) {
+        state.snackbar.message = message;
+        state.snackbar.modal = true;
+      }
+      
     },
     getters: {
-        role: state => state.role,
-        snackbar: state => state.snackbar
+      current: state => {
+        return state.current;
+      }
     }
   })
