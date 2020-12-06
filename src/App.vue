@@ -21,7 +21,7 @@
         <v-list-item
           link
           @click="openManual"
-          v-if="$route.name == 'experiment'"
+          v-if="$route.name == 'experiment' || $route.name == 'board'"
         >
           <v-list-item-content>
             <v-list-item-title>Lab Manual</v-list-item-title>
@@ -30,7 +30,7 @@
         <v-list-item
           link
           @click="setupDialog = true"
-          v-if="$route.name == 'experiment'"
+          v-if="$route.name == 'experiment' || $route.name == 'board'"
         >
           <v-list-item-content>
             <v-list-item-title>Equipment Setup</v-list-item-title>

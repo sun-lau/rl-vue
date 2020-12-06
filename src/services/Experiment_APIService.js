@@ -215,5 +215,18 @@ export class Experiment_APIService extends APIService {
             });
         }
     }
+    getPhotoTime(equipment_id, cb){
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/getPhotoTime.php`;
+        return axios.get(url, {
+            params: {
+                equipment_id: equipment_id,
+            }
+            }).then(function (response) {
+                if(cb){
+                    cb(response.data);
+                }
+            });
+    }
 
 }

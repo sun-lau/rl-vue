@@ -40,7 +40,6 @@ export default {
         },
         getChart(device_id) {
             var self = this;
-            console.log('try get chart');
             apiService
             .getChart(
                 self.$cookies.get("session_token"),

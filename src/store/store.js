@@ -35,6 +35,10 @@ export const store = new Vuex.Store({
         bacteria_growth:{
           labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
           setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        photo_electric:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
         }
       },
       snackbar:{

@@ -127,6 +127,9 @@
                     case "green_house":
                         this.experiment = "GREEN_HOUSE";
                     break;
+                    case "photo_electric":
+                        this.experiment = "PHOTO_ELECTRIC";
+                    break;
                 }
                 
             },

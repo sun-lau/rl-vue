@@ -11,12 +11,12 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-if(!isset($_POST['session_token'])){
-    $myObj->status = "fail";
-    $myObj->error = "missing_session_token";
-    echo json_encode($myObj);
-    die();
-}
+// if(!isset($_POST['session_token'])){
+//     $myObj->status = "fail";
+//     $myObj->error = "missing_session_token";
+//     echo json_encode($myObj);
+//     die();
+// }
 $session_token = $_POST['session_token'];
 $role = $_POST['role'];
 $experiment = $_POST['experiment'];
@@ -24,6 +24,7 @@ $equipment_id = $_POST['equipment_id'];
 $device_id = $_POST['device_id'];
 $session_device = "session";
 //check session_token valid
+/*
 $with_valid_session_token = false;
 $stmt = $conn->prepare("SELECT * FROM rl_experiment WHERE experiment = ? AND equipment_id = ? AND device_id = ? LIMIT 1");
 $stmt->bind_param("sss", $experiment, $equipment_id, $session_device );
@@ -40,10 +41,10 @@ if(!$with_valid_session_token){
     echo json_encode($myObj);
     die();
 }
+*/
 
 
-
-$rootPath = realpath('storage/'.$experiment.'-'.$equipment_id);
+$rootPath = realpath('storage/'.$experiment.'-'.$equipment_id.'-latest');
 
 // Initialize archive object
 $zip = new ZipArchive();

@@ -6,11 +6,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 1</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_1 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_1.jpg'
                   "
                   fluid
                 />
@@ -20,11 +20,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 2</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_2 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_2.jpg'
                   "
                   fluid
                 />
@@ -34,11 +34,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 3</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_3 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_3.jpg'
                   "
                   fluid
                 />
@@ -48,11 +48,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 4</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_4 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_4.jpg'
                   "
                   fluid
                 />
@@ -64,11 +64,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 5</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_5 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_5.jpg'
                   "
                   fluid
                 />
@@ -78,11 +78,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 6</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_6 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_6.jpg'
                   "
                   fluid
                 />
@@ -92,11 +92,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 7</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_7 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_7.jpg'
                   "
                   fluid
                 />
@@ -106,11 +106,11 @@
           <v-col xs="12" sm="3">
             <v-card>
               <v-card-title>Sample 8</v-card-title>
+              <v-card-subtitle>{{ api.snapshots.sample_8 }}</v-card-subtitle>
               <v-card-text>
                 <v-img
                   :src="
-                    $store.state.experiments[$route.params.experiment_name]
-                      .setupPhoto
+                    base_url + '/api/experiment/storage/BACTERIA_GROWTH-' + $route.params.equipment_name +'/sample_8.jpg'
                   "
                   fluid
                 />
@@ -120,7 +120,7 @@
         </v-row>
       </v-col>
       <v-col cols="2">
-          <v-btn class="ma-4" @click="downloadAll">Download All</v-btn>
+          <v-btn class="ma-4" @click="downloadPhotos">Download All</v-btn>
       </v-col>
     </v-row>
   </div>
@@ -142,50 +142,43 @@ export default {
       inte: null,
       loading: false,
       api: {
-        camera_0: "",
-        camera_1: "",
+        snapshots:{},
         value: "",
         value_got_at: null,
         value_set_at: null,
       },
       experiment_name: "",
       current_sample: 1,
+      base_url:process.env.VUE_APP_BASE_URL 
     };
   },
   mounted: function () {
     var self = this;
     self.experiment_name = "BACTERIA_GROWTH";
-    self.getValue("camera_0", function () {
-      self.api.camera_0 = self.api.value.url;
-    });
-    self.getValue("camera_1", function () {
-      self.api.camera_1 = self.api.value.url;
-    });
+    apiService
+    .getPhotoTime('set_0', function(result){
+      self.api.snapshots = result;
+    })
   },
   methods: {
-    setSample(target_sample) {
-      var self = this;
-      self.current_sample = target_sample;
-      self.setCommand("device_0", "SAMPLE|" + target_sample);
-    },
-    capture() {
-      var self = this;
-      apiService.setPhoto(
-        self.experiment_name,
-        self.$cookies.get("equipment_id"),
-        "sample_" + self.current_sample,
-        function () {
-          self.$store.commit("showSnackBar", "Photo Captured");
-        }
-      );
-    },
+    // capture() {
+    //   var self = this;
+    //   apiService.setPhoto(
+    //     self.experiment_name,
+    //     self.$route.params.equipment_name,
+    //     "sample_" + self.current_sample,
+    //     function () {
+    //       self.$store.commit("showSnackBar", "Photo Captured");
+    //     }
+    //   );
+    // },
     downloadPhotos() {
       var self = this;
       apiService.zipPhotos(
         self.$cookies.get("session_token"),
         self.$cookies.get("role"),
         self.experiment_name,
-        self.$cookies.get("equipment_id"),
+        self.$route.params.equipment_name,
         "device_0",
         function () {
           window.open(
@@ -193,18 +186,12 @@ export default {
               "/api/experiment/storage/" +
               self.experiment_name +
               "-" +
-              self.$cookies.get("equipment_id") +
+              self.$route.params.equipment_name +
               ".zip"
           );
         }
       );
     },
-    downloadAll(){
-      window.open(
-        process.env.VUE_APP_BASE_URL +
-          "/api/experiment/storage/bacteria_growth_set_0.zip"
-      );
-    }
   },
 };
 </script>

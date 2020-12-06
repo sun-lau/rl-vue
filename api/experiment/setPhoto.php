@@ -20,6 +20,7 @@
         mkdir("storage/".$directory, 0777, true);
     }
     file_put_contents("storage/".$directory."/".$filename_prefix.".jpg", $response);    //for user
+    $directory = $experiment."-".$equipment_id."latest";
     file_put_contents("storage/".$directory."/".$name.".jpg", $response);   //for archive
 
     $myObj->status = "success";
