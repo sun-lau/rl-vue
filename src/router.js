@@ -40,12 +40,17 @@ let router = new Router({
       }
     },
     {
-      path: '/experiment/:experiment_name',
+      path: '/experiment/:experiment_name/:equipment_name',
       name: 'experiment',
       component: () => import('./views/Experiment.vue'),
       meta: { 
           requiresAuth: true
       }
+    },
+    {
+      path: '/board/:experiment_name',
+      name: 'board',
+      component: () => import('./views/Board.vue'),
     },
     {
       path: '/login',

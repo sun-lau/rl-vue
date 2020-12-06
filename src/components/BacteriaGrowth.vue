@@ -1,77 +1,127 @@
 <template>
   <div class="bacteria_growth">
-    <v-row>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 1</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
+    <v-row no-gutters>
+      <v-col cols="10">
+        <v-row>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 1</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 2</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 3</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 4</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 5</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 6</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 7</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col xs="12" sm="3">
+            <v-card>
+              <v-card-title>Sample 8</v-card-title>
+              <v-card-text>
+                <v-img
+                  :src="
+                    $store.state.experiments[$route.params.experiment_name]
+                      .setupPhoto
+                  "
+                  fluid
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 2</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
+      <v-col cols="2">
+          <v-btn class="ma-4" @click="downloadAll">Download All</v-btn>
       </v-col>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 3</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 4</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 5</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 6</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 7</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col xs="12" sm="3">
-        <v-card>
-          <v-card-title>Sample 8</v-card-title>
-          <v-card-text>          
-            <v-img :src="$store.state.experiments[$route.params.experiment_name].setupPhoto" fluid />
-          </v-card-text>
-        </v-card>
-      </v-col>
-        <v-card>
-          <v-card-title>Records</v-card-title>
-          <v-btn class="ma-4" @click="capture">Capture All Samples</v-btn>
-          <br />
-        </v-card>
     </v-row>
   </div>
 </template>
@@ -149,6 +199,12 @@ export default {
         }
       );
     },
+    downloadAll(){
+      window.open(
+        process.env.VUE_APP_BASE_URL +
+          "/api/experiment/storage/bacteria_growth_set_0.zip"
+      );
+    }
   },
 };
 </script>
