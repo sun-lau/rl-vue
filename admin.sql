@@ -287,3 +287,27 @@ INSERT INTO `rl_experiment`
 
 UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/GREEN_HOUSE_01/CAM0032"}' WHERE id=65; 
 UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/GREEN_HOUSE_01/CAM0033"}' WHERE id=68; 
+
+
+
+/* PHOTO_ELECTRIC */
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'PHOTO_ELECTRIC', 'set_0', 'session', '', '', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'PHOTO_ELECTRIC', 'set_0', 'camera_0', '', '{"url":"https://stem-video-ap.polyu.edu.hk/stream/PHOTO_ELECTRIC_00/CAM0002"}', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'PHOTO_ELECTRIC', 'set_0', 'camera_1', '', '{"url":"https://stem-video-ap.polyu.edu.hk/stream/PHOTO_ELECTRIC_00/CAM0003"}', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'PHOTO_ELECTRIC', 'set_0', 'device_0', '', '', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'PHOTO_ELECTRIC', 'set_0', 'device_1', '', '', 0, 0, 0, 0);
+

@@ -121,7 +121,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <CameraDialog v-model="camera_dialog" :src="camera_dialog_src" />
+    <CameraDialog v-model="camera_dialog" :camera="camera_dialog_camera" />
   </div>
 </template>
 

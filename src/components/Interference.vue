@@ -6,7 +6,7 @@
           <v-card-text>
             <v-img
               class="clickable"
-              :src="api.camera_0"
+              :src="api.camera_0.url"
               @click="popCamera(api.camera_0)"
             >
               <template v-slot:default> Camera 1 </template>
@@ -17,7 +17,7 @@
           <v-card-text>
             <v-img
               class="clickable"
-              :src="api.camera_1"
+              :src="api.camera_1.url"
               @click="popCamera(api.camera_1)"
             >
               <template v-slot:default> Camera 2 </template>
@@ -29,142 +29,97 @@
         <v-card>
           <v-card-title>Controls</v-card-title>
           <v-card-text>
-            <v-row>
-              <v-col cols="6">
+            <v-row no-gutters>
+              <v-col cols="5">
                 <!-- laser -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Laser Status </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-btn-toggle v-model="laser_status" mandatory>
-                      <v-btn
-                        @click="setCommand('device_0', 'LASER|RED')"
-                        value="red"
-                      >
-                        Red
-                      </v-btn>
-                      <v-btn
-                        @click="setCommand('device_0', 'LASER|GREEN')"
-                        value="green"
-                      >
-                        Green
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-col>
-                </v-row>
-
+                <v-radio-group v-model="laser_status" row dense>
+                  <template v-slot:label>
+                    <strong class="ml-4">Laser Status</strong>
+                  </template>
+                  <v-radio
+                    label="Red"
+                    value="red"
+                    @click="setCommand('device_0', 'LASER|RED')"
+                  ></v-radio>
+                  <v-radio
+                    label="Green"
+                    value="green"
+                    @click="setCommand('device_0', 'LASER|GREEN')"
+                  ></v-radio>
+                </v-radio-group>
                 <!-- slit position -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Slit Position </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-btn-toggle>
-                      <v-btn @click="setCommand('device_0', 'SLIT|LEFT')">
-                        Left
-                      </v-btn>
-                      <v-btn @click="setCommand('device_0', 'SLIT|RIGHT')">
-                        Right
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-col>
-                </v-row>
+                <v-subheader> 
+                  <strong>Slit Position</strong>
+                  </v-subheader>
+                <v-btn-toggle>
+                  <v-btn @click="setCommand('device_0', 'SLIT|LEFT')">
+                    Left
+                  </v-btn>
+                  <v-btn @click="setCommand('device_0', 'SLIT|RIGHT')">
+                    Right
+                  </v-btn>
+                </v-btn-toggle>
                 <!-- step size -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Step Size </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-btn-toggle v-model="step_status" mandatory>
-                      <v-btn
-                        @click="setCommand('device_0', 'STEP|SMALL')"
-                        value="red"
-                      >
-                        Small
-                      </v-btn>
-                      <v-btn
-                        @click="setCommand('device_0', 'STEP|LARGE')"
-                        value="green"
-                      >
-                        Large
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-col>
-                </v-row>
-                
+                <v-radio-group v-model="step_status" row dense>
+                  <template v-slot:label>
+                    <strong class="ml-4">Step Size</strong>
+                  </template>
+                  <v-radio
+                    label="Small"
+                    value="small"
+                    @click="setCommand('device_0', 'STEP|SMALL')"
+                  ></v-radio>
+                  <v-radio
+                    label="Large"
+                    value="large"
+                    @click="setCommand('device_0', 'STEP|LARGE')"
+                  ></v-radio>
+                </v-radio-group>
                 <!-- distance D -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Distance D </v-subheader>
-                  </v-col>
-                  <v-col cols="8">
-                    <v-btn-toggle>
-                      <v-btn
-                        @click="
-                          setCommand('device_0', 'DISTANCE|INCREASE');
-                          loop_flag = true;
-                        "
-                      >
-                        Increase
-                      </v-btn>
-                      <v-btn
-                        @click="
-                          setCommand('device_0', 'DISTANCE|DECREASE');
-                          loop_flag = true;
-                        "
-                      >
-                        Decrease
-                      </v-btn>
-                    </v-btn-toggle>
-                    <br />
-                    <strong class="ma-4">D = {{ api.value.distance }}mm</strong>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
-                    <v-btn class="ma-6" block @click="requestChart('device_1')">Measure</v-btn>
-                  </v-col>
-                </v-row>
+                <v-subheader> 
+                  <strong>Distance D = {{ api.value.distance }}mm</strong> </v-subheader>
+                <v-btn-toggle>
+                  <v-btn
+                    @click="
+                      setCommand('device_0', 'DISTANCE|INCREASE');
+                      loop_flag = true;
+                    "
+                  >
+                    Increase
+                  </v-btn>
+                  <v-btn
+                    @click="
+                      setCommand('device_0', 'DISTANCE|DECREASE');
+                      loop_flag = true;
+                    "
+                  >
+                    Decrease
+                  </v-btn>
+                </v-btn-toggle>
+               
               </v-col>
-              <v-col cols="6">
-
+              <v-col cols="7">
                 <!-- power -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Laser Power </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-slider
-                      class="mt-4"
-                      v-model="power"
-                      thumb-label="always"
-                      @change="setCommand('device_0', 'POWER|' + power)"
-                    ></v-slider>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-card outlined>
-                    <v-card-title>Measure Result</v-card-title>
-                    <v-card-text
-                      ><apexchart
-                        type="line"
-                        :options="options"
-                        :series="series"
-                        class="ma-4"
-                      ></apexchart
-                    ></v-card-text>
-                  </v-card>
-                </v-row>
+                <v-subheader> 
+                  <strong>Laser Power</strong> </v-subheader>
+                <v-slider
+                  class="mt-4"
+                  v-model="power"
+                  thumb-label="always"
+                  @change="setCommand('device_0', 'POWER|' + power)"
+                ></v-slider>
+                <div class="d-flex justify-end">
+                <v-btn class="ma-6" @click="requestChart('device_1')"
+                  >Measure</v-btn
+                >
+                </div>
+                <apexchart
+                  type="line"
+                  :options="options"
+                  :series="series"
+                  class="ma-4"
+                ></apexchart>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6"> </v-col>
-              <v-col cols="6"> </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6"> </v-col>
-              <v-col cols="6"> </v-col>
             </v-row>
           </v-card-text>
 
@@ -242,7 +197,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <CameraDialog v-model="camera_dialog" :src="camera_dialog_src" />
+    <CameraDialog v-model="camera_dialog" :camera="camera_dialog_camera" />
   </div>
 </template>
 
@@ -298,9 +253,9 @@ export default {
     var self = this;
     self.experiment_name = "INTERFERENCE";
     self.getValue("camera_0", function () {
-      self.api.camera_0 = self.api.value.url;
+      self.api.camera_0 = self.api.value;
       self.getValue("camera_1", function () {
-        self.api.camera_1 = self.api.value.url;
+        self.api.camera_1 = self.api.value;
         self.getValue("device_0");
       });
     });

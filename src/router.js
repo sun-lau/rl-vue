@@ -51,6 +51,9 @@ let router = new Router({
       path: '/board/:experiment_name/:equipment_name',
       name: 'board',
       component: () => import('./views/Board.vue'),
+      meta: { 
+          requiresAuth: true
+      }
     },
     {
       path: '/login',

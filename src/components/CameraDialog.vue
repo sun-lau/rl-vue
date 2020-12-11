@@ -11,6 +11,7 @@
         <v-divider></v-divider>
 
         <v-card-actions>
+          <v-btn color="primary" text @click="rebootCamera">Reboot Camera</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="closeDialog"> Hide</v-btn>
         </v-card-actions>
@@ -20,6 +21,8 @@
 </template>
 
 <script>
+import { Experiment_APIService } from "@/services/Experiment_APIService";
+const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
   name: "CameraDialog",
   model: {
@@ -28,7 +31,7 @@ export default {
   },
   props: {
     parentDialog: false,
-    src: '',
+    camera: {}
   },
   data: function () {
     return {
@@ -36,6 +39,15 @@ export default {
     };
   },
   methods: {
+    rebootCamera(){
+      var r = confirm("Reboot camera? (It takes about 3 minutes)");
+      if (r == true) {
+            apiService
+            .rebootCamera(
+              this.camera.reboot
+            );
+      }
+    },
     closeDialog() {
       this.$emit("update-parent-dialog", false);
     },

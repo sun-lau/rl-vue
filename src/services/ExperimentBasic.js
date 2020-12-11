@@ -4,13 +4,13 @@ const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
     data: () => ({
         camera_dialog: false,
-        camera_dialog_src: '',
+        camera_dialog_camera: {},
         setup_dialog: false,
     }),
     methods: {
-        popCamera(src){
+        popCamera(camera){
           this.camera_dialog = true;
-          this.camera_dialog_src = src;
+          this.camera_dialog_camera = camera;
         },
         popSetup() {
             this.setup_dialog = true;

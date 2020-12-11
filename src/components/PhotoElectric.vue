@@ -1,12 +1,12 @@
 <template>
-  <div class="photoelectric">
+  <div class="photo_electric">
     <v-row>
       <v-col xs="12" sm="4">
         <v-card>
           <v-card-text>
             <v-img
               class="clickable"
-              :src="api.camera_0"
+              :src="api.camera_0.url"
               @click="popCamera(api.camera_0)"
             >
               <template v-slot:default> Camera 1 </template>
@@ -17,7 +17,7 @@
           <v-card-text>
             <v-img
               class="clickable"
-              :src="api.camera_1"
+              :src="api.camera_1.url"
               @click="popCamera(api.camera_1)"
             >
               <template v-slot:default> Camera 2 </template>
@@ -29,130 +29,50 @@
         <v-card>
           <v-card-title>Controls</v-card-title>
           <v-card-text>
-            <v-row>
-              <v-col cols="6">
-                <!-- phototube -->
-                <v-radio-group v-model="currentMaterial" row dense>
+            <v-row no-gutters>
+              <v-col cols="5">
+                <!-- control -->
+                <v-radio-group v-model="control_status" dense mandatory>
                 <template v-slot:label>
-                    <strong>Phototube</strong>
+                    <strong>Control</strong>
                 </template>
-                <v-radio label="Violet" value="0" @click="setCommand('device_0', 'PTUBE|0')"></v-radio>
-                <v-radio label="Blue" value="1" @click="setCommand('device_0', 'PTUBE|1')"></v-radio>
-                <v-radio label="Blue-Green" value="2" @click="setCommand('device_0', 'PTUBE|2')"></v-radio>
-                <v-radio label="Green" value="3" @click="setCommand('device_0', 'PTUBE|3')"></v-radio>
+                <v-radio label="Phototube" value="PTUBE" @click="switchLight" ></v-radio>
+                <v-radio label="Sensor" value="SENSOR" @click="switchLight" ></v-radio>
                 </v-radio-group>
-
-                <!-- slit position -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Slit Position </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-btn-toggle>
-                      <v-btn @click="setCommand('device_0', 'SLIT|LEFT')">
-                        Left
-                      </v-btn>
-                      <v-btn @click="setCommand('device_0', 'SLIT|RIGHT')">
-                        Right
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-col>
-                </v-row>
-                <!-- step size -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Step Size </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-btn-toggle v-model="step_status" mandatory>
-                      <v-btn
-                        @click="setCommand('device_0', 'STEP|SMALL')"
-                        value="red"
-                      >
-                        Small
-                      </v-btn>
-                      <v-btn
-                        @click="setCommand('device_0', 'STEP|LARGE')"
-                        value="green"
-                      >
-                        Large
-                      </v-btn>
-                    </v-btn-toggle>
-                  </v-col>
-                </v-row>
-                
-                <!-- distance D -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Distance D </v-subheader>
-                  </v-col>
-                  <v-col cols="8">
-                    <v-btn-toggle>
-                      <v-btn
-                        @click="
-                          setCommand('device_0', 'DISTANCE|INCREASE');
-                          loop_flag = true;
-                        "
-                      >
-                        Increase
-                      </v-btn>
-                      <v-btn
-                        @click="
-                          setCommand('device_0', 'DISTANCE|DECREASE');
-                          loop_flag = true;
-                        "
-                      >
-                        Decrease
-                      </v-btn>
-                    </v-btn-toggle>
-                    <br />
-                    <strong class="ma-4">D = {{ api.value.distance }}mm</strong>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col>
-                    <v-btn class="ma-6" block @click="requestChart('device_1')">Measure</v-btn>
-                  </v-col>
-                </v-row>
+                <!-- Color -->
+                <v-radio-group v-model="light_status" dense mandatory>
+                <template v-slot:label>
+                    <strong>Light</strong>
+                </template>
+                <v-radio label="Violet" value="0" @click="switchLight"></v-radio>
+                <v-radio label="Blue" value="1" @click="switchLight"></v-radio>
+                <v-radio label="Blue-Green" value="2" @click="switchLight"></v-radio>
+                <v-radio label="Green" value="3" @click="switchLight"></v-radio>
+                </v-radio-group>
+               
               </v-col>
-              <v-col cols="6">
-
+              <v-col cols="7">
                 <!-- power -->
-                <v-row>
-                  <v-col cols="4">
-                    <v-subheader> Laser Power </v-subheader>
-                  </v-col>
-                  <v-col>
-                    <v-slider
-                      class="mt-4"
-                      v-model="power"
-                      thumb-label="always"
-                      @change="setCommand('device_0', 'POWER|' + power)"
-                    ></v-slider>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-card outlined>
-                    <v-card-title>Measure Result</v-card-title>
-                    <v-card-text
-                      ><apexchart
-                        type="line"
-                        :options="options"
-                        :series="series"
-                        class="ma-4"
-                      ></apexchart
-                    ></v-card-text>
-                  </v-card>
-                </v-row>
+                <v-subheader> 
+                  <strong>Light Power</strong> </v-subheader>
+                <v-slider
+                  class="mt-4"
+                  v-model="power"
+                  thumb-label="always"
+                  @change="setCommand('device_0', 'POWER|' + power)"
+                ></v-slider>
+                <div class="d-flex justify-end">
+                <v-btn class="ma-6" @click="requestChart('device_1')"
+                  >Measure</v-btn
+                >
+                </div>
+                <apexchart
+                  type="line"
+                  :options="options"
+                  :series="series"
+                  class="ma-4"
+                ></apexchart>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6"> </v-col>
-              <v-col cols="6"> </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6"> </v-col>
-              <v-col cols="6"> </v-col>
             </v-row>
           </v-card-text>
 
@@ -170,7 +90,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <CameraDialog v-model="camera_dialog" :src="camera_dialog_src" />
+    <CameraDialog v-model="camera_dialog" :camera="camera_dialog_camera" />
   </div>
 </template>
 
@@ -178,7 +98,7 @@
 import CameraDialog from "@/components/CameraDialog.vue";
 import ExperimentBasic from "@/services/ExperimentBasic";
 export default {
-  name: "interference",
+  name: "photo_electric",
   components: {
     CameraDialog,
   },
@@ -186,8 +106,8 @@ export default {
   data: function () {
     return {
       inte: null,
-      phototube: "red",
-      step_status: "small",
+      control_status:'',
+      light_status:'',
       power: 0,
       loading: false,
       api: {
@@ -205,12 +125,12 @@ export default {
 
         yaxis: {
           title: {
-            text: "Intensity (arbitrary unit)",
+            text: "Current",
           },
         },
         xaxis: {
           title: {
-            text: "Distance (mm)",
+            text: "Voltage",
           },
         },
       },
@@ -224,7 +144,7 @@ export default {
   },
   mounted: function () {
     var self = this;
-    self.experiment_name = "INTERFERENCE";
+    self.experiment_name = "PHOTO_ELECTRIC";
     self.getValue("camera_0", function () {
       self.api.camera_0 = self.api.value.url;
       self.getValue("camera_1", function () {
@@ -243,6 +163,10 @@ export default {
       }
     }, 1000);
   },
-  methods: {},
+  methods: {
+    switchLight(){
+      this.setCommand('device_0', this.control_status+'|'+ this.light_status);
+    }
+  },
 };
 </script>
