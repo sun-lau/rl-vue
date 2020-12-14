@@ -146,9 +146,9 @@ export default {
     var self = this;
     self.experiment_name = "PHOTO_ELECTRIC";
     self.getValue("camera_0", function () {
-      self.api.camera_0 = self.api.value.url;
+      self.api.camera_0 = self.api.value;
       self.getValue("camera_1", function () {
-        self.api.camera_1 = self.api.value.url;
+        self.api.camera_1 = self.api.value;
         self.getValue("device_0");
       });
     });

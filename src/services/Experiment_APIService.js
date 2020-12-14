@@ -228,5 +228,11 @@ export class Experiment_APIService extends APIService {
                 }
             });
     }
+    rebootCamera(url){
+        var self = this;
+        return axios.get(url, {
+            }).then(function (response) {
+            });
+    }
 
 }

@@ -6,7 +6,7 @@
           <v-card-text>
             <v-img
               class="clickable"
-              :src="api.camera_0"
+              :src="api.camera_0.url"
               @click="popCamera(api.camera_0)"
             >
               <template v-slot:default> Camera 1 </template>
@@ -187,7 +187,7 @@ export default {
     this.currentMaterial = this.$cookies.get("equipment_id");
     // self.setCommand("device_0","RESTART|1");
     self.getValue("camera_0", function () {
-      self.api.camera_0 = self.api.value.url;
+      self.api.camera_0 = self.api.value;
     });
     // self.loading = true;
     // setTimeout(function(){

@@ -39,6 +39,10 @@ export const store = new Vuex.Store({
         photo_electric:{
           labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
           setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        },
+        radiation:{
+          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
+          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
         }
       },
       snackbar:{

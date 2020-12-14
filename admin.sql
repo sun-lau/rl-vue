@@ -311,3 +311,29 @@ INSERT INTO `rl_experiment`
 (`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
 (NULL, 'PHOTO_ELECTRIC', 'set_0', 'device_1', '', '', 0, 0, 0, 0);
 
+
+UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/PHOTOELECTRIC_00/CAM0034","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=PHOTOELECTRIC_00"}' WHERE id=81; 
+UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/PHOTOELECTRIC_00/CAM0035","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=PHOTOELECTRIC_00"}' WHERE id=82; 
+
+
+
+/* RADIATION */
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'RADIATION', 'set_0', 'session', '', '', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'RADIATION', 'set_0', 'camera_0', '', '{"url":"https://stem-video-ap.polyu.edu.hk/stream/RADIATION_00/CAM0036","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=RADIATION_00"}', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'RADIATION', 'set_0', 'camera_1', '', '{"url":"https://stem-video-ap.polyu.edu.hk/stream/RADIATION_00/CAM0037","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=RADIATION_00"}', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'RADIATION', 'set_0', 'device_0', '', '', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'RADIATION', 'set_0', 'device_1', '', '', 0, 0, 0, 0);

@@ -6,7 +6,7 @@
           <v-card-text>
             <v-img
               class="clickable"
-              :src="api.camera_0"
+              :src="api.camera_0.url"
               @click="popCamera(api.camera_0)"
             >
               <template v-slot:default> Camera 1 </template>
@@ -178,7 +178,7 @@ export default {
     var self = this;
     self.experiment_name = "GREEN_HOUSE";
     self.getValue("camera_0", function () {
-      self.api.camera_0 = self.api.value.url;
+      self.api.camera_0 = self.api.value;
     });
     //get inital setting once only
     self.getValue("device_0", function () {

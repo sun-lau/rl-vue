@@ -153,6 +153,10 @@
                 {
                     text:"PHOTO_ELECTRIC",
                     value:"PHOTO_ELECTRIC"
+                },
+                {
+                    text:"RADIATION",
+                    value:"RADIATION"
                 }
             ],
             equipment_ids:[
