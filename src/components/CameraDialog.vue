@@ -5,7 +5,7 @@
         <v-card-title class="headline grey lighten-2"> Camera </v-card-title>
 
         <v-card-text>
-          <v-img :src="src" fluid />
+          <v-img :src="camera.url" fluid />
         </v-card-text>
 
         <v-divider></v-divider>
@@ -44,7 +44,7 @@ export default {
       if (r == true) {
             apiService
             .rebootCamera(
-              this.camera.reboot
+              this.camera.restart
             );
       }
     },

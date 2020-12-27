@@ -27,12 +27,13 @@ export default {
                 device_id
             )
             .then((response) => {
-                console.log('just got value');
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
                 self.api.command_got_at = response.command_got_at;
                 self.api.command_set_at = response.command_set_at;
-                self.api.value = JSON.parse(response.value);
+                if(response.value!=''){
+                    self.api.value = JSON.parse(response.value);
+                }
                 if (callback) {
                 callback();
                 }

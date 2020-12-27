@@ -21,6 +21,9 @@
           <div v-if="name == 'photo_electric'">
             <PhotoElectric />
           </div>
+          <div v-if="name == 'radiation'">
+            <Radiation />
+          </div>
   </div>
 </template>
 <script>
@@ -31,6 +34,7 @@ import BacteriaGrowth from "@/components/BacteriaGrowth.vue";
 import EmInduction from "@/components/EmInduction.vue";
 import GreenHouse from "@/components/GreenHouse.vue";
 import PhotoElectric from "@/components/PhotoElectric.vue";
+import Radiation from "@/components/Radiation.vue";
 import ExperimentBasic from "@/services/ExperimentBasic";
 
 export default {
@@ -43,6 +47,7 @@ export default {
     EmInduction,
     GreenHouse,
     PhotoElectric,
+    Radiation,
   },
   mixins: [ExperimentBasic],
   data: function () {
