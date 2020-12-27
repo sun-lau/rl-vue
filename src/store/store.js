@@ -12,39 +12,39 @@ export const store = new Vuex.Store({
         view:''
       },
       experiments:{
-        interference:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "interference":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/interference.png"
         },
-        apparent_depth:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "apparent_depth":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/apparent_depth.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/apparent-depth.png"
         },
-        em_induction:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "em_induction":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/em_induction.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/em-induction.png"
         },
-        visible_spectrum:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "visible_spectrum":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/visible_spectrum.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/visible-spectrum.png"
         },
-        green_house:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "green_house":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/green_house.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/green-house.png"
         },
-        bacteria_growth:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "bacteria_growth":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png"
         },
-        photo_electric:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "photo_electric":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/photo-electric.png"
         },
-        radiation:{
-          labManual: 'https://stem-ap.polyu.edu.hk/remotelab/assets/files/Interference_student_-20201008.pdf',
-          setupPhoto: 'https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png'
+        "radiation":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/radiation.png"
         }
-      },
+        },
       snackbar:{
           modal: false,
           message:""

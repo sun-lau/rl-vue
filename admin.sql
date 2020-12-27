@@ -337,3 +337,5 @@ INSERT INTO `rl_experiment`
 INSERT INTO `rl_experiment` 
 (`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
 (NULL, 'RADIATION', 'set_0', 'device_1', '', '', 0, 0, 0, 0);
+
+UPDATE `rl_experiment` SET `value`='' WHERE id=89; 
