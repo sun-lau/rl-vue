@@ -153,6 +153,10 @@
                 {
                     text:"PHOTO_ELECTRIC",
                     value:"PHOTO_ELECTRIC"
+                },
+                {
+                    text:"RADIATION",
+                    value:"RADIATION"
                 }
             ],
             equipment_ids:[
@@ -228,8 +232,6 @@
                     .then((response) => {
                         if(response.status == "success"){
                             alert("Remove "+response.updated_rows+" slots successfully");
-                        }else{
-                            
                         }
                     });
 

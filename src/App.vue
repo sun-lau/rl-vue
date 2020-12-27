@@ -6,7 +6,7 @@
           <h5 class="mb-2" v-if="!mini">Borderless Lab 365</h5>
           <v-list-item-title class="title">
             <p>
-              {{ $route.params.experiment_name }}
+              {{ labelExperiment($route.params.experiment_name) }}
               <v-btn icon @click.stop="mini = !mini">
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
@@ -70,7 +70,7 @@
         >Login</v-btn
       >
       <br />
-      <small class="ma-4">1203.1</small>
+      <small class="ma-4">1227.1</small>
     </v-navigation-drawer>
 
     <v-content>
@@ -193,6 +193,37 @@ export default {
     }
   },
   methods: {
+    labelExperiment: function (name) {
+      switch(name){
+        case 'photo_electric':
+          return 'Photo Electric';
+          
+        case "interference":
+            this.experiment = "Interference";
+        break;
+        case "visible_spectrum":
+            this.experiment = "Visible Spectrum";
+        break;
+        case "apparent_depth":
+            this.experiment = "Apparent Depth";
+        break;
+        case "bacteria_growth":
+            this.experiment = "Bacteria Growth";
+        break;
+        case "em_induction":
+            this.experiment = "EM Induction";
+        break;
+        case "green_house":
+            this.experiment = "Green House";
+        break;
+        case "photo_electric":
+            this.experiment = "Photo Electric";
+        break;
+        case "radiation":
+            this.experiment = "Radiation";
+        break;
+      }
+    },
     goTo: function (name) {
       var self = this;
       self.$router.push(name);

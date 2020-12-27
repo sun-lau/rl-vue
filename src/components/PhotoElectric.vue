@@ -49,9 +49,6 @@
                 <v-radio label="Blue-Green" value="2" @click="switchLight"></v-radio>
                 <v-radio label="Green" value="3" @click="switchLight"></v-radio>
                 </v-radio-group>
-               
-              </v-col>
-              <v-col cols="7">
                 <!-- power -->
                 <v-subheader> 
                   <strong>Light Power</strong> </v-subheader>
@@ -61,10 +58,16 @@
                   thumb-label="always"
                   @change="setCommand('device_0', 'POWER|' + power)"
                 ></v-slider>
-                <div class="d-flex justify-end">
+               
+              </v-col>
+              <v-col cols="7">
                 <v-btn class="ma-6" @click="requestChart('device_1')"
                   >Measure</v-btn
                 >
+                <v-subheader> 
+                  <strong>Intensity</strong> </v-subheader>
+                  <p class="ml-4">{{ api.value.intensity }}</p>
+                <div class="d-flex justify-end">
                 </div>
                 <apexchart
                   type="line"

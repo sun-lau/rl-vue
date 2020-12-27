@@ -130,6 +130,9 @@
                     case "photo_electric":
                         this.experiment = "PHOTO_ELECTRIC";
                     break;
+                    case "radiation":
+                        this.experiment = "RADIATION";
+                    break;
                 }
                 
             },
