@@ -56,7 +56,7 @@
                   class="mt-4"
                   v-model="power"
                   thumb-label="always"
-                  @change="setCommand('device_0', 'POWER|' + power)"
+                  @change="setCommand('device_0', 'POWER|' + power);loop_flag=true"
                 ></v-slider>
                
               </v-col>
@@ -152,7 +152,11 @@ export default {
       self.api.camera_0 = self.api.value;
       self.getValue("camera_1", function () {
         self.api.camera_1 = self.api.value;
-        self.getValue("device_0");
+        self.getValue("device_0", function(){
+          self.control_status = self.api.value.side.toUpperCase();
+          self.power = self.api.value.power;
+          self.light_status = self.api.value.light;
+        });
       });
     });
     setInterval(function () {

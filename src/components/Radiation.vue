@@ -54,52 +54,52 @@
                   </template>
                   <v-radio
                     label="1) None"
-                    value="1"
+                    :value="1"
                     @click="setCommand('device_0', 'COVER|0')"
                   ></v-radio>
                   <v-radio
                     label="2) Plastic 1mm"
-                    value="2"
+                    :value="2"
                     @click="setCommand('device_0', 'COVER|1')"
                   ></v-radio>
                   <v-radio
                     label="3) Plastic 2mm"
-                    value="3"
+                    :value="3"
                     @click="setCommand('device_0', 'COVER|2')"
                   ></v-radio>
                   <v-radio
                     label="4) Plastic 3mm"
-                    value="4"
+                    :value="4"
                     @click="setCommand('device_0', 'COVER|3')"
                   ></v-radio>
                   <v-radio
                     label="5) Aluminium 1mm"
-                    value="5"
+                    :value="5"
                     @click="setCommand('device_0', 'COVER|4')"
                   ></v-radio>
                   <v-radio
                     label="6) Aluminium 2mm"
-                    value="6"
+                    :value="6"
                     @click="setCommand('device_0', 'COVER|5')"
                   ></v-radio>
                   <v-radio
                     label="7) Aluminium 3mm"
-                    value="7"
+                    :value="7"
                     @click="setCommand('device_0', 'COVER|6')"
                   ></v-radio>
                   <v-radio
                     label="8) Lead 0.3mm"
-                    value="8"
+                    :value="8"
                     @click="setCommand('device_0', 'COVER|7')"
                   ></v-radio>
                   <v-radio
                     label="9) Lead 0.6mm"
-                    value="9"
+                    :value="9"
                     @click="setCommand('device_0', 'COVER|8')"
                   ></v-radio>
                   <v-radio
                     label="10) Lead 2mm"
-                    value="10"
+                    :value="10"
                     @click="setCommand('device_0', 'COVER|9')"
                   ></v-radio>
                 </v-radio-group>
@@ -134,7 +134,7 @@
                     max="30"
                     v-model="points_of_average"
                     thumb-label="always"
-                    @change="setCommand('device_0', 'POINTS|' + points_of_average)"
+                    @change="setCommand('device_1', 'POINTS|' + points_of_average)"
                 ></v-slider>
                 <div class="d-flex justify-end">
                 <v-btn class="ma-6" @click="startMeasure"
@@ -287,7 +287,10 @@ export default {
         self.api.camera_1 = self.api.value;
         self.getValue("device_0", function () {
               self.updateValues();
-              self.device_flag = 'idle';
+              self.getValue("device_1", function(){
+                self.points_of_average = self.api.value.points_of_average;
+                self.device_flag = 'idle';
+              })
         });
       });
     });
@@ -334,18 +337,15 @@ export default {
       },
       updateValues(){
           var self = this;
-        self.shutter_status = self.api.value.shutter;
-        self.material = self.api.value.cover;
-        self.points_of_average = self.api.value.points_of_average;
-        self.distance = self.api.value.distance;
-
+          self.shutter_status = self.api.value.shutter;
+          self.material = self.api.value.cover;
+          self.distance = self.api.value.distance;
       },
       deleteDataPoint (item) {
         this.editedIndex = this.api.records.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
-
       deleteItemConfirm () {
         this.api.records.splice(this.editedIndex, 1)
         this.series[0].data.splice(this.editedIndex, 1)

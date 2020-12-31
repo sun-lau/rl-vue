@@ -34,8 +34,9 @@
               <template v-slot:label>
                 <strong>Material</strong>
               </template>
-              <v-radio label="1" value="set_0"></v-radio>
-              <v-radio label="2" value="set_1"></v-radio>
+              <v-radio label="Plastic" value="set_0"></v-radio>
+              <v-radio label="Glass" value="set_1"></v-radio>
+              <v-radio label="Water" value="set_2"></v-radio>
             </v-radio-group>
             <!-- horizontal -->
             <v-radio-group v-model="current.horizontal_position" row dense>
