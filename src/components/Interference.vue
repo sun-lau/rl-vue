@@ -239,6 +239,7 @@ export default {
           title: {
             text: "Distance (mm)",
           },
+          tickAmount: 5
         },
       },
       series: [

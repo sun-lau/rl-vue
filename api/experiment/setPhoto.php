@@ -15,14 +15,16 @@
     }
     $response = file_get_contents($camera_url);
     $directory = $experiment."-".$equipment_id;
-    $name = $filename_prefix."_".date("Y_m_d_H_i_s");
     if (!file_exists("storage/".$directory)) {
         mkdir("storage/".$directory, 0777, true);
     }
     file_put_contents("storage/".$directory."/".$filename_prefix.".jpg", $response);    //for user
-    $directory = $experiment."-".$equipment_id."latest";
-    file_put_contents("storage/".$directory."/".$name.".jpg", $response);   //for archive
-
+    $archive = $experiment."-".$equipment_id."-archive";
+    if (!file_exists("storage/".$archive)) {
+        mkdir("storage/".$archive, 0777, true);
+    }
+    $name = $filename_prefix."_".date("Y_m_d_H_i_s");
+    file_put_contents("storage/".$archive."/".$name.".jpg", $response);   //for archive
     $myObj->status = "success";
     echo json_encode($myObj);
 ?>

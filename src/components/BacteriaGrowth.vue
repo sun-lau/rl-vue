@@ -129,6 +129,7 @@
 <script>
 // @ is an alias to /src
 
+	import moment from 'moment';
 import { Experiment_APIService } from "@/services/Experiment_APIService";
 const apiService = new Experiment_APIService(process.env.VUE_APP_BASE_URL);
 export default {
@@ -154,6 +155,11 @@ export default {
   },
   mounted: function () {
     var self = this;
+    //kick if time is from 0 min to 5 min every hour
+    if(parseInt(moment().format('mm'))<5){
+      alert('Photos are preparing, please visit 5 mintues later.');
+      window.location.href = process.env.VUE_APP_BASE_URL;
+    }
     self.experiment_name = "BACTERIA_GROWTH";
     apiService
     .getPhotoTime('set_0', function(result){
@@ -161,17 +167,6 @@ export default {
     })
   },
   methods: {
-    // capture() {
-    //   var self = this;
-    //   apiService.setPhoto(
-    //     self.experiment_name,
-    //     self.$route.params.equipment_name,
-    //     "sample_" + self.current_sample,
-    //     function () {
-    //       self.$store.commit("showSnackBar", "Photo Captured");
-    //     }
-    //   );
-    // },
     downloadPhotos() {
       var self = this;
       apiService.zipPhotos(

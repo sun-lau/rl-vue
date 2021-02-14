@@ -20,7 +20,7 @@
             $on_off = $row["value"];
         }
     }
-    echo 'notifiation is '.$on_off."<br>";
+    echo 'Slack Notification is '.$on_off."<br>";
     //check on/off end
     $nowtime = time();
     $stmt = $conn->prepare("SELECT * FROM `rl_experiment` ORDER BY experiment, equipment_id, device_id");

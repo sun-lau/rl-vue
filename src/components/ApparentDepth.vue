@@ -34,9 +34,16 @@
               <template v-slot:label>
                 <strong>Material</strong>
               </template>
-              <v-radio label="Plastic" value="set_0"></v-radio>
-              <v-radio label="Glass" value="set_1"></v-radio>
-              <v-radio label="Water" value="set_2"></v-radio>
+              <div v-if="group == 0">
+                <v-radio label="Plastic" value="set_0"></v-radio>
+                <v-radio label="Glass" value="set_1"></v-radio>
+                <v-radio label="Water" value="set_2"></v-radio>
+              </div>
+              <div v-else>
+                <v-radio label="Plastic" value="set_3"></v-radio>
+                <v-radio label="Glass" value="set_4"></v-radio>
+                <v-radio label="Water" value="set_5"></v-radio>
+              </div>
             </v-radio-group>
             <!-- horizontal -->
             <v-radio-group v-model="current.horizontal_position" row dense>
@@ -173,6 +180,7 @@ export default {
   mixins: [ExperimentBasic],
   data: function () {
     return {
+      group: 0, //hard code group 0 and group 1 stands for set_0 and set_3
       inte: null,
       loading: false,
       confirmDialog: false,
@@ -300,6 +308,11 @@ export default {
     var self = this;
     self.experiment_name = "APPARENT_DEPTH";
     this.currentMaterial = this.$cookies.get("equipment_id");
+    if(this.currentMaterial == 'set_0' || this.currentMaterial == 'set_1' || this.currentMaterial == 'set_2'){
+      this.group = 0;
+    }else{
+      this.group = 1;
+    }
     // self.setCommand("device_0","RESTART|1");
     self.getValue("camera_0", function () {
       self.api.camera_0 = self.api.value;

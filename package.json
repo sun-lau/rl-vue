@@ -5,10 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "scp -i ../pu_rsa -r ./dist/* root@10.13.44.37:/var/www/html/remotelab/platform_v2/",
+    "deploy": "scp -i ../pu_rsa -r ./dist/* root@10.13.44.37:/var/www/html/remotelab/platform/",
     "deploy_api": "scp -i ../pu_rsa -r ./api/* root@10.13.44.37:/var/www/html/remotelab/api/",
     "deploy_stem_site": "scp -i ../pu_rsa -r ./stem-site/* root@10.13.44.37:/var/www/html/",
-    "deploy_rl_site": "scp -i ../pu_rsa -r ./rl-site/* root@10.13.44.37:/var/www/html/remotelab/"
+    "deploy_rl_site": "scp -i ../pu_rsa -r ./rl-site/* root@10.13.44.37:/var/www/html/remotelab/",
+    "deploy_ar_in_physics_site": "scp -i ../pu_rsa -r ./ar_in_physics/* root@10.13.44.37:/var/www/html/ar_in_physics/"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",

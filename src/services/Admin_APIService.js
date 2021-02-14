@@ -140,5 +140,41 @@ export class Admin_APIService extends APIService {
             }).then(response => response.data);
         }
     }
+    downloadAllBacteriaPhotos(experiment, equipment_id, cb){
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/zipArchivedPhotos.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('experiment', experiment);
+        bodyFormData.set('equipment_id', equipment_id);
+        return axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+        .then(function (response) {
+            if(cb){
+                cb();
+            }
+        });
+    }
+    removeAllBacteriaPhotos(experiment, equipment_id, cb){
+        var self = this;
+        const url = `${this.api_base_url}/api/experiment/removeArchivedPhotos.php`;
+        var bodyFormData = new FormData();
+        bodyFormData.set('experiment', experiment);
+        bodyFormData.set('equipment_id', equipment_id);
+        return axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+        .then(function (response) {
+            if(cb){
+                cb();
+            }
+        });
+    }
 
 }
