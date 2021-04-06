@@ -157,6 +157,10 @@
                 {
                     text:"RADIATION",
                     value:"RADIATION"
+                },
+                {
+                    text:"TITRATION",
+                    value:"TITRATION"
                 }
             ],
             equipment_ids:[

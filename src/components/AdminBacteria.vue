@@ -40,9 +40,9 @@
                 window.open(
                     process.env.VUE_APP_BASE_URL +
                     "/api/experiment/storage/" +
-                    self.experiment_name +
+                    'BACTERIA_GROWTH' +
                     "-" +
-                    self.$route.params.equipment_name +
+                    'set_0' +
                     "-archive.zip"
                 );
                 }

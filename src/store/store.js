@@ -11,10 +11,11 @@ export const store = new Vuex.Store({
         equipement_id: '',
         view:''
       },
+      
       experiments:{
         "interference":{
-            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
-            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/interference.png"
+          "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
+          "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/interference.png"
         },
         "apparent_depth":{
             "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/apparent_depth.pdf",
@@ -33,8 +34,8 @@ export const store = new Vuex.Store({
             "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/green-house.png"
         },
         "bacteria_growth":{
-            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
-            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/diagram-16.png"
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/bacteria_growth.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/bacteria-growth.png"
         },
         "photo_electric":{
             "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
@@ -43,8 +44,12 @@ export const store = new Vuex.Store({
         "radiation":{
             "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/interference.pdf",
             "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/radiation.png"
-        }
         },
+        "titration":{
+            "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/titration.pdf",
+            "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/titration.png"
+        }
+      },
       snackbar:{
           modal: false,
           message:""

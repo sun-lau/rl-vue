@@ -27,4 +27,24 @@
     file_put_contents("storage/".$archive."/".$name.".jpg", $response);   //for archive
     $myObj->status = "success";
     echo json_encode($myObj);
+
+    // for debugging
+    // define('SLACK_WEBHOOK', 'https://hooks.slack.com/services/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');
+    // $message = "";
+    // $message .= "Set Photo: " . $experiment."\n";
+    // $message .= "Equipment ID: " . $equipment_id."\n";
+    // $message .= "File Name Prefix: " . $filename_prefix."\n";
+    // $message .= "Archive Name: " . $name."\n";
+    // slack($message);
+
+    // function slack($text){
+    //     $message = array('payload' => json_encode(array('text' => $text)));
+    //     $c = curl_init(SLACK_WEBHOOK);
+    //     curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($c, CURLOPT_POST, true);
+    //     curl_setopt($c, CURLOPT_POSTFIELDS, $message);
+    //     curl_exec($c);
+    //     curl_close($c);
+    // }
+
 ?>

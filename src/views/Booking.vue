@@ -71,7 +71,7 @@
 		components: {
 		},
         data: () => ({
-            current_date: new Date().toISOString().substr(0, 10),
+            current_date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1).substr(0, 10),
             api:{
                 slots: [
                 ]
@@ -132,6 +132,9 @@
                     break;
                     case "radiation":
                         this.experiment = "RADIATION";
+                    break;
+                    case "titration":
+                        this.experiment = "TITRATION";
                     break;
                 }
                 

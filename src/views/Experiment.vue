@@ -24,6 +24,9 @@
           <div v-if="name == 'radiation'">
             <Radiation />
           </div>
+          <div v-if="name == 'titration'">
+            <Titration />
+          </div>
   </div>
 </template>
 <script>
@@ -35,6 +38,7 @@ import EmInduction from "@/components/EmInduction.vue";
 import GreenHouse from "@/components/GreenHouse.vue";
 import PhotoElectric from "@/components/PhotoElectric.vue";
 import Radiation from "@/components/Radiation.vue";
+import Titration from "@/components/Titration.vue";
 import ExperimentBasic from "@/services/ExperimentBasic";
 
 export default {
@@ -48,6 +52,7 @@ export default {
     GreenHouse,
     PhotoElectric,
     Radiation,
+    Titration,
   },
   mixins: [ExperimentBasic],
   data: function () {
