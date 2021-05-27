@@ -2,7 +2,7 @@
 // Include config file
     ini_set('display_errors', 'On');
     date_default_timezone_set('Asia/Hong_Kong');
-    define('SLACK_WEBHOOK', 'https://hooks.slack.com/services/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');
+    define('SLACK_WEBHOOK', 'https://hooks.slack.com/services/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');
     
     require('config.php');
     $conn = new mysqli($servername, $username, $password, $dbname);

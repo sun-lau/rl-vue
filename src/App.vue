@@ -240,7 +240,7 @@ export default {
     },
     submitFeedback() {
       const url =
-        "https://hooks.slack.com/services/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";
+        "https://hooks.slack.com/services/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";
       const data = {
         text:
           "User Feedback" +
