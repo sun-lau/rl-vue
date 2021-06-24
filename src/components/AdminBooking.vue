@@ -161,6 +161,10 @@
                 {
                     text:"TITRATION",
                     value:"TITRATION"
+                },
+                {
+                    text:"ULTRASOUND",
+                    value:"ULTRASOUND"
                 }
             ],
             equipment_ids:[

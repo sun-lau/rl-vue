@@ -444,3 +444,26 @@ INSERT INTO `rl_experiment`
 
 UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/TITRATION_00/CAM0050","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=TITRATION_00"}' WHERE id=104;
 UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/TITRATION_00/CAM0051","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=TITRATION_00"}' WHERE id=105;
+
+
+
+/* ULTRASOUND */
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'ULTRASOUND', 'set_0', 'session', '', '', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'ULTRASOUND', 'set_0', 'camera_0', '', '{"url":"https://stem-video-ap.polyu.edu.hk/stream/ULTRASOUND_00/CAM0036","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=ULTRASOUND_00"}', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'ULTRASOUND', 'set_0', 'camera_1', '', '{"url":"https://stem-video-ap.polyu.edu.hk/stream/ULTRASOUND_00/CAM0037","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=ULTRASOUND_00"}', 0, 0, 0, 0);
+
+INSERT INTO `rl_experiment` 
+(`id`, `experiment`, `equipment_id`, `device_id`, `command`, `value`, `command_set_at`, `command_got_at`, `value_set_at`, `value_got_at`) VALUES 
+(NULL, 'ULTRASOUND', 'set_0', 'device_0', '', '', 0, 0, 0, 0);
+
+
+UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/ULTRASOUND_00/CAM0052","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=ULTRASOUND_00"}' WHERE id=109;
+UPDATE `rl_experiment` SET `value`='{"url":"https://stem-video-ap.polyu.edu.hk/stream/ULTRASOUND_00/CAM0053","restart":"https://stem-video-ap.polyu.edu.hk/admin/restart?deviceKey=ULTRASOUND_00"}' WHERE id=110;

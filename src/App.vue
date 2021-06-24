@@ -5,7 +5,7 @@
         <v-list-item-content>
           <h5 class="mb-2" v-if="!mini">Borderless Lab 365</h5>
           <v-list-item-title class="title">
-            <p>
+            <p>              
               {{ labelExperiment($route.params.experiment_name) }}
               <v-btn icon @click.stop="mini = !mini">
                 <v-icon>mdi-chevron-left</v-icon>
@@ -221,6 +221,9 @@ export default {
         break;
         case "radiation":
             this.experiment = "Radiation";
+        break;
+        case "ultrasound":
+            this.experiment = "Ultrasound";
         break;
       }
     },

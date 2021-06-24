@@ -26,7 +26,7 @@ export default {
                 self.$cookies.get("equipment_id"),
                 device_id
             )
-            .then((response) => {
+            .then((response) => {                
                 self.api.value_got_at = response.value_got_at;
                 self.api.value_set_at = response.value_set_at;
                 self.api.command_got_at = response.command_got_at;
@@ -86,6 +86,34 @@ export default {
                 }
                 });
             }, 4000);
+            });
+        },
+        setASCANCommand(device, command) {              // FOR ULTRASOUND
+            var self = this;
+            self.moving = true;
+            self.setCommand(device, command, function () {
+                self.inte = setInterval(function () {
+                    self.getValue(device, function () {
+                        if (self.api.value_set_at >= self.api.command_set_at) {
+                            clearInterval(self.inte);
+                            self.moving = false;
+                        }
+                    });
+                }, 500);
+            });
+        },
+        requestASCAN(device) {              // FOR ULTRASOUND
+            var self = this;
+            self.loading = true;
+            self.setCommand(device, "ASCAN|0", function () {
+                self.inte = setInterval(function () {
+                    self.getValue(device, function () {
+                    if (self.api.value.chart_at >= self.api.command_set_at) {
+                        clearInterval(self.inte);
+                        self.getChart(device);
+                    }
+                    });
+                }, 4000);
             });
         },
     },
