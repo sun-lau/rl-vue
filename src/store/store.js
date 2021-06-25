@@ -50,7 +50,8 @@ export const store = new Vuex.Store({
             "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/titration.png"
         },
         "ultrasound":{
-          
+            "labManual": "",
+            "setupPhoto": ""
         },
       },
       snackbar:{

@@ -49,13 +49,13 @@
                       thumb-label="always"
                       max=30
                       slider=position
-                      @change="setASCANCommand('device_0', 'POSITION|'+position)"
+                      @change="setSCANCommand('device_0', 'POSITION|'+position)"
                     ></v-slider>
                     <!--@change="setASCANCommand('device_0', 'POSITION|'+position)"-->
                     <strong>right</strong>
                   </div>
                   <div class="d-flex justify-end">
-                  <v-btn class="ma-6" @click="requestASCAN('device_0')" 
+                  <v-btn class="ma-6" @click="requestSCAN('device_0', 'ASCAN|0')" 
                     >Measure</v-btn
                   >
                   </div>

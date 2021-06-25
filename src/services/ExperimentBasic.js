@@ -88,7 +88,7 @@ export default {
             }, 4000);
             });
         },
-        setASCANCommand(device, command) {              // FOR ULTRASOUND
+        setSCANCommand(device, command) {
             var self = this;
             self.moving = true;
             self.setCommand(device, command, function () {
@@ -102,10 +102,10 @@ export default {
                 }, 500);
             });
         },
-        requestASCAN(device) {              // FOR ULTRASOUND
+        requestSCAN(device,command) {
             var self = this;
             self.loading = true;
-            self.setCommand(device, "ASCAN|0", function () {
+            self.setCommand(device, command, function () {
                 self.inte = setInterval(function () {
                     self.getValue(device, function () {
                     if (self.api.value.chart_at >= self.api.command_set_at) {
