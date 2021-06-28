@@ -27,6 +27,9 @@
           <div v-if="name == 'titration'">
             <Titration />
           </div>
+          <div v-if="name == 'ultrasound'">
+            <Ultrasound />
+          </div>
   </div>
 </template>
 <script>
@@ -39,6 +42,7 @@ import GreenHouse from "@/components/GreenHouse.vue";
 import PhotoElectric from "@/components/PhotoElectric.vue";
 import Radiation from "@/components/Radiation.vue";
 import Titration from "@/components/Titration.vue";
+import Ultrasound from "@/components/Ultrasound.vue";
 import ExperimentBasic from "@/services/ExperimentBasic";
 
 export default {
@@ -53,6 +57,7 @@ export default {
     PhotoElectric,
     Radiation,
     Titration,
+    Ultrasound,
   },
   mixins: [ExperimentBasic],
   data: function () {

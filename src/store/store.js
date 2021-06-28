@@ -48,7 +48,11 @@ export const store = new Vuex.Store({
         "titration":{
             "labManual": "https://stem-ap.polyu.edu.hk/remotelab/assets/files/titration.pdf",
             "setupPhoto": "https://stem-ap.polyu.edu.hk/remotelab/assets/images/titration.png"
-        }
+        },
+        "ultrasound":{
+            "labManual": "",
+            "setupPhoto": ""
+        },
       },
       snackbar:{
           modal: false,

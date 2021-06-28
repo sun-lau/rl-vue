@@ -26,3 +26,4 @@ curl --data "experiment=VISIBLE_SPECTRUM&role=super&session_token=super&equipmen
 curl --data "experiment=GREEN_HOUSE&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
 curl --data "experiment=GREEN_HOUSE&role=super&session_token=super&equipment_id=set_1&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
 curl --data "experiment=TITRATION&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=RESTART|1" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php
+curl --data "experiment=ULTRASOUND&role=super&session_token=super&equipment_id=set_0&device_id=device_0&command=INIT|0" https://stem-ap.polyu.edu.hk/remotelab/api/experiment/setCommand.php

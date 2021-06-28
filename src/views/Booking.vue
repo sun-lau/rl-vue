@@ -136,6 +136,9 @@
                     case "titration":
                         this.experiment = "TITRATION";
                     break;
+                    case "ultrasound":
+                        this.experiment = "ULTRASOUND";
+                    break;
                 }
                 
             },
